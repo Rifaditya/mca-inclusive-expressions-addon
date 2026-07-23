@@ -39,19 +39,6 @@ public abstract class VillagerEditorScreenMixin extends Screen {
         super(title);
     }
 
-    public static GeneticsDuck getActiveGuiGenetics(Object screen) {
-        if (screen instanceof VillagerEditorScreen editor) {
-            VillagerEditorScreenMixin mixin = (VillagerEditorScreenMixin) (Object) editor;
-            if (mixin.villagerVisualization != null && mixin.villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
-                return duck;
-            }
-            if (mixin.villager != null && mixin.villager.getGenetics() instanceof GeneticsDuck duck) {
-                return duck;
-            }
-        }
-        return null;
-    }
-
     @Unique
     private void syncPreviewGenetics() {
         if (villager != null && villagerVisualization != null) {
@@ -78,6 +65,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
         }
     }
 
+    @Unique
     private void refreshPreviewDimensions() {
         try {
             if (villager != null) {

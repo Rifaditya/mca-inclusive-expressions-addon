@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.1.4+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.1.4+26.2.jar`
+* **Changes**:
+  - Created VillagerEditorScreenAccess interface and moved getActiveGuiGenetics() helper to MCAInclusiveExpressionsAddon, removing all non-private static members from VillagerEditorScreenMixin and resolving InvalidMixinException startup crash.
+
+---
+
 ### Release `2.1.3+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.1.3+26.2.jar`

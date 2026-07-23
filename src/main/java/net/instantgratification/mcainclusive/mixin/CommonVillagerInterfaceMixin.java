@@ -69,28 +69,26 @@ public interface CommonVillagerInterfaceMixin {
 
             // 2. Failsafe Direct GUI Screen Override (When VillagerEditorScreen is open)
             try {
-                if (MCAInclusiveExpressionsAddon.activeEditorScreen != null) {
-                    GeneticsDuck guiDuck = VillagerEditorScreenMixin.getActiveGuiGenetics(MCAInclusiveExpressionsAddon.activeEditorScreen);
-                    if (guiDuck != null) {
-                        leftMult = guiDuck.getLeftBreastSize();
-                        rightMult = guiDuck.getRightBreastSize();
+                GeneticsDuck guiDuck = MCAInclusiveExpressionsAddon.getActiveGuiGenetics();
+                if (guiDuck != null) {
+                    leftMult = guiDuck.getLeftBreastSize();
+                    rightMult = guiDuck.getRightBreastSize();
 
-                        leftX = guiDuck.getLeftBreastX();
-                        leftY = guiDuck.getLeftBreastY();
-                        leftZ = guiDuck.getLeftBreastZ();
+                    leftX = guiDuck.getLeftBreastX();
+                    leftY = guiDuck.getLeftBreastY();
+                    leftZ = guiDuck.getLeftBreastZ();
 
-                        rightX = guiDuck.getRightBreastX();
-                        rightY = guiDuck.getRightBreastY();
-                        rightZ = guiDuck.getRightBreastZ();
+                    rightX = guiDuck.getRightBreastX();
+                    rightY = guiDuck.getRightBreastY();
+                    rightZ = guiDuck.getRightBreastZ();
 
-                        leftPitch = guiDuck.getLeftBreastPitch();
-                        leftYaw = guiDuck.getLeftBreastYaw();
-                        leftRoll = guiDuck.getLeftBreastRoll();
+                    leftPitch = guiDuck.getLeftBreastPitch();
+                    leftYaw = guiDuck.getLeftBreastYaw();
+                    leftRoll = guiDuck.getLeftBreastRoll();
 
-                        rightPitch = guiDuck.getRightBreastPitch();
-                        rightYaw = guiDuck.getRightBreastYaw();
-                        rightRoll = guiDuck.getRightBreastRoll();
-                    }
+                    rightPitch = guiDuck.getRightBreastPitch();
+                    rightYaw = guiDuck.getRightBreastYaw();
+                    rightRoll = guiDuck.getRightBreastRoll();
                 }
             } catch (Throwable ignored) {
             }

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.4+26.2] - 2026-07-23
+
+### Fixed
+* **Accessor Mixin Architecture**: Created `@Accessor` interface `VillagerEditorScreenAccess` and moved `getActiveGuiGenetics()` helper to `MCAInclusiveExpressionsAddon`, removing all non-private static members from `VillagerEditorScreenMixin` and resolving `InvalidMixinException` startup crash.
+
 ## [2.1.3+26.2] - 2026-07-23
 
 ### Fixed

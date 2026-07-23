@@ -5,6 +5,8 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
+import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
+import net.instantgratification.mcainclusive.mixin.VillagerEditorScreenAccess;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -83,7 +85,19 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.1.3+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.1.4+26.2.");
+    }
+
+    public static GeneticsDuck getActiveGuiGenetics() {
+        if (activeEditorScreen instanceof VillagerEditorScreenAccess access) {
+            if (access.getVillagerVisualization() != null && access.getVillagerVisualization().getGenetics() instanceof GeneticsDuck duck) {
+                return duck;
+            }
+            if (access.getVillager() != null && access.getVillager().getGenetics() instanceof GeneticsDuck duck) {
+                return duck;
+            }
+        }
+        return null;
     }
 
     public static int getMaxScaleLimit() {

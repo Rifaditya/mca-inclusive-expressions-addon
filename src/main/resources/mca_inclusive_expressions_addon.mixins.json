@@ -11,7 +11,8 @@
     "PlayerArmorExtendedModelMixin",
     "VillagerVisualsMixin",
     "VillagerRenderStateMixin",
-    "VillagerEditorScreenMixin"
+    "VillagerEditorScreenMixin",
+    "VillagerEditorScreenAccess"
   ],
   "client": [
   ],
