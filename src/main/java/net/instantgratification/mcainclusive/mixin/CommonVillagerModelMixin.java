@@ -3,7 +3,7 @@ package net.instantgratification.mcainclusive.mixin;
 
 import net.conczin.mca.client.model.CommonVillagerModel;
 import net.conczin.mca.client.model.VillagerEntityBaseModelMCA;
-import net.conczin.mca.client.render.VillagerVisuals;
+import net.conczin.mca.client.render.VillagerRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,8 +28,8 @@ public abstract class CommonVillagerModelMixin implements CommonVillagerModel<Ob
         cir.setReturnValue(baseSize * multiplier);
     }
 
-    @Inject(method = "applyVillagerDimensions", at = @At("TAIL"))
-    private void onApplyVillagerDimensions(VillagerVisuals visuals, boolean isSneaking, CallbackInfo ci) {
+    @Inject(method = "setupAnim", at = @At("TAIL"))
+    private void onSetupAnim(VillagerRenderState state, CallbackInfo ci) {
         int cleavageAngle = MCAInclusiveExpressionsAddon.getCleavageAngle();
         float radAngle = (float) Math.toRadians(cleavageAngle);
 
