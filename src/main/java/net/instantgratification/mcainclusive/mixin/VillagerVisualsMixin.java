@@ -29,6 +29,14 @@ public abstract class VillagerVisualsMixin {
                 stateDuck.setRightBreastX(geneticsDuck.getRightBreastX());
                 stateDuck.setRightBreastY(geneticsDuck.getRightBreastY());
                 stateDuck.setRightBreastZ(geneticsDuck.getRightBreastZ());
+
+                stateDuck.setLeftBreastPitch(geneticsDuck.getLeftBreastPitch());
+                stateDuck.setLeftBreastYaw(geneticsDuck.getLeftBreastYaw());
+                stateDuck.setLeftBreastRoll(geneticsDuck.getLeftBreastRoll());
+
+                stateDuck.setRightBreastPitch(geneticsDuck.getRightBreastPitch());
+                stateDuck.setRightBreastYaw(geneticsDuck.getRightBreastYaw());
+                stateDuck.setRightBreastRoll(geneticsDuck.getRightBreastRoll());
             }
         }
     }

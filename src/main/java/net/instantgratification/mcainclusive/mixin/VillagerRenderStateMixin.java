@@ -20,6 +20,14 @@ public abstract class VillagerRenderStateMixin implements VillagerRenderStateDuc
     @Unique private float rightBreastY = 0.0f;
     @Unique private float rightBreastZ = 0.0f;
 
+    @Unique private float leftBreastPitch = 0.0f;
+    @Unique private float leftBreastYaw = 0.0f;
+    @Unique private float leftBreastRoll = 0.0f;
+
+    @Unique private float rightBreastPitch = 0.0f;
+    @Unique private float rightBreastYaw = 0.0f;
+    @Unique private float rightBreastRoll = 0.0f;
+
     @Override public float getLeftBreastScale() { return this.leftBreastScale; }
     @Override public void setLeftBreastScale(float val) { this.leftBreastScale = val; }
 
@@ -43,4 +51,22 @@ public abstract class VillagerRenderStateMixin implements VillagerRenderStateDuc
 
     @Override public float getRightBreastZ() { return this.rightBreastZ; }
     @Override public void setRightBreastZ(float val) { this.rightBreastZ = val; }
+
+    @Override public float getLeftBreastPitch() { return this.leftBreastPitch; }
+    @Override public void setLeftBreastPitch(float val) { this.leftBreastPitch = val; }
+
+    @Override public float getLeftBreastYaw() { return this.leftBreastYaw; }
+    @Override public void setLeftBreastYaw(float val) { this.leftBreastYaw = val; }
+
+    @Override public float getLeftBreastRoll() { return this.leftBreastRoll; }
+    @Override public void setLeftBreastRoll(float val) { this.leftBreastRoll = val; }
+
+    @Override public float getRightBreastPitch() { return this.rightBreastPitch; }
+    @Override public void setRightBreastPitch(float val) { this.rightBreastPitch = val; }
+
+    @Override public float getRightBreastYaw() { return this.rightBreastYaw; }
+    @Override public void setRightBreastYaw(float val) { this.rightBreastYaw = val; }
+
+    @Override public float getRightBreastRoll() { return this.rightBreastRoll; }
+    @Override public void setRightBreastRoll(float val) { this.rightBreastRoll = val; }
 }

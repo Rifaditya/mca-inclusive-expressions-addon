@@ -20,4 +20,18 @@ public interface VillagerRenderStateDuck {
     void setRightBreastY(float val);
     float getRightBreastZ();
     void setRightBreastZ(float val);
+
+    float getLeftBreastPitch();
+    void setLeftBreastPitch(float val);
+    float getLeftBreastYaw();
+    void setLeftBreastYaw(float val);
+    float getLeftBreastRoll();
+    void setLeftBreastRoll(float val);
+
+    float getRightBreastPitch();
+    void setRightBreastPitch(float val);
+    float getRightBreastYaw();
+    void setRightBreastYaw(float val);
+    float getRightBreastRoll();
+    void setRightBreastRoll(float val);
 }

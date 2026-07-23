@@ -12,4 +12,12 @@ public interface CommonVillagerModelDuck {
     float getRenderRightX();
     float getRenderRightY();
     float getRenderRightZ();
+
+    float getRenderLeftPitch();
+    float getRenderLeftYaw();
+    float getRenderLeftRoll();
+
+    float getRenderRightPitch();
+    float getRenderRightYaw();
+    float getRenderRightRoll();
 }

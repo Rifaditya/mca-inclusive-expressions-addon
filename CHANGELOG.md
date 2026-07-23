@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.0+26.2] - 2026-07-23
+
+### Added
+* **Nested Sub-Categories (`[ Size ]`, `[ Position ]`, `[ Rotation ]`)**: Organized the `Breast` tab into 3 spacious, un-crowded nested sub-pages, eliminating GUI clutter and widget clipping.
+* **3-Axis 3D Euler Rotation Sliders (Pitch X, Yaw Y, Roll Z)**: Added independent Pitch (Tip Up/Down: $-90^\circ$ to $+90^\circ$), Yaw (Cleavage Swivel Out/In: $-90^\circ$ to $+90^\circ$), and Roll (Side Tilt: $-90^\circ$ to $+90^\circ$) rotation sliders for Left & Right breasts.
+* Full NBT persistence (`mca_inclusive_expressions:left/right_breast_pitch/yaw/roll`) and MatrixStack quaternion transformation engine.
+
 ## [2.0.2+26.2] - 2026-07-23
 
 ### Fixed

@@ -3,6 +3,7 @@ package net.instantgratification.mcainclusive.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import net.conczin.mca.client.model.CommonVillagerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
@@ -32,22 +33,36 @@ public interface CommonVillagerInterfaceMixin {
         // Body
         self.getCommonBodyParts().forEach(a -> a.render(matrices, vertices, light, overlay, color));
 
-        // Breasts (Local Pivot Matrix Scaling with ZERO position drift!)
+        // Breasts (3D Euler Rotations + Local Pivot Matrix Scaling)
         if (self.getBreastPart().visible && self.getBodyPart().visible) {
             float leftMult = MCAInclusiveExpressionsAddon.getLeftScaleMultiplier();
             float rightMult = MCAInclusiveExpressionsAddon.getRightScaleMultiplier();
+
             float leftX = 0.0f, leftY = 0.0f, leftZ = 0.0f;
             float rightX = 0.0f, rightY = 0.0f, rightZ = 0.0f;
+
+            float leftPitch = 0.0f, leftYaw = 0.0f, leftRoll = 0.0f;
+            float rightPitch = 0.0f, rightYaw = 0.0f, rightRoll = 0.0f;
 
             if (self instanceof CommonVillagerModelDuck duck) {
                 leftMult = duck.getRenderLeftScale();
                 rightMult = duck.getRenderRightScale();
+
                 leftX = duck.getRenderLeftX();
                 leftY = duck.getRenderLeftY();
                 leftZ = duck.getRenderLeftZ();
+
                 rightX = duck.getRenderRightX();
                 rightY = duck.getRenderRightY();
                 rightZ = duck.getRenderRightZ();
+
+                leftPitch = duck.getRenderLeftPitch();
+                leftYaw = duck.getRenderLeftYaw();
+                leftRoll = duck.getRenderLeftRoll();
+
+                rightPitch = duck.getRenderRightPitch();
+                rightYaw = duck.getRenderRightYaw();
+                rightRoll = duck.getRenderRightRoll();
             }
 
             float leftBreastSize = leftMult;
@@ -72,9 +87,16 @@ public interface CommonVillagerInterfaceMixin {
                         matrices.pushPose();
                         // 1. Position offset + move to local pivot center
                         matrices.translate(leftPivotX + leftX, leftPivotY + leftY, leftPivotZ + leftZ);
-                        // 2. Scale volume locally around pivot (zero position drift!)
+
+                        // 2. 3D Euler Rotations (Pitch X, Yaw Y, Roll Z)
+                        if (leftPitch != 0.0f) matrices.mulPose(Axis.XP.rotationDegrees(leftPitch));
+                        if (leftYaw != 0.0f) matrices.mulPose(Axis.YP.rotationDegrees(leftYaw));
+                        if (leftRoll != 0.0f) matrices.mulPose(Axis.ZP.rotationDegrees(leftRoll));
+
+                        // 3. Scale volume locally around pivot (zero position drift!)
                         matrices.scale(leftBreastSize, leftBreastSize, leftBreastSize);
-                        // 3. Translate back from pivot
+
+                        // 4. Translate back from pivot
                         matrices.translate(-leftPivotX, -leftPivotY, -leftPivotZ);
 
                         cubes.get(0).compile(matrices.last(), vertices, light, overlay, color);
@@ -90,9 +112,16 @@ public interface CommonVillagerInterfaceMixin {
                         matrices.pushPose();
                         // 1. Position offset + move to local pivot center
                         matrices.translate(rightPivotX + rightX, rightPivotY + rightY, rightPivotZ + rightZ);
-                        // 2. Scale volume locally around pivot (zero position drift!)
+
+                        // 2. 3D Euler Rotations (Pitch X, Yaw Y, Roll Z)
+                        if (rightPitch != 0.0f) matrices.mulPose(Axis.XP.rotationDegrees(rightPitch));
+                        if (rightYaw != 0.0f) matrices.mulPose(Axis.YP.rotationDegrees(rightYaw));
+                        if (rightRoll != 0.0f) matrices.mulPose(Axis.ZP.rotationDegrees(rightRoll));
+
+                        // 3. Scale volume locally around pivot (zero position drift!)
                         matrices.scale(rightBreastSize, rightBreastSize, rightBreastSize);
-                        // 3. Translate back from pivot
+
+                        // 4. Translate back from pivot
                         matrices.translate(-rightPivotX, -rightPivotY, -rightPivotZ);
 
                         cubes.get(1).compile(matrices.last(), vertices, light, overlay, color);
