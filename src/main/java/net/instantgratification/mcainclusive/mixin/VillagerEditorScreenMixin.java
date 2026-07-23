@@ -185,7 +185,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             int halfWidth = DATA_WIDTH / 2;
             int thirdWidth = DATA_WIDTH / 3;
             int fullWidth = DATA_WIDTH;
-            int maxLimit = 100; // Native MCA default maximum size (100%)
+            int maxLimit = 100;
 
             // Render 3 Sub-Category Toggle Buttons: [ Size ] | [ Position ] | [ Rotation ]
             ButtonWidget sizeTabBtn = this.addRenderableWidget(new ButtonWidget(
@@ -211,16 +211,16 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             y += 24;
 
             if ("size".equals(breastSubpage)) {
-                // --- Sub-Category 1: Size (Native MCA 0%-100% Range, 100% Individualized Per Character) ---
-                int currentLeftPct = 100;
+                // --- Sub-Category 1: Size (Direct Linear Mapping: 0% = 0.0, 20% = 1.0, 100% = 5.0) ---
+                int currentLeftPct = 20; // 20% maps to 1.0x native default scale
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                     float val = duck.getLeftBreastSize();
-                    currentLeftPct = val > 0 ? (int) (val * 100.0f) : 100;
+                    currentLeftPct = val > 0 ? (int) (val / 5.0f * 100.0f) : 20;
                 }
                 this.addRenderableWidget(new IntegerSliderWidget(
                     leftColX, y, halfWidth, 20, currentLeftPct, 0, maxLimit,
                     val -> {
-                        float scale = val / 100.0f;
+                        float scale = (val / 100.0f) * 5.0f; // Direct linear scale up to 5.0
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastSize(scale);
@@ -232,18 +232,18 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Size: " + val + "%"),
-                    () -> Component.literal("Adjusts left chest volume")
+                    () -> Component.literal("Adjusts left chest volume (100% = 5.0x max scale)")
                 ));
 
-                int currentRightPct = 100;
+                int currentRightPct = 20; // 20% maps to 1.0x native default scale
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                     float val = duck.getRightBreastSize();
-                    currentRightPct = val > 0 ? (int) (val * 100.0f) : 100;
+                    currentRightPct = val > 0 ? (int) (val / 5.0f * 100.0f) : 20;
                 }
                 this.addRenderableWidget(new IntegerSliderWidget(
                     rightColX, y, halfWidth, 20, currentRightPct, 0, maxLimit,
                     val -> {
-                        float scale = val / 100.0f;
+                        float scale = (val / 100.0f) * 5.0f; // Direct linear scale up to 5.0
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastSize(scale);
@@ -255,7 +255,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right Size: " + val + "%"),
-                    () -> Component.literal("Adjusts right chest volume")
+                    () -> Component.literal("Adjusts right chest volume (100% = 5.0x max scale)")
                 ));
                 y += 24;
 

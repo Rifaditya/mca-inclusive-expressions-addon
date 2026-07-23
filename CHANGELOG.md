@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.7.0+26.2] - 2026-07-23
+
+### Changed
+* **Direct Linear 5.0 Max Scale Alignment Engine**: Configured direct linear 3D MatrixStack scaling without hidden multiplication formulas. `100%` on the Size slider maps directly to **`5.0x` maximum volume scale** (`0% = 0.0x`, `20% = 1.0x` native default, `50% = 2.5x`, `100% = 5.0x`).
+
 ## [2.6.0+26.2] - 2026-07-23
 
 ### Changed

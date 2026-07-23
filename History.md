@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.7.0+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.7.0+26.2.jar`
+* **Changes**:
+  - Configured direct linear 3D MatrixStack scaling without hidden multiplication formulas. 100% on the Size slider maps directly to 5.0x maximum volume scale (0% = 0.0x, 20% = 1.0x native default, 50% = 2.5x, 100% = 5.0x).
+
+---
+
 ### Release `2.6.0+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.6.0+26.2.jar`
