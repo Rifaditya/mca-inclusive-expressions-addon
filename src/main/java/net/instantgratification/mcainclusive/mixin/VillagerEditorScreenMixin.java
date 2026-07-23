@@ -2,6 +2,7 @@
 package net.instantgratification.mcainclusive.mixin;
 
 import net.conczin.mca.client.gui.VillagerEditorScreen;
+import net.conczin.mca.entity.VillagerEntityMCA;
 import net.conczin.mca.util.compat.ButtonWidget;
 import net.conczin.mca.client.gui.widget.IntegerSliderWidget;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
@@ -17,6 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class VillagerEditorScreenMixin extends Screen {
     @Shadow protected String page;
     @Shadow protected static int DATA_WIDTH;
+    @Shadow protected VillagerEntityMCA villager;
+    @Shadow protected VillagerEntityMCA villagerVisualization;
 
     @Shadow protected abstract void setPage(String page);
     @Shadow protected abstract void addCharacterSubpageTabs(int y, String selectedPage);
@@ -24,6 +27,18 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
     protected VillagerEditorScreenMixin(Component title) {
         super(title);
+    }
+
+    private void refreshPreviewDimensions() {
+        try {
+            if (villager != null) {
+                villager.refreshDimensions();
+            }
+            if (villagerVisualization != null) {
+                villagerVisualization.refreshDimensions();
+            }
+        } catch (Throwable ignored) {
+        }
     }
 
     @Inject(method = "addCharacterSubpageTabs", at = @At("HEAD"), cancellable = true)
@@ -70,7 +85,10 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 currentScalePct,
                 10,
                 1000,
-                val -> MCAInclusiveExpressionsAddon.defaultMultiplier = val / 100.0,
+                val -> {
+                    MCAInclusiveExpressionsAddon.defaultMultiplier = val / 100.0;
+                    refreshPreviewDimensions();
+                },
                 val -> Component.literal("Chest Scale: " + val + "%"),
                 () -> Component.literal("Adjusts chest model scaling multiplier")
             ));
@@ -86,7 +104,10 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 currentAngle,
                 0,
                 30,
-                val -> MCAInclusiveExpressionsAddon.defaultCleavageAngle = val,
+                val -> {
+                    MCAInclusiveExpressionsAddon.defaultCleavageAngle = val;
+                    refreshPreviewDimensions();
+                },
                 val -> Component.literal("Cleavage Angle: " + val + "°"),
                 () -> Component.literal("Adjusts outward cleavage separation angle for dual-mesh breasts")
             ));
@@ -102,6 +123,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 Component.literal("Gender Inclusivity: " + (allowAll ? "ENABLED (All Genders)" : "DISABLED (Female Only)")),
                 b -> {
                     MCAInclusiveExpressionsAddon.allowAllGenders = !MCAInclusiveExpressionsAddon.allowAllGenders;
+                    refreshPreviewDimensions();
                     this.setPage("breast_addon");
                 }
             ));
