@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.3.0+26.2] - 2026-07-23
+
+### Changed
+* **Orthogonal Position Translation Engine**: Decoupled 3D position translations (Left & Right X, Y, Z) from 3D rotation angles (Pitch, Yaw, Roll, MCA native tilt) by un-rotating native model tilt before translating. Position sliders now move in **100% pure orthogonal world space** (Up is Up, Left is Left, Forward is Forward) with **zero diagonal movement**!
+
 ## [2.2.0+26.2] - 2026-07-23
 
 ### Fixed

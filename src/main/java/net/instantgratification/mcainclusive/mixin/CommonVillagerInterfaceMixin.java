@@ -34,7 +34,7 @@ public interface CommonVillagerInterfaceMixin {
         // Body
         self.getCommonBodyParts().forEach(a -> a.render(matrices, vertices, light, overlay, color));
 
-        // Breasts (3D Euler Rotations + Local Pivot Matrix Scaling)
+        // Breasts (Orthogonal World-Space Position Translations + 3D Euler Rotations + Local Pivot Scaling)
         if (self.getBreastPart().visible && self.getBodyPart().visible) {
             float leftMult = MCAInclusiveExpressionsAddon.getLeftScaleMultiplier();
             float rightMult = MCAInclusiveExpressionsAddon.getRightScaleMultiplier();
@@ -113,18 +113,31 @@ public interface CommonVillagerInterfaceMixin {
 
                     if (leftBreastSize > 0) {
                         matrices.pushPose();
-                        // 1. Position offset + move to local pivot center
-                        matrices.translate(leftPivotX + leftX, leftPivotY + leftY, leftPivotZ + leftZ);
+                        // 1. Temporarily un-rotate MCA's native -35° pitch tilt to enter pure orthogonal world space
+                        if (part.xRot != 0.0f) {
+                            matrices.mulPose(Axis.XP.rotation(-part.xRot));
+                        }
 
-                        // 2. 3D Euler Rotations (Pitch X, Yaw Y, Roll Z)
+                        // 2. Position Translation in pure orthogonal space (Up is Up, Left is Left, Forward is Forward)
+                        matrices.translate(leftX, leftY, leftZ);
+
+                        // 3. Re-apply MCA's native -35° pitch tilt
+                        if (part.xRot != 0.0f) {
+                            matrices.mulPose(Axis.XP.rotation(part.xRot));
+                        }
+
+                        // 4. Move to local pivot center
+                        matrices.translate(leftPivotX, leftPivotY, leftPivotZ);
+
+                        // 5. 3D Euler Rotations (Pitch X, Yaw Y, Roll Z)
                         if (leftPitch != 0.0f) matrices.mulPose(Axis.XP.rotationDegrees(leftPitch));
                         if (leftYaw != 0.0f) matrices.mulPose(Axis.YP.rotationDegrees(leftYaw));
                         if (leftRoll != 0.0f) matrices.mulPose(Axis.ZP.rotationDegrees(leftRoll));
 
-                        // 3. Scale volume locally around pivot (zero position drift!)
+                        // 6. Scale volume locally around pivot (zero position drift!)
                         matrices.scale(leftBreastSize, leftBreastSize, leftBreastSize);
 
-                        // 4. Translate back from pivot
+                        // 7. Translate back from pivot
                         matrices.translate(-leftPivotX, -leftPivotY, -leftPivotZ);
 
                         cubes.get(0).compile(matrices.last(), vertices, light, overlay, color);
@@ -138,18 +151,31 @@ public interface CommonVillagerInterfaceMixin {
 
                     if (rightBreastSize > 0) {
                         matrices.pushPose();
-                        // 1. Position offset + move to local pivot center
-                        matrices.translate(rightPivotX + rightX, rightPivotY + rightY, rightPivotZ + rightZ);
+                        // 1. Temporarily un-rotate MCA's native -35° pitch tilt to enter pure orthogonal world space
+                        if (part.xRot != 0.0f) {
+                            matrices.mulPose(Axis.XP.rotation(-part.xRot));
+                        }
 
-                        // 2. 3D Euler Rotations (Pitch X, Yaw Y, Roll Z)
+                        // 2. Position Translation in pure orthogonal space (Up is Up, Left is Left, Forward is Forward)
+                        matrices.translate(rightX, rightY, rightZ);
+
+                        // 3. Re-apply MCA's native -35° pitch tilt
+                        if (part.xRot != 0.0f) {
+                            matrices.mulPose(Axis.XP.rotation(part.xRot));
+                        }
+
+                        // 4. Move to local pivot center
+                        matrices.translate(rightPivotX, rightPivotY, rightPivotZ);
+
+                        // 5. 3D Euler Rotations (Pitch X, Yaw Y, Roll Z)
                         if (rightPitch != 0.0f) matrices.mulPose(Axis.XP.rotationDegrees(rightPitch));
                         if (rightYaw != 0.0f) matrices.mulPose(Axis.YP.rotationDegrees(rightYaw));
                         if (rightRoll != 0.0f) matrices.mulPose(Axis.ZP.rotationDegrees(rightRoll));
 
-                        // 3. Scale volume locally around pivot (zero position drift!)
+                        // 6. Scale volume locally around pivot (zero position drift!)
                         matrices.scale(rightBreastSize, rightBreastSize, rightBreastSize);
 
-                        // 4. Translate back from pivot
+                        // 7. Translate back from pivot
                         matrices.translate(-rightPivotX, -rightPivotY, -rightPivotZ);
 
                         cubes.get(1).compile(matrices.last(), vertices, light, overlay, color);

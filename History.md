@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.3.0+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.3.0+26.2.jar`
+* **Changes**:
+  - Decoupled 3D position translations (Left & Right X, Y, Z) from 3D rotation angles (Pitch, Yaw, Roll, MCA native tilt) by un-rotating native model tilt before translating. Position sliders now move in 100% pure orthogonal world space (Up is Up, Left is Left, Forward is Forward) with zero diagonal movement!
+
+---
+
 ### Release `2.2.0+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.2.0+26.2.jar`
