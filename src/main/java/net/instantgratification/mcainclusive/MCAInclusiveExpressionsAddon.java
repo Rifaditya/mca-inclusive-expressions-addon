@@ -20,7 +20,11 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static GameRule<Integer> SCALE_RULE;
+    public static GameRule<Integer> CLEAVAGE_ANGLE_RULE;
     public static GameRule<Boolean> ALLOW_ALL_GENDERS_RULE;
+
+    public static double defaultMultiplier = 2.0;
+    public static int defaultCleavageAngle = 6;
 
     @Override
     public void onInitialize() {
@@ -38,6 +42,21 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
                     Codec.intRange(10, 1000),
                     i -> i,
                     200,
+                    FeatureFlagSet.of()
+                )
+            );
+
+            CLEAVAGE_ANGLE_RULE = Registry.register(
+                BuiltInRegistries.GAME_RULE,
+                "mca_inclusive_expressions:cleavage_angle",
+                new GameRule<>(
+                    GameRuleCategory.MISC,
+                    GameRuleType.INT,
+                    IntegerArgumentType.integer(0, 30),
+                    GameRuleTypeVisitor::visitInteger,
+                    Codec.intRange(0, 30),
+                    i -> i,
+                    6,
                     FeatureFlagSet.of()
                 )
             );
@@ -60,11 +79,11 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized successfully with 2.0x breast scaling and gender-inclusive GameRules (OFF by default).");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v1.1.0+26.2 with dual-mesh scaling, cleavage angle controls, and ModMenu settings.");
     }
 
     public static float getScaleMultiplier() {
-        float multiplier = 2.0f;
+        float multiplier = (float) defaultMultiplier;
         try {
             var serverOpt = net.conczin.mca.MCA.getServer();
             if (serverOpt.isPresent() && SCALE_RULE != null) {
@@ -74,6 +93,18 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
         } catch (Throwable ignored) {
         }
         return multiplier;
+    }
+
+    public static int getCleavageAngle() {
+        int angle = defaultCleavageAngle;
+        try {
+            var serverOpt = net.conczin.mca.MCA.getServer();
+            if (serverOpt.isPresent() && CLEAVAGE_ANGLE_RULE != null) {
+                angle = serverOpt.get().getGameRules().get(CLEAVAGE_ANGLE_RULE);
+            }
+        } catch (Throwable ignored) {
+        }
+        return angle;
     }
 
     public static boolean isAllowAllGenders() {

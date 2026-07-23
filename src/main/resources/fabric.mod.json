@@ -3,13 +3,13 @@
   "id": "mca_inclusive_expressions_addon",
   "version": "${version}",
   "name": "MCA Inclusive Expressions Addon",
-  "description": "Instant Gratification addon for MCA Reborn (Minecraft Comes Alive) providing gender-inclusive body feature customization and dynamic 2.0x scaling.",
+  "description": "Instant Gratification addon for MCA Reborn (Minecraft Comes Alive) providing dual-mesh model separation, cleavage angle controls, and gender-inclusive body feature customization.",
   "authors": [
     "Dasik (Rifaditya)"
   ],
   "contact": {
     "homepage": "https://curseforge.com/",
-    "sources": "https://github.com/"
+    "sources": "https://github.com/Rifaditya/mca-inclusive-expressions-addon"
   },
   "license": "GPL-3.0-or-later",
   "icon": "assets/mca_inclusive_expressions_addon/icon.png",
@@ -17,6 +17,9 @@
   "entrypoints": {
     "main": [
       "net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon"
+    ],
+    "modmenu": [
+      "net.instantgratification.mcainclusive.client.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -27,5 +30,9 @@
     "minecraft": ">=26.2-",
     "fabric-api": "*",
     "mca": "*"
+  },
+  "suggests": {
+    "modmenu": "*",
+    "yet_another_config_lib_v3": "*"
   }
 }

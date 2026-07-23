@@ -29,6 +29,10 @@ dependencies {
 
     // MCA Common JAR reference for compilation
     compileOnly files("E:/Minecraft Project/Reference mod code base/minecraft-comes-alive-26.2/common/build/libs/mca-common-26.2-SNAPSHOT.jar")
+
+    // Optional GUI Dependencies (compile-only required, runtime-optional for players)
+    compileOnly "dev.isxander:yet-another-config-lib:3.9.5+26.2-fabric"
+    compileOnly "com.terraformersmc:modmenu:18.0.0-beta.1"
 }
 
 processResources {
