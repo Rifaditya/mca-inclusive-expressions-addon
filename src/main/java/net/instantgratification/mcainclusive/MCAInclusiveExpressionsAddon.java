@@ -9,6 +9,7 @@ import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
 import net.instantgratification.mcainclusive.mixin.VillagerEditorScreenAccess;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
@@ -20,6 +21,8 @@ import org.apache.logging.log4j.Logger;
 public class MCAInclusiveExpressionsAddon implements ModInitializer {
     public static final String MOD_ID = "mca_inclusive_expressions_addon";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+
+    public static GameRuleCategory MOD_CATEGORY;
 
     public static GameRule<Integer> SCALE_RULE;
     public static GameRule<Integer> MAX_SCALE_LIMIT_RULE;
@@ -37,11 +40,13 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
         ModVersionGuard.checkClass("MCA Inclusive Expressions Addon", "net.minecraft.world.level.gamerules.GameRule");
 
         try {
+            MOD_CATEGORY = GameRuleCategory.register(Identifier.fromNamespaceAndPath(MOD_ID, "category"));
+
             SCALE_RULE = Registry.register(
                 BuiltInRegistries.GAME_RULE,
                 "mca_inclusive_expressions:scale",
                 new GameRule<>(
-                    GameRuleCategory.MISC,
+                    MOD_CATEGORY,
                     GameRuleType.INT,
                     IntegerArgumentType.integer(0, 2000),
                     GameRuleTypeVisitor::visitInteger,
@@ -56,7 +61,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
                 BuiltInRegistries.GAME_RULE,
                 "mca_inclusive_expressions:max_scale_limit",
                 new GameRule<>(
-                    GameRuleCategory.MISC,
+                    MOD_CATEGORY,
                     GameRuleType.INT,
                     IntegerArgumentType.integer(100, 2000),
                     GameRuleTypeVisitor::visitInteger,
@@ -71,7 +76,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
                 BuiltInRegistries.GAME_RULE,
                 "mca_inclusive_expressions:allow_all_genders",
                 new GameRule<>(
-                    GameRuleCategory.MISC,
+                    MOD_CATEGORY,
                     GameRuleType.BOOL,
                     BoolArgumentType.bool(),
                     GameRuleTypeVisitor::visitBoolean,
@@ -85,7 +90,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.1.4+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.3.1+26.2.");
     }
 
     public static GeneticsDuck getActiveGuiGenetics() {

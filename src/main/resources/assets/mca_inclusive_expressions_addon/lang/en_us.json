@@ -1,0 +1,10 @@
+{
+  "gamerule.category.mca_inclusive_expressions_addon": "§lMCA Inclusive Expressions",
+  "gamerule.category.mca_inclusive_expressions_addon.category": "§lMCA Inclusive Expressions",
+  "gamerule.mca_inclusive_expressions.scale": "Chest Scale Multiplier (%)",
+  "gamerule.mca_inclusive_expressions.scale.description": "Global default chest scale multiplier percentage across the world (default 100%).",
+  "gamerule.mca_inclusive_expressions.max_scale_limit": "Max Chest Scale Limit (%)",
+  "gamerule.mca_inclusive_expressions.max_scale_limit.description": "Maximum allowed chest scale limit percentage in the character editor GUI (100% to 2000%).",
+  "gamerule.mca_inclusive_expressions.allow_all_genders": "Gender Inclusivity (All Genders)",
+  "gamerule.mca_inclusive_expressions.allow_all_genders.description": "Allows 3D chest customization on all villager and player genders."
+}

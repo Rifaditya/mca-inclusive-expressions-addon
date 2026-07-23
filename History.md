@@ -4,6 +4,15 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.3.1+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.3.1+26.2.jar`
+* **Changes**:
+  - Registered custom GameRuleCategory using Identifier.fromNamespaceAndPath(MOD_ID, "category"), grouping all 3 mod GameRules under a bolded custom header (▼ MCA Inclusive Expressions) matching vanilla Minecraft design.
+  - Added src/main/resources/assets/mca_inclusive_expressions_addon/lang/en_us.json, providing clean localized titles and hover tooltips for Chest Scale Multiplier (%), Max Chest Scale Limit (%), and Gender Inclusivity (All Genders).
+
+---
+
 ### Release `2.3.0+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.3.0+26.2.jar`
