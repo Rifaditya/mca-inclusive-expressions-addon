@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.6.5+26.2] - 2026-07-23
+
+### Fixed
+* Restored static `@Inject` into `VillagerEntityBaseModelMCA.newBreasts` at `@At("HEAD")` to bake **two distinct 3x3x3 cubes** directly into MCA's native `breasts` model part across all subclasses (`VillagerEntityModelMCA`, `PlayerEntityExtendedModel`, and armor sets).
+
 ## [1.6.4+26.2] - 2026-07-23
 
 ### Fixed
-* Assigned separate `PartPose` pivot offsets to `left_breast` (`X = -1.75F`) and `right_breast` (`X = +1.75F`), ensuring each breast cube scales outward from its own center.
-* Preserved a permanent cleavage separation gap so breasts **ALWAYS render as 2 distinct 3D cubes** under all scale sizes (`0%` to `1000%`).
+* Assigned separate `PartPose` pivot offsets to `left_breast` (`X = -1.75F`) and `right_breast` (`X = +1.75F`).
 
 ## [1.6.3+26.2] - 2026-07-23
 

@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `1.6.5+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-1.6.5+26.2.jar`
+* **Changes**:
+  - Injected directly into static `VillagerEntityBaseModelMCA.newBreasts` to bake 2 distinct 3x3x3 cubes across all model subclasses (`VillagerEntityModelMCA`, `PlayerEntityExtendedModel`, armor meshes).
+
+---
+
 ### Release `1.6.4+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.6.4+26.2.jar`
