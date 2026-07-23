@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.conczin.mca.client.model.CommonVillagerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
+import net.instantgratification.mcainclusive.ducks.CommonVillagerModelDuck;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -43,15 +44,15 @@ public interface CommonVillagerInterfaceMixin {
             float leftX = 0.0f, leftY = 0.0f, leftZ = 0.0f;
             float rightX = 0.0f, rightY = 0.0f, rightZ = 0.0f;
 
-            if (self instanceof CommonVillagerModelMixin modelMixin) {
-                leftMult = modelMixin.currentLeftScale;
-                rightMult = modelMixin.currentRightScale;
-                leftX = modelMixin.currentLeftX;
-                leftY = modelMixin.currentLeftY;
-                leftZ = modelMixin.currentLeftZ;
-                rightX = modelMixin.currentRightX;
-                rightY = modelMixin.currentRightY;
-                rightZ = modelMixin.currentRightZ;
+            if (self instanceof CommonVillagerModelDuck duck) {
+                leftMult = duck.getRenderLeftScale();
+                rightMult = duck.getRenderRightScale();
+                leftX = duck.getRenderLeftX();
+                leftY = duck.getRenderLeftY();
+                leftZ = duck.getRenderLeftZ();
+                rightX = duck.getRenderRightX();
+                rightY = duck.getRenderRightY();
+                rightZ = duck.getRenderRightZ();
             }
 
             float leftBreastSize = baseSize * leftMult * self.getDimensions().getBreasts();

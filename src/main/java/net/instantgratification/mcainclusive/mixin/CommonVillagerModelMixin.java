@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
+import net.instantgratification.mcainclusive.ducks.CommonVillagerModelDuck;
 import net.instantgratification.mcainclusive.ducks.VillagerRenderStateDuck;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,22 +20,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = VillagerEntityBaseModelMCA.class, remap = false)
-public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRenderState> implements CommonVillagerModel<VillagerRenderState> {
+public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRenderState> implements CommonVillagerModel<VillagerRenderState>, CommonVillagerModelDuck {
     @Shadow public ModelPart breasts;
     @Shadow float breastSize;
 
-    @Unique public float currentLeftScale = 1.0f;
-    @Unique public float currentRightScale = 1.0f;
-    @Unique public float currentLeftX = 0.0f;
-    @Unique public float currentLeftY = 0.0f;
-    @Unique public float currentLeftZ = 0.0f;
-    @Unique public float currentRightX = 0.0f;
-    @Unique public float currentRightY = 0.0f;
-    @Unique public float currentRightZ = 0.0f;
+    @Unique private float currentLeftScale = 1.0f;
+    @Unique private float currentRightScale = 1.0f;
+    @Unique private float currentLeftX = 0.0f;
+    @Unique private float currentLeftY = 0.0f;
+    @Unique private float currentLeftZ = 0.0f;
+    @Unique private float currentRightX = 0.0f;
+    @Unique private float currentRightY = 0.0f;
+    @Unique private float currentRightZ = 0.0f;
 
     protected CommonVillagerModelMixin(ModelPart root) {
         super(root);
     }
+
+    @Override public float getRenderLeftScale() { return this.currentLeftScale; }
+    @Override public float getRenderRightScale() { return this.currentRightScale; }
+    @Override public float getRenderLeftX() { return this.currentLeftX; }
+    @Override public float getRenderLeftY() { return this.currentLeftY; }
+    @Override public float getRenderLeftZ() { return this.currentLeftZ; }
+    @Override public float getRenderRightX() { return this.currentRightX; }
+    @Override public float getRenderRightY() { return this.currentRightY; }
+    @Override public float getRenderRightZ() { return this.currentRightZ; }
 
     @Inject(method = "setupAnim", at = @At("HEAD"))
     private void onSetupAnim(VillagerRenderState state, CallbackInfo ci) {
