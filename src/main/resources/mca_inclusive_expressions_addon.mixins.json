@@ -5,6 +5,7 @@
   "mixins": [
     "GeneticsMixin",
     "CommonVillagerModelMixin",
+    "CommonVillagerInterfaceMixin",
     "PlayerEntityExtendedModelMixin",
     "PlayerArmorExtendedModelMixin",
     "VillagerVisualsMixin",

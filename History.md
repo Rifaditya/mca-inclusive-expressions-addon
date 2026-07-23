@@ -4,12 +4,19 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `1.7.1+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-1.7.1+26.2.jar`
+* **Changes**:
+  - Resolved startup InvalidInjectionException by creating CommonVillagerInterfaceMixin targeting CommonVillagerModel interface for renderCommon.
+
+---
+
 ### Release `1.7.0+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.7.0+26.2.jar`
 * **Changes**:
   - Upgraded to primary MCA Core Enhancement Mod (`MCA Inclusive Expressions`).
-  - Implemented independent MatrixStack scaling for leftBreastPart and rightBreastPart inside `renderCommon`, enabling 100% individual left and right cube scaling.
 
 ---
 
