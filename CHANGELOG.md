@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.6.3+26.2] - 2026-07-23
+
+### Fixed
+* Fixed render gate condition in `CommonVillagerModelMixin` by ensuring container `breasts.visible` remains `true` so MCA's `renderCommon` method enters the `getBreastParts()` loop for `left_breast` and `right_breast` 3D model parts.
+
 ## [1.6.2+26.2] - 2026-07-23
 
 ### Changed
 * Created separate `left_breast` and `right_breast` `ModelPart` instances, allowing **Left Breast Size** and **Right Breast Size** sliders to scale **each individual 3D cube 100% independently**.
-* Hid legacy unified `breasts` part and bound `left_breast` and `right_breast` transforms to torso movement.
 
 ## [1.6.1+26.2] - 2026-07-23
 

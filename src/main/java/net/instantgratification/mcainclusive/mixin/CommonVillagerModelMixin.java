@@ -52,7 +52,7 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
         MeshDefinition modelData = cir.getReturnValue();
         if (modelData != null) {
             PartDefinition root = modelData.getRoot();
-            // Hide legacy single breast box if present
+            // Container breasts part with 0 cubes so renderCommon visibility check passes
             root.addOrReplaceChild("breasts", CubeListBuilder.create(), PartPose.ZERO);
             // Left Breast Box (width 3, height 3, depth 3)
             root.addOrReplaceChild("left_breast", CubeListBuilder.create().texOffs(18, 21).addBox(-3.25F, -1.25F, -1.5F, 3, 3, 3, dilation), PartPose.ZERO);
@@ -63,9 +63,9 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
 
     @Inject(method = "setupAnim", at = @At("TAIL"))
     private void onSetupAnim(VillagerRenderState state, CallbackInfo ci) {
-        // Hide legacy single breasts part
+        // Keep container breasts part visible so CommonVillagerModel.renderCommon enters getBreastParts() loop
         if (this.breasts != null) {
-            this.breasts.visible = false;
+            this.breasts.visible = true;
         }
 
         if (this.leftBreastPart != null && this.rightBreastPart != null) {

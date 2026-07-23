@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `1.6.3+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-1.6.3+26.2.jar`
+* **Changes**:
+  - Fixed render gate condition in `CommonVillagerModelMixin` by keeping container `breasts.visible = true` so `renderCommon` renders `left_breast` and `right_breast` 3D model parts.
+
+---
+
 ### Release `1.6.2+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.6.2+26.2.jar`
