@@ -99,7 +99,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             int rightColX = this.width / 2 + DATA_WIDTH / 2;
             int halfWidth = DATA_WIDTH / 2;
             int fullWidth = DATA_WIDTH;
-            int maxLimit = MCAInclusiveExpressionsAddon.maxScaleLimit;
+            int maxLimit = MCAInclusiveExpressionsAddon.getMaxScaleLimit();
 
             // --- Row 1: Left & Right Size Sliders ---
             int currentLeftPct = (int) (MCAInclusiveExpressionsAddon.defaultLeftMultiplier * 100);
@@ -239,11 +239,11 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             ));
             y += 22;
 
-            // --- Row 5: Link Mode & Max Scale Limit Buttons ---
+            // --- Row 5: Link Mode Button (Full DATA_WIDTH) ---
             boolean linked = MCAInclusiveExpressionsAddon.linkSliders;
             this.addRenderableWidget(new ButtonWidget(
-                leftColX, y, halfWidth, 20,
-                Component.literal("Link: " + (linked ? "LINKED" : "UNLINKED")),
+                leftColX, y, fullWidth, 20,
+                Component.literal("Slider Link Mode: " + (linked ? "LINKED (Symmetric)" : "UNLINKED (Asymmetric)")),
                 b -> {
                     MCAInclusiveExpressionsAddon.linkSliders = !MCAInclusiveExpressionsAddon.linkSliders;
                     if (MCAInclusiveExpressionsAddon.linkSliders) {
@@ -253,18 +253,6 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastSize(leftVal);
                     }
                     refreshPreviewDimensions();
-                    this.setPage("breast_addon");
-                }
-            ));
-
-            this.addRenderableWidget(new ButtonWidget(
-                rightColX, y, halfWidth, 20,
-                Component.literal("Max Limit: " + maxLimit + "%"),
-                b -> {
-                    if (maxLimit == 200) MCAInclusiveExpressionsAddon.maxScaleLimit = 300;
-                    else if (maxLimit == 300) MCAInclusiveExpressionsAddon.maxScaleLimit = 500;
-                    else if (maxLimit == 500) MCAInclusiveExpressionsAddon.maxScaleLimit = 1000;
-                    else MCAInclusiveExpressionsAddon.maxScaleLimit = 200;
                     this.setPage("breast_addon");
                 }
             ));

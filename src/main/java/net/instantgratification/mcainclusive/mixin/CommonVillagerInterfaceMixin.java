@@ -32,7 +32,7 @@ public interface CommonVillagerInterfaceMixin {
         // Body
         self.getCommonBodyParts().forEach(a -> a.render(matrices, vertices, light, overlay, color));
 
-        // Breasts (Independent Left and Right Matrix Scaling with MCA's native -35° angle!)
+        // Breasts (Direct 1:1 Linear Matrix Scaling with MCA's native -35° angle!)
         if (self.getBreastPart().visible && self.getBodyPart().visible) {
             float baseSize = self.getBreastSize();
             if (baseSize == 0 && MCAInclusiveExpressionsAddon.isAllowAllGenders()) {
@@ -55,6 +55,7 @@ public interface CommonVillagerInterfaceMixin {
                 rightZ = duck.getRenderRightZ();
             }
 
+            // Direct linear 1:1 scaling (100% = 1.0x, 500% = 5.0x, 1000% = 10.0x)
             float leftBreastSize = baseSize * leftMult * self.getDimensions().getBreasts();
             float rightBreastSize = baseSize * rightMult * self.getDimensions().getBreasts();
 
@@ -68,28 +69,20 @@ public interface CommonVillagerInterfaceMixin {
                 ModelPartAccessor partAccess = (ModelPartAccessor) (Object) part;
                 List<ModelPart.Cube> cubes = partAccess.getCubes();
                 if (cubes != null && cubes.size() >= 2) {
-                    // Render Left Breast Cube (Index 0) with per-entity scale and X/Y/Z translation
+                    // Render Left Breast Cube (Index 0) with direct 1:1 linear scale and 3D translation
                     if (leftBreastSize > 0) {
                         matrices.pushPose();
                         matrices.translate(leftX, leftY, leftZ);
-                        matrices.scale(
-                            leftBreastSize * 0.2f + 1.05f,
-                            leftBreastSize * 0.75f + 0.75f,
-                            leftBreastSize * 0.75f + 0.75f
-                        );
+                        matrices.scale(leftBreastSize, leftBreastSize, leftBreastSize);
                         cubes.get(0).compile(matrices.last(), vertices, light, overlay, color);
                         matrices.popPose();
                     }
 
-                    // Render Right Breast Cube (Index 1) with per-entity scale and X/Y/Z translation
+                    // Render Right Breast Cube (Index 1) with direct 1:1 linear scale and 3D translation
                     if (rightBreastSize > 0) {
                         matrices.pushPose();
                         matrices.translate(rightX, rightY, rightZ);
-                        matrices.scale(
-                            rightBreastSize * 0.2f + 1.05f,
-                            rightBreastSize * 0.75f + 0.75f,
-                            rightBreastSize * 0.75f + 0.75f
-                        );
+                        matrices.scale(rightBreastSize, rightBreastSize, rightBreastSize);
                         cubes.get(1).compile(matrices.last(), vertices, light, overlay, color);
                         matrices.popPose();
                     }
@@ -98,11 +91,7 @@ public interface CommonVillagerInterfaceMixin {
                     float avgSize = (leftBreastSize + rightBreastSize) / 2.0f;
                     if (avgSize > 0) {
                         matrices.pushPose();
-                        matrices.scale(
-                            avgSize * 0.2f + 1.05f,
-                            avgSize * 0.75f + 0.75f,
-                            avgSize * 0.75f + 0.75f
-                        );
+                        matrices.scale(avgSize, avgSize, avgSize);
                         for (ModelPart.Cube cube : cubes) {
                             cube.compile(matrices.last(), vertices, light, overlay, color);
                         }

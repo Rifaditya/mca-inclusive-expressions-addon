@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.0.0+26.2] - 2026-07-23
+
+### Changed
+* **Direct 1:1 Linear Size Scaling**: Replaced legacy compression formula (`size * 0.2f + 1.05f`) with true 1:1 direct linear matrix scaling (`100% = 1.0x`, `200% = 2.0x`, `500% = 5.0x`, `1000% = 10.0x`).
+* **GameRule-Only Max Limit**: Migrated Max Scale Limit setting out of the character GUI into a server GameRule (`mca_inclusive_expressions:max_scale_limit`, range 100-2000, default 500%).
+* Cleaned up Row 5 in character editor GUI by expanding `Slider Link Mode` button to full width.
+
 ## [1.9.0+26.2] - 2026-07-23
 
 ### Added

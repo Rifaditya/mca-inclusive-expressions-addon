@@ -4,6 +4,16 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.0.0+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.0.0+26.2.jar`
+* **Changes**:
+  - Implemented direct 1:1 linear size matrix scaling (100% = 1.0x, 500% = 5.0x, 1000% = 10.0x).
+  - Migrated Max Scale Limit setting out of the character GUI into a server GameRule (mca_inclusive_expressions:max_scale_limit, range 100-2000, default 500%).
+  - Cleaned up Row 5 in character editor GUI by expanding Slider Link Mode button to full width.
+
+---
+
 ### Release `1.9.0+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.9.0+26.2.jar`

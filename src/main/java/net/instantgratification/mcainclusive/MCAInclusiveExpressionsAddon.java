@@ -20,12 +20,13 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static GameRule<Integer> SCALE_RULE;
+    public static GameRule<Integer> MAX_SCALE_LIMIT_RULE;
     public static GameRule<Boolean> ALLOW_ALL_GENDERS_RULE;
 
     public static double defaultLeftMultiplier = 1.0;
     public static double defaultRightMultiplier = 1.0;
     public static boolean linkSliders = true;
-    public static int maxScaleLimit = 200;
+    public static int maxScaleLimit = 500;
     public static boolean allowAllGenders = false;
 
     @Override
@@ -39,11 +40,26 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
                 new GameRule<>(
                     GameRuleCategory.MISC,
                     GameRuleType.INT,
-                    IntegerArgumentType.integer(0, 1000),
+                    IntegerArgumentType.integer(0, 2000),
                     GameRuleTypeVisitor::visitInteger,
-                    Codec.intRange(0, 1000),
+                    Codec.intRange(0, 2000),
                     i -> i,
                     100,
+                    FeatureFlagSet.of()
+                )
+            );
+
+            MAX_SCALE_LIMIT_RULE = Registry.register(
+                BuiltInRegistries.GAME_RULE,
+                "mca_inclusive_expressions:max_scale_limit",
+                new GameRule<>(
+                    GameRuleCategory.MISC,
+                    GameRuleType.INT,
+                    IntegerArgumentType.integer(100, 2000),
+                    GameRuleTypeVisitor::visitInteger,
+                    Codec.intRange(100, 2000),
+                    i -> i,
+                    500,
                     FeatureFlagSet.of()
                 )
             );
@@ -66,7 +82,18 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v1.6.0+26.2 with dual breast controls (200% default max, customizable limits) and ModMenu settings.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.0.0+26.2 with direct 1:1 linear scaling and GameRule-governed max scale limits.");
+    }
+
+    public static int getMaxScaleLimit() {
+        try {
+            var serverOpt = net.conczin.mca.MCA.getServer();
+            if (serverOpt.isPresent() && MAX_SCALE_LIMIT_RULE != null) {
+                return serverOpt.get().getGameRules().get(MAX_SCALE_LIMIT_RULE);
+            }
+        } catch (Throwable ignored) {
+        }
+        return maxScaleLimit;
     }
 
     public static float getLeftScaleMultiplier() {
