@@ -20,10 +20,7 @@ public abstract class VillagerEntityMCAMixin {
     private void onReadAdditionalSaveData(ValueInput input, CallbackInfo ci) {
         if (input != null && this.getGenetics() instanceof GeneticsDuck duck) {
             try {
-                CompoundTag tag = VillagerEntityMCA.readMcaSaveData(input);
-                if (tag != null) {
-                    readGeneticsFromTag(duck, tag);
-                }
+                input.read("mca_inclusive_expressions", CompoundTag.CODEC).ifPresent(tag -> readGeneticsFromTag(duck, tag));
             } catch (Throwable ignored) {
             }
         }
@@ -42,7 +39,8 @@ public abstract class VillagerEntityMCAMixin {
             try {
                 CompoundTag extraTag = new CompoundTag();
                 writeGeneticsToTag(duck, extraTag);
-                VillagerEntityMCA.storeMcaSaveData(output, extraTag);
+                // Store under custom key "mca_inclusive_expressions" so MCA's native "MCAData" is NEVER overwritten!
+                output.store("mca_inclusive_expressions", CompoundTag.CODEC, extraTag);
             } catch (Throwable ignored) {
             }
         }
