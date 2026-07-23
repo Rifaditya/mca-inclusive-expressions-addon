@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.6.2+26.2] - 2026-07-23
+
+### Changed
+* Created separate `left_breast` and `right_breast` `ModelPart` instances, allowing **Left Breast Size** and **Right Breast Size** sliders to scale **each individual 3D cube 100% independently**.
+* Hid legacy unified `breasts` part and bound `left_breast` and `right_breast` transforms to torso movement.
+
 ## [1.6.1+26.2] - 2026-07-23
 
 ### Changed
-* Injected into `VillagerEntityBaseModelMCA.newBreasts` to physically split MCA's single 6x3x3 chest box into **two distinct 3x3x3 cubes** (**Left Breast** and **Right Breast**).
-* Displays **2 separate 3D rectangles** on the villager model in both the editor preview and in-game!
+* Injected into `VillagerEntityBaseModelMCA.newBreasts` to split MCA's single 6x3x3 chest box into **two distinct 3x3x3 cubes**.
 
 ## [1.6.0+26.2] - 2026-07-23
 
