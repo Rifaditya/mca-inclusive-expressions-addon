@@ -1,7 +1,8 @@
-# Release Queue: MCA Inclusive Expressions Addon
+# Release Queue: MCA Inclusive Expressions
 
 | Version | Targeted MC | Status | Archive Location | Release Date |
 | :--- | :--- | :--- | :--- | :--- |
+| `1.7.0+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-1.7.0+26.2.jar` | 2026-07-23 |
 | `1.6.5+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-1.6.5+26.2.jar` | 2026-07-23 |
 | `1.6.4+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-1.6.4+26.2.jar` | 2026-07-23 |
 | `1.6.3+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-1.6.3+26.2.jar` | 2026-07-23 |
