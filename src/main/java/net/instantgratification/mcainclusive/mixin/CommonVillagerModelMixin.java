@@ -42,16 +42,18 @@ public abstract class CommonVillagerModelMixin implements CommonVillagerModel<Ob
                     scaledSize * 0.75f + 0.75f
             );
 
-            // Left Breast (rotates +radAngle)
+            // Left Breast (Offset left & rotates +radAngle)
             matrices.pushPose();
+            matrices.translate(-0.0625f * 1.5f, 0, 0);
             matrices.mulPose(new Quaternionf().rotationY(radAngle));
             for (ModelPart part : getBreastParts()) {
                 part.render(matrices, vertices, light, overlay, color);
             }
             matrices.popPose();
 
-            // Right Breast (rotates -radAngle)
+            // Right Breast (Offset right & rotates -radAngle)
             matrices.pushPose();
+            matrices.translate(0.0625f * 1.5f, 0, 0);
             matrices.mulPose(new Quaternionf().rotationY(-radAngle));
             for (ModelPart part : getBreastParts()) {
                 part.render(matrices, vertices, light, overlay, color);

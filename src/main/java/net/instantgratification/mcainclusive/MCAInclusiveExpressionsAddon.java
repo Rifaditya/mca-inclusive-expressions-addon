@@ -25,6 +25,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
 
     public static double defaultMultiplier = 2.0;
     public static int defaultCleavageAngle = 6;
+    public static boolean allowAllGenders = false;
 
     @Override
     public void onInitialize() {
@@ -79,7 +80,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v1.1.0+26.2 with dual-mesh scaling, cleavage angle controls, and ModMenu settings.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v1.3.0+26.2 with dedicated Breast sub-tabs, dual-mesh scaling, cleavage angle controls, and ModMenu settings.");
     }
 
     public static float getScaleMultiplier() {
@@ -108,6 +109,9 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     }
 
     public static boolean isAllowAllGenders() {
+        if (allowAllGenders) {
+            return true;
+        }
         try {
             var serverOpt = net.conczin.mca.MCA.getServer();
             if (serverOpt.isPresent() && ALLOW_ALL_GENDERS_RULE != null) {

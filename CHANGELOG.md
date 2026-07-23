@@ -7,23 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.0+26.2] - 2026-07-23
+
+### Added
+* Added a dedicated **`Breast` Sub-Tab** under `Character` (`Body`, `Clothes`, `Hair`, `Eyes`, `Breast`) in MCA's **Villager Editor Screen** (`VillagerEditorScreen`) via `VillagerEditorScreenMixin`.
+* Dedicated sub-tab page containing **Chest Scale Multiplier**, **Cleavage Separation Angle**, and **Gender Inclusivity Toggle** sliders with zero layout clutter.
+* Implemented translated dual-half cleavage separation rendering ($X$-offset and opposite Y-rotations) producing dynamic 3D V-shaped cleavage gaps.
+
 ## [1.2.1+26.2] - 2026-07-23
 
 ### Fixed
-* Fixed GUI widget overlap in MCA's **Villager Editor Screen** (`VillagerEditorScreen`) by placing `Breast` and `Angle` sliders side-by-side with 4px padding on Row 4.
-* Implemented body translation inheritance (`this.getBodyPart().translateAndRotate(matrices)`) for dual-cube cleavage rendering to prevent floating geometry during crouching, sleeping, or riding.
+* Fixed GUI widget overlap in MCA's **Villager Editor Screen** (`VillagerEditorScreen`) by placing `Breast` and `Angle` sliders side-by-side on Row 4.
 
 ## [1.2.0+26.2] - 2026-07-23
 
 ### Added
-* Injected a native **Cleavage Angle Slider** directly into MCA's in-game **Villager Editor Screen** (`VillagerEditorScreen`) under the `Character -> Body` tab via `VillagerEditorScreenMixin`.
+* Injected a native **Cleavage Angle Slider** directly into MCA's in-game **Villager Editor Screen** (`VillagerEditorScreen`).
 
 ## [1.1.0+26.2] - 2026-07-23
 
 ### Added
-* Integrated in-game **ModMenu & YACL Config Screen** (`ModMenuIntegration` and `ConfigScreenHelper`).
-* Implemented **Dual-Mesh Outward Cleavage System** with customizable separation angles (`DualBreastModelPart`).
-* Added GameRule `mca_inclusive_expressions:cleavage_angle` (default `6` degrees).
+* Integrated in-game **ModMenu & YACL Config Screen**.
+* Implemented **Dual-Mesh Outward Cleavage System**.
 
 ## [1.0.0+26.2] - 2026-07-23
 
