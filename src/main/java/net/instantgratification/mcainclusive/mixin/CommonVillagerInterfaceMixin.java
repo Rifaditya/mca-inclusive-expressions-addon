@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.conczin.mca.client.model.CommonVillagerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
+import net.instantgratification.mcainclusive.model.CommonVillagerModelAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -41,10 +42,13 @@ public interface CommonVillagerInterfaceMixin {
             float leftBreastSize = baseSize * leftMult * self.getDimensions().getBreasts();
             float rightBreastSize = baseSize * rightMult * self.getDimensions().getBreasts();
 
-            Iterable<ModelPart> parts = self.getBreastParts();
-            java.util.Iterator<ModelPart> iterator = parts.iterator();
-            ModelPart leftPart = iterator.hasNext() ? iterator.next() : null;
-            ModelPart rightPart = iterator.hasNext() ? iterator.next() : null;
+            ModelPart leftPart = null;
+            ModelPart rightPart = null;
+
+            if (self instanceof CommonVillagerModelAccess access) {
+                leftPart = access.getLeftBreastPart();
+                rightPart = access.getRightBreastPart();
+            }
 
             // Render Left Breast with leftScale Matrix
             if (leftBreastSize > 0 && leftPart != null) {

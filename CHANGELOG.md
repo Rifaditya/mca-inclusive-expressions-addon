@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.7.2+26.2] - 2026-07-23
+
+### Fixed
+* Created `CommonVillagerModelAccess` interface and registered distinct `left_breast` and `right_breast` `ModelPart` instances.
+* Updated `onRenderCommon` to scale `leftBreastPart` with `leftBreastSize` matrix and `rightBreastPart` with `rightBreastSize` matrix for **100% independent left and right 3D cube scaling**!
+
 ## [1.7.1+26.2] - 2026-07-23
 
 ### Fixed
 * Created `CommonVillagerInterfaceMixin` targeting `CommonVillagerModel` interface to resolve `InvalidInjectionException` startup crash.
-* Safely intercepts `renderCommon` default interface method to render `leftPart` with `leftBreastSize` matrix and `rightPart` with `rightBreastSize` matrix for **100% independent left and right 3D cube scaling**.
 
 ## [1.7.0+26.2] - 2026-07-23
 

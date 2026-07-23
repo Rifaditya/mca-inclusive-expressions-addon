@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `1.7.2+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-1.7.2+26.2.jar`
+* **Changes**:
+  - Implemented CommonVillagerModelAccess interface and bound leftBreastPart and rightBreastPart to renderCommon for true 100% independent left and right 3D cube scaling.
+
+---
+
 ### Release `1.7.1+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.7.1+26.2.jar`
