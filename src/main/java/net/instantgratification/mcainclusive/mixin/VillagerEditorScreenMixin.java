@@ -34,9 +34,23 @@ public abstract class VillagerEditorScreenMixin extends Screen {
     @Shadow protected abstract void addCharacterSubpageTab(int x, int y, int width, String page, String selectedPage);
 
     @Unique private static String breastSubpage = "size";
+    public static VillagerEditorScreen activeEditorScreen = null;
 
     protected VillagerEditorScreenMixin(Component title) {
         super(title);
+    }
+
+    public static GeneticsDuck getActiveGuiGenetics(Screen screen) {
+        if (screen instanceof VillagerEditorScreen editor) {
+            VillagerEditorScreenMixin mixin = (VillagerEditorScreenMixin) (Object) editor;
+            if (mixin.villagerVisualization != null && mixin.villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                return duck;
+            }
+            if (mixin.villager != null && mixin.villager.getGenetics() instanceof GeneticsDuck duck) {
+                return duck;
+            }
+        }
+        return null;
     }
 
     @Unique
@@ -79,7 +93,15 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void onInitTail(CallbackInfo ci) {
+        activeEditorScreen = (VillagerEditorScreen) (Object) this;
         syncPreviewGenetics();
+    }
+
+    @Inject(method = "onClose", at = @At("TAIL"), require = 0)
+    private void onCloseTail(CallbackInfo ci) {
+        if (activeEditorScreen == (Object) this) {
+            activeEditorScreen = null;
+        }
     }
 
     @Inject(method = "addCharacterSubpageTabs", at = @At("HEAD"), cancellable = true)
@@ -392,8 +414,8 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                     leftColX, y, halfWidth, 20, curLeftRoll, -90, 90,
                     val -> {
                         float angle = (float) val;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastPitch(angle);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastPitch(angle);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastRoll(angle);
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastRoll(angle);
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Roll (Z): " + (val >= 0 ? "+" : "") + val + "°"),

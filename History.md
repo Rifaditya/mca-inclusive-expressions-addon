@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.1.2+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.1.2+26.2.jar`
+* **Changes**:
+  - Implemented live GUI screen genetics override in CommonVillagerInterfaceMixin.onRenderCommon, allowing the renderer to read 3D parameters directly from VillagerEditorScreen's active genetics during GUI rendering. This provides 100% real-time 1:1 synchronization between GUI sliders, the 3D preview model, and the in-world entity!
+
+---
+
 ### Release `2.1.1+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.1.1+26.2.jar`

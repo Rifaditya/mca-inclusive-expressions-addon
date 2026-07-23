@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.2+26.2] - 2026-07-23
+
+### Fixed
+* **Direct GUI Screen Genetics Access**: Implemented live GUI screen genetics override in `CommonVillagerInterfaceMixin.onRenderCommon`, allowing the renderer to read 3D parameters directly from `VillagerEditorScreen`'s active genetics during GUI rendering. This provides 100% real-time 1:1 synchronization between GUI sliders, the 3D preview model, and the in-world entity!
+
 ## [2.1.1+26.2] - 2026-07-23
 
 ### Fixed

@@ -8,6 +8,7 @@ import net.conczin.mca.client.model.CommonVillagerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
 import net.instantgratification.mcainclusive.ducks.CommonVillagerModelDuck;
+import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -44,6 +45,7 @@ public interface CommonVillagerInterfaceMixin {
             float leftPitch = 0.0f, leftYaw = 0.0f, leftRoll = 0.0f;
             float rightPitch = 0.0f, rightYaw = 0.0f, rightRoll = 0.0f;
 
+            // 1. Read from in-world model duck
             if (self instanceof CommonVillagerModelDuck duck) {
                 leftMult = duck.getRenderLeftScale();
                 rightMult = duck.getRenderRightScale();
@@ -63,6 +65,34 @@ public interface CommonVillagerInterfaceMixin {
                 rightPitch = duck.getRenderRightPitch();
                 rightYaw = duck.getRenderRightYaw();
                 rightRoll = duck.getRenderRightRoll();
+            }
+
+            // 2. Failsafe Direct GUI Screen Override (When VillagerEditorScreen is open)
+            try {
+                if (VillagerEditorScreenMixin.activeEditorScreen != null) {
+                    GeneticsDuck guiDuck = VillagerEditorScreenMixin.getActiveGuiGenetics(VillagerEditorScreenMixin.activeEditorScreen);
+                    if (guiDuck != null) {
+                        leftMult = guiDuck.getLeftBreastSize();
+                        rightMult = guiDuck.getRightBreastSize();
+
+                        leftX = guiDuck.getLeftBreastX();
+                        leftY = guiDuck.getLeftBreastY();
+                        leftZ = guiDuck.getLeftBreastZ();
+
+                        rightX = guiDuck.getRightBreastX();
+                        rightY = guiDuck.getRightBreastY();
+                        rightZ = guiDuck.getRightBreastZ();
+
+                        leftPitch = guiDuck.getLeftBreastPitch();
+                        leftYaw = guiDuck.getLeftBreastYaw();
+                        leftRoll = guiDuck.getLeftBreastRoll();
+
+                        rightPitch = guiDuck.getRightBreastPitch();
+                        rightYaw = guiDuck.getRightBreastYaw();
+                        rightRoll = guiDuck.getRightBreastRoll();
+                    }
+                }
+            } catch (Throwable ignored) {
             }
 
             float leftBreastSize = leftMult;
