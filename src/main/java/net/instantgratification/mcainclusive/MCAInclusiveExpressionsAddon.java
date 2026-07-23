@@ -2,7 +2,6 @@
 package net.instantgratification.mcainclusive;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.serialization.Codec;
 import net.fabricmc.api.ModInitializer;
 import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
@@ -23,15 +22,11 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static GameRuleCategory MOD_CATEGORY;
-
-    public static GameRule<Integer> SCALE_RULE;
-    public static GameRule<Integer> MAX_SCALE_LIMIT_RULE;
     public static GameRule<Boolean> ALLOW_ALL_GENDERS_RULE;
 
     public static double defaultLeftMultiplier = 1.0;
     public static double defaultRightMultiplier = 1.0;
     public static boolean linkSliders = true;
-    public static int maxScaleLimit = 500;
     public static boolean allowAllGenders = false;
     public static Object activeEditorScreen = null;
 
@@ -41,36 +36,6 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
 
         try {
             MOD_CATEGORY = GameRuleCategory.register(Identifier.fromNamespaceAndPath(MOD_ID, "category"));
-
-            SCALE_RULE = Registry.register(
-                BuiltInRegistries.GAME_RULE,
-                "mca_inclusive_expressions:scale",
-                new GameRule<>(
-                    MOD_CATEGORY,
-                    GameRuleType.INT,
-                    IntegerArgumentType.integer(0, 2000),
-                    GameRuleTypeVisitor::visitInteger,
-                    Codec.intRange(0, 2000),
-                    i -> i,
-                    100,
-                    FeatureFlagSet.of()
-                )
-            );
-
-            MAX_SCALE_LIMIT_RULE = Registry.register(
-                BuiltInRegistries.GAME_RULE,
-                "mca_inclusive_expressions:max_scale_limit",
-                new GameRule<>(
-                    MOD_CATEGORY,
-                    GameRuleType.INT,
-                    IntegerArgumentType.integer(100, 2000),
-                    GameRuleTypeVisitor::visitInteger,
-                    Codec.intRange(100, 2000),
-                    i -> i,
-                    500,
-                    FeatureFlagSet.of()
-                )
-            );
 
             ALLOW_ALL_GENDERS_RULE = Registry.register(
                 BuiltInRegistries.GAME_RULE,
@@ -90,7 +55,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.4.0+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.6.0+26.2.");
     }
 
     public static GeneticsDuck getActiveGuiGenetics() {
@@ -106,40 +71,15 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     }
 
     public static int getMaxScaleLimit() {
-        try {
-            var serverOpt = net.conczin.mca.MCA.getServer();
-            if (serverOpt.isPresent() && MAX_SCALE_LIMIT_RULE != null) {
-                return serverOpt.get().getGameRules().get(MAX_SCALE_LIMIT_RULE);
-            }
-        } catch (Throwable ignored) {
-        }
-        return maxScaleLimit;
+        return 100; // Native MCA default maximum size (100%)
     }
 
     public static float getLeftScaleMultiplier() {
-        float multiplier = (float) defaultLeftMultiplier * 2.0f;
-        try {
-            var serverOpt = net.conczin.mca.MCA.getServer();
-            if (serverOpt.isPresent() && SCALE_RULE != null) {
-                int ruleValue = serverOpt.get().getGameRules().get(SCALE_RULE);
-                multiplier = (ruleValue / 100.0f) * (float) defaultLeftMultiplier * 2.0f;
-            }
-        } catch (Throwable ignored) {
-        }
-        return multiplier;
+        return (float) defaultLeftMultiplier;
     }
 
     public static float getRightScaleMultiplier() {
-        float multiplier = (float) defaultRightMultiplier * 2.0f;
-        try {
-            var serverOpt = net.conczin.mca.MCA.getServer();
-            if (serverOpt.isPresent() && SCALE_RULE != null) {
-                int ruleValue = serverOpt.get().getGameRules().get(SCALE_RULE);
-                multiplier = (ruleValue / 100.0f) * (float) defaultRightMultiplier * 2.0f;
-            }
-        } catch (Throwable ignored) {
-        }
-        return multiplier;
+        return (float) defaultRightMultiplier;
     }
 
     public static float getAverageScaleMultiplier() {

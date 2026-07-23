@@ -49,37 +49,35 @@ public abstract class VillagerEntityMCAMixin {
     }
 
     private static void readGeneticsFromTag(GeneticsDuck duck, CompoundTag rootTag) {
-        CompoundTag mcaTag = rootTag.getCompound("MCAData").orElse(null);
+        if (rootTag == null) return;
 
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:left_breast_size").ifPresent(duck::setLeftBreastSize);
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:right_breast_size").ifPresent(duck::setRightBreastSize);
+        CompoundTag mcaData = rootTag.contains("MCAData") ? rootTag.getCompound("MCAData").orElse(rootTag) : rootTag;
 
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:left_breast_x").ifPresent(duck::setLeftBreastX);
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:left_breast_y").ifPresent(duck::setLeftBreastY);
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:left_breast_z").ifPresent(duck::setLeftBreastZ);
-
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:right_breast_x").ifPresent(duck::setRightBreastX);
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:right_breast_y").ifPresent(duck::setRightBreastY);
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:right_breast_z").ifPresent(duck::setRightBreastZ);
-
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:left_breast_pitch").ifPresent(duck::setLeftBreastPitch);
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:left_breast_yaw").ifPresent(duck::setLeftBreastYaw);
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:left_breast_roll").ifPresent(duck::setLeftBreastRoll);
-
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:right_breast_pitch").ifPresent(duck::setRightBreastPitch);
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:right_breast_yaw").ifPresent(duck::setRightBreastYaw);
-        readKeyFromTags(rootTag, mcaTag, "mca_inclusive_expressions:right_breast_roll").ifPresent(duck::setRightBreastRoll);
+        readKeysIntoDuck(duck, rootTag);
+        if (mcaData != rootTag) {
+            readKeysIntoDuck(duck, mcaData);
+        }
     }
 
-    private static java.util.Optional<Float> readKeyFromTags(CompoundTag rootTag, CompoundTag mcaTag, String key) {
-        var opt = rootTag.getFloat(key);
-        if (opt.isPresent()) {
-            return opt;
-        }
-        if (mcaTag != null) {
-            return mcaTag.getFloat(key);
-        }
-        return java.util.Optional.empty();
+    private static void readKeysIntoDuck(GeneticsDuck duck, CompoundTag tag) {
+        tag.getFloat("mca_inclusive_expressions:left_breast_size").ifPresent(duck::setLeftBreastSize);
+        tag.getFloat("mca_inclusive_expressions:right_breast_size").ifPresent(duck::setRightBreastSize);
+
+        tag.getFloat("mca_inclusive_expressions:left_breast_x").ifPresent(duck::setLeftBreastX);
+        tag.getFloat("mca_inclusive_expressions:left_breast_y").ifPresent(duck::setLeftBreastY);
+        tag.getFloat("mca_inclusive_expressions:left_breast_z").ifPresent(duck::setLeftBreastZ);
+
+        tag.getFloat("mca_inclusive_expressions:right_breast_x").ifPresent(duck::setRightBreastX);
+        tag.getFloat("mca_inclusive_expressions:right_breast_y").ifPresent(duck::setRightBreastY);
+        tag.getFloat("mca_inclusive_expressions:right_breast_z").ifPresent(duck::setRightBreastZ);
+
+        tag.getFloat("mca_inclusive_expressions:left_breast_pitch").ifPresent(duck::setLeftBreastPitch);
+        tag.getFloat("mca_inclusive_expressions:left_breast_yaw").ifPresent(duck::setLeftBreastYaw);
+        tag.getFloat("mca_inclusive_expressions:left_breast_roll").ifPresent(duck::setLeftBreastRoll);
+
+        tag.getFloat("mca_inclusive_expressions:right_breast_pitch").ifPresent(duck::setRightBreastPitch);
+        tag.getFloat("mca_inclusive_expressions:right_breast_yaw").ifPresent(duck::setRightBreastYaw);
+        tag.getFloat("mca_inclusive_expressions:right_breast_roll").ifPresent(duck::setRightBreastRoll);
     }
 
     private static void writeGeneticsToTag(GeneticsDuck duck, CompoundTag tag) {

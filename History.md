@@ -4,13 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
-### Release `2.5.1+26.2` (2026-07-23)
+### Release `2.6.0+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
-* **Build Artifact**: `mca-inclusive-expressions-addon-2.5.1+26.2.jar`
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.6.0+26.2.jar`
 * **Changes**:
-  - Scoped getActiveGuiGenetics() strictly to villagerVisualization's 3D model inside VillagerEditorScreen, preventing editor preview settings from bleeding into Paper Dolls, Inventory Screen character views, or background entities!
-  - Extended VillagerVisualsMixin to extract saved 3D parameters for both Villagers and Players via VillagerLike.toVillager(entity) into VillagerRenderStateDuck. Real World 3D entities, Paper Dolls HUD, and Survival/Creative Inventory Screen character views now maintain 100% 1:1 synchronization!
-  - Updated VillagerEntityMCAMixin to read 3D keys from both top-level NBT and tag.getCompound("MCAData").
+  - Reverted custom scale multiplier adders (2.0x scaling multipliers and >100% max scale limits). Size sliders now run strictly from 0% to 100% (aligning 100% size 1:1 with native MCA default maximum volume).
+  - Scoped GUI Direct Screen Override (guiDuck) strictly to villagerVisualization's model in VillagerEditorScreen, preventing editor slider settings from bleeding into Paper Dolls, Inventory View, or in-world entities.
+  - Expanded VillagerVisualsMixin to use VillagerLike.toVillager(entity) for both Villagers and Players, ensuring 100% 1:1 visual parity across Real World 3D entities, Villager Editor GUI Settings, Paper Dolls HUD, and Inventory Character View.
+  - Updated VillagerEntityMCAMixin to unpack tag.getCompound("MCAData"), guaranteeing full NBT save persistence upon pressing "Done".
 
 ---
 
@@ -275,7 +276,7 @@ This document tracks all build releases and incremental updates for the MCA Incl
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.4.1+26.2.jar`
 * **Changes**:
-  - Consolidated Base Breast Gene Size, Chest Scale Multiplier %, and Gender Inclusivity controls into the dedicated `Breast` sub-tab in `VillagerEditorScreen`.
+  - Removed duplicate `Breast` gene slider from MCA's `Body` sub-tab.
 
 ---
 

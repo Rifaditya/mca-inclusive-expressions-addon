@@ -7,13 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [2.5.1+26.2] - 2026-07-23
+## [2.6.0+26.2] - 2026-07-23
 
-### Fixed
+### Changed
+* **Native MCA Default Scale Alignment Engine**: Reverted custom scale multiplier adders (`2.0x` scaling multipliers and `>100%` max scale limits). Size sliders now run strictly from **`0%` to `100%`** (aligning `100%` size 1:1 with native MCA default maximum volume).
 * **Universal 4-Viewport Synchronization Engine**:
-  - **Scoped GUI Override**: Scoped `getActiveGuiGenetics()` strictly to `villagerVisualization`'s 3D model inside `VillagerEditorScreen`. This prevents editor preview settings from bleeding into Paper Dolls, Inventory Screen character views, or background entities!
-  - **Player Entity Support (`VillagerVisualsMixin`)**: Extended `VillagerVisualsMixin` to extract saved 3D parameters for both Villagers and Players via `VillagerLike.toVillager(entity)` into `VillagerRenderStateDuck`. Real World 3D entities, Paper Dolls HUD, and Survival/Creative Inventory Screen character views now maintain 100% 1:1 synchronization!
-  - **Unpacked `MCAData` Compound NBT**: Updated `VillagerEntityMCAMixin` to read 3D keys from both top-level NBT and `tag.getCompound("MCAData")`.
+  - Scoped GUI Direct Screen Override (`guiDuck`) strictly to `villagerVisualization`'s model in `VillagerEditorScreen`, preventing editor slider settings from bleeding into Paper Dolls, Inventory View, or in-world entities.
+  - Expanded `VillagerVisualsMixin` to use `VillagerLike.toVillager(entity)` for both Villagers and Players, ensuring 100% 1:1 visual parity across **Real World 3D entities**, **Villager Editor GUI Settings**, **Paper Dolls HUD**, and **Inventory Character View**.
+* **`MCAData` NBT Compound Unpacking**: Updated `VillagerEntityMCAMixin` to unpack `tag.getCompound("MCAData")`, guaranteeing full NBT save persistence upon pressing "Done".
 
 ## [2.5.0+26.2] - 2026-07-23
 

@@ -185,7 +185,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             int halfWidth = DATA_WIDTH / 2;
             int thirdWidth = DATA_WIDTH / 3;
             int fullWidth = DATA_WIDTH;
-            int maxLimit = MCAInclusiveExpressionsAddon.getMaxScaleLimit();
+            int maxLimit = 100; // Native MCA default maximum size (100%)
 
             // Render 3 Sub-Category Toggle Buttons: [ Size ] | [ Position ] | [ Rotation ]
             ButtonWidget sizeTabBtn = this.addRenderableWidget(new ButtonWidget(
@@ -211,7 +211,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             y += 24;
 
             if ("size".equals(breastSubpage)) {
-                // --- Sub-Category 1: Size (100% Individualized Per Entity) ---
+                // --- Sub-Category 1: Size (Native MCA 0%-100% Range, 100% Individualized Per Character) ---
                 int currentLeftPct = 100;
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                     float val = duck.getLeftBreastSize();
