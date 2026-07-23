@@ -98,44 +98,32 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             int x = this.width / 2;
             int widgetWidth = DATA_WIDTH;
 
-            // 1. Base Breast Size Gene Slider (Genetics.BREAST)
-            if (villager != null) {
-                Genetics genetics = villager.getGenetics();
-                this.addRenderableWidget(new GeneSliderWidget(
-                    x,
-                    y,
-                    widgetWidth,
-                    20,
-                    Component.translatable(Genetics.BREAST.getTranslationKey()),
-                    genetics.getGene(Genetics.BREAST),
-                    val -> {
-                        genetics.setGene(Genetics.BREAST, val.floatValue());
-                        refreshPreviewDimensions();
-                    }
-                ));
-            }
-            y += 24;
-
-            // 2. Chest Scale Multiplier Slider
-            int currentScalePct = (int) (MCAInclusiveExpressionsAddon.defaultMultiplier * 100);
+            // Single Unified Breast Size Slider (10% to 1000%)
+            int currentSizePct = (int) (MCAInclusiveExpressionsAddon.defaultMultiplier * 100);
             this.addRenderableWidget(new IntegerSliderWidget(
                 x,
                 y,
                 widgetWidth,
                 20,
-                currentScalePct,
+                currentSizePct,
                 10,
                 1000,
                 val -> {
                     MCAInclusiveExpressionsAddon.defaultMultiplier = val / 100.0;
+                    if (villager != null) {
+                        villager.getGenetics().setGene(Genetics.BREAST, (float) (val / 200.0));
+                    }
+                    if (villagerVisualization != null) {
+                        villagerVisualization.getGenetics().setGene(Genetics.BREAST, (float) (val / 200.0));
+                    }
                     refreshPreviewDimensions();
                 },
-                val -> Component.literal("Chest Scale: " + val + "%"),
-                () -> Component.literal("Adjusts chest model scaling multiplier")
+                val -> Component.literal("Breast Size: " + val + "%"),
+                () -> Component.literal("Adjusts breast feature size and scaling multiplier")
             ));
             y += 24;
 
-            // 3. Gender Representation Inclusivity Toggle
+            // Gender Representation Inclusivity Toggle
             boolean allowAll = MCAInclusiveExpressionsAddon.isAllowAllGenders();
             this.addRenderableWidget(new ButtonWidget(
                 x,
