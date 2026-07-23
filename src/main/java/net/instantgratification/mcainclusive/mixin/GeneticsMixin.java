@@ -5,11 +5,13 @@ import net.conczin.mca.entity.ai.Genetics;
 import net.conczin.mca.entity.ai.relationship.Gender;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
 import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
+import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = Genetics.class, remap = false)
@@ -74,5 +76,39 @@ public abstract class GeneticsMixin implements GeneticsDuck {
             float geneVal = getGene(Genetics.BREAST);
             cir.setReturnValue(geneVal > 0 ? geneVal : 0.5f);
         }
+    }
+
+    @Inject(method = "writeNbt", at = @At("TAIL"), require = 0)
+    private void onWriteNbt(CompoundTag tag, CallbackInfo ci) {
+        tag.putFloat("mca_inclusive_expressions:left_breast_size", this.leftBreastSize);
+        tag.putFloat("mca_inclusive_expressions:right_breast_size", this.rightBreastSize);
+        tag.putFloat("mca_inclusive_expressions:left_breast_x", this.leftBreastX);
+        tag.putFloat("mca_inclusive_expressions:left_breast_y", this.leftBreastY);
+        tag.putFloat("mca_inclusive_expressions:left_breast_z", this.leftBreastZ);
+        tag.putFloat("mca_inclusive_expressions:right_breast_x", this.rightBreastX);
+        tag.putFloat("mca_inclusive_expressions:right_breast_y", this.rightBreastY);
+        tag.putFloat("mca_inclusive_expressions:right_breast_z", this.rightBreastZ);
+    }
+
+    @Inject(method = "readNbt", at = @At("TAIL"), require = 0)
+    private void onReadNbt(CompoundTag tag, CallbackInfo ci) {
+        tag.getFloat("mca_inclusive_expressions:left_breast_size").ifPresent(val -> this.leftBreastSize = val);
+        tag.getFloat("mca_inclusive_expressions:right_breast_size").ifPresent(val -> this.rightBreastSize = val);
+        tag.getFloat("mca_inclusive_expressions:left_breast_x").ifPresent(val -> this.leftBreastX = val);
+        tag.getFloat("mca_inclusive_expressions:left_breast_y").ifPresent(val -> this.leftBreastY = val);
+        tag.getFloat("mca_inclusive_expressions:left_breast_z").ifPresent(val -> this.leftBreastZ = val);
+        tag.getFloat("mca_inclusive_expressions:right_breast_x").ifPresent(val -> this.rightBreastX = val);
+        tag.getFloat("mca_inclusive_expressions:right_breast_y").ifPresent(val -> this.rightBreastY = val);
+        tag.getFloat("mca_inclusive_expressions:right_breast_z").ifPresent(val -> this.rightBreastZ = val);
+    }
+
+    @Inject(method = "writeToNbt", at = @At("TAIL"), require = 0)
+    private void onWriteToNbt(CompoundTag tag, CallbackInfo ci) {
+        onWriteNbt(tag, ci);
+    }
+
+    @Inject(method = "readFromNbt", at = @At("TAIL"), require = 0)
+    private void onReadFromNbt(CompoundTag tag, CallbackInfo ci) {
+        onReadNbt(tag, ci);
     }
 }
