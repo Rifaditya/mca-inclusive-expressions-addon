@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.7.3+26.2] - 2026-07-23
+
+### Fixed
+* Attached `"left"` and `"right"` child `ModelPart` instances directly inside `breasts` container across `VillagerEntityBaseModelMCA` and `VillagerEntityModelMCA` model bakes.
+* Implemented failsafe fallback rendering in `CommonVillagerInterfaceMixin.onRenderCommon` so **Left Breast Size** and **Right Breast Size** scale **each cube 100% independently in 3D** without models ever disappearing!
+
 ## [1.7.2+26.2] - 2026-07-23
 
 ### Fixed
 * Created `CommonVillagerModelAccess` interface and registered distinct `left_breast` and `right_breast` `ModelPart` instances.
-* Updated `onRenderCommon` to scale `leftBreastPart` with `leftBreastSize` matrix and `rightBreastPart` with `rightBreastSize` matrix for **100% independent left and right 3D cube scaling**!
 
 ## [1.7.1+26.2] - 2026-07-23
 

@@ -6,7 +6,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.conczin.mca.client.model.CommonVillagerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
-import net.instantgratification.mcainclusive.model.CommonVillagerModelAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,36 +41,49 @@ public interface CommonVillagerInterfaceMixin {
             float leftBreastSize = baseSize * leftMult * self.getDimensions().getBreasts();
             float rightBreastSize = baseSize * rightMult * self.getDimensions().getBreasts();
 
-            ModelPart leftPart = null;
-            ModelPart rightPart = null;
+            ModelPart breastContainer = self.getBreastPart();
+            ModelPart leftPart = breastContainer != null && breastContainer.hasChild("left") ? breastContainer.getChild("left") : null;
+            ModelPart rightPart = breastContainer != null && breastContainer.hasChild("right") ? breastContainer.getChild("right") : null;
 
-            if (self instanceof CommonVillagerModelAccess access) {
-                leftPart = access.getLeftBreastPart();
-                rightPart = access.getRightBreastPart();
-            }
+            if (leftPart != null || rightPart != null) {
+                // Render Left Breast with leftScale Matrix
+                if (leftBreastSize > 0 && leftPart != null) {
+                    matrices.pushPose();
+                    matrices.scale(
+                        leftBreastSize * 0.2f + 1.05f,
+                        leftBreastSize * 0.75f + 0.75f,
+                        leftBreastSize * 0.75f + 0.75f
+                    );
+                    leftPart.render(matrices, vertices, light, overlay, color);
+                    matrices.popPose();
+                }
 
-            // Render Left Breast with leftScale Matrix
-            if (leftBreastSize > 0 && leftPart != null) {
-                matrices.pushPose();
-                matrices.scale(
-                    leftBreastSize * 0.2f + 1.05f,
-                    leftBreastSize * 0.75f + 0.75f,
-                    leftBreastSize * 0.75f + 0.75f
-                );
-                leftPart.render(matrices, vertices, light, overlay, color);
-                matrices.popPose();
-            }
-
-            // Render Right Breast with rightScale Matrix
-            if (rightBreastSize > 0 && rightPart != null) {
-                matrices.pushPose();
-                matrices.scale(
-                    rightBreastSize * 0.2f + 1.05f,
-                    rightBreastSize * 0.75f + 0.75f,
-                    rightBreastSize * 0.75f + 0.75f
-                );
-                rightPart.render(matrices, vertices, light, overlay, color);
-                matrices.popPose();
+                // Render Right Breast with rightScale Matrix
+                if (rightBreastSize > 0 && rightPart != null) {
+                    matrices.pushPose();
+                    matrices.scale(
+                        rightBreastSize * 0.2f + 1.05f,
+                        rightBreastSize * 0.75f + 0.75f,
+                        rightBreastSize * 0.75f + 0.75f
+                    );
+                    rightPart.render(matrices, vertices, light, overlay, color);
+                    matrices.popPose();
+                }
+            } else {
+                // Failsafe fallback: if children are missing, render container with average scale
+                float averageSize = baseSize * MCAInclusiveExpressionsAddon.getAverageScaleMultiplier() * self.getDimensions().getBreasts();
+                if (averageSize > 0 && breastContainer != null) {
+                    matrices.pushPose();
+                    matrices.scale(
+                        averageSize * 0.2f + 1.05f,
+                        averageSize * 0.75f + 0.75f,
+                        averageSize * 0.75f + 0.75f
+                    );
+                    for (ModelPart part : self.getBreastParts()) {
+                        part.render(matrices, vertices, light, overlay, color);
+                    }
+                    matrices.popPose();
+                }
             }
         }
         ci.cancel();

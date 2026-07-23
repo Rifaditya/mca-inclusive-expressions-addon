@@ -12,44 +12,26 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
-import net.instantgratification.mcainclusive.model.CommonVillagerModelAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = VillagerEntityBaseModelMCA.class, remap = false)
-public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRenderState> implements CommonVillagerModel<VillagerRenderState>, CommonVillagerModelAccess {
+public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRenderState> implements CommonVillagerModel<VillagerRenderState> {
     @Shadow
     public ModelPart breasts;
     @Shadow
     float breastSize;
 
-    @Unique
-    private ModelPart leftBreastPart;
-    @Unique
-    private ModelPart rightBreastPart;
-
     protected CommonVillagerModelMixin(ModelPart root) {
         super(root);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void onInitTail(ModelPart root, CallbackInfo ci) {
-        if (root.hasChild("left_breast")) {
-            this.leftBreastPart = root.getChild("left_breast");
-        }
-        if (root.hasChild("right_breast")) {
-            this.rightBreastPart = root.getChild("right_breast");
-        }
-    }
-
     @Inject(method = "newBreasts", at = @At("HEAD"), cancellable = true, remap = false)
     private static void onNewBreasts(CubeDeformation dilation, int oy, CallbackInfoReturnable<CubeListBuilder> cir) {
-        // Return empty container for breasts so MCA doesn't bake single wide boxes
+        // Return empty container for breasts so breasts has 0 direct boxes
         cir.setReturnValue(CubeListBuilder.create());
     }
 
@@ -58,26 +40,11 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
         MeshDefinition modelData = cir.getReturnValue();
         if (modelData != null) {
             PartDefinition root = modelData.getRoot();
-            root.addOrReplaceChild("breasts", CubeListBuilder.create(), PartPose.ZERO);
-            // Left Breast Box (pivot X = -1.75F)
-            root.addOrReplaceChild("left_breast", CubeListBuilder.create().texOffs(18, 21).addBox(-1.5F, -1.25F, -1.5F, 2.75F, 3, 3, dilation), PartPose.offset(-1.75F, 0.0F, 0.0F));
-            // Right Breast Box (pivot X = +1.75F)
-            root.addOrReplaceChild("right_breast", CubeListBuilder.create().texOffs(21, 21).addBox(-1.25F, -1.25F, -1.5F, 2.75F, 3, 3, dilation), PartPose.offset(1.75F, 0.0F, 0.0F));
-        }
-    }
-
-    @Inject(method = "setupAnim", at = @At("TAIL"))
-    private void onSetupAnim(VillagerRenderState state, CallbackInfo ci) {
-        if (this.breasts != null) {
-            this.breasts.visible = true;
-        }
-
-        if (this.leftBreastPart != null && this.rightBreastPart != null) {
-            CommonVillagerModel.copyPartState(this.leftBreastPart, this.body);
-            CommonVillagerModel.copyPartState(this.rightBreastPart, this.body);
-
-            this.leftBreastPart.x += -1.75F;
-            this.rightBreastPart.x += 1.75F;
+            PartDefinition breasts = root.addOrReplaceChild("breasts", CubeListBuilder.create(), PartPose.ZERO);
+            // Left Breast Box (width 3, height 3, depth 3) inside breasts
+            breasts.addOrReplaceChild("left", CubeListBuilder.create().texOffs(18, 21).addBox(-3.25F, -1.25F, -1.5F, 3, 3, 3, dilation), PartPose.ZERO);
+            // Right Breast Box (width 3, height 3, depth 3) inside breasts
+            breasts.addOrReplaceChild("right", CubeListBuilder.create().texOffs(21, 21).addBox(0.25F, -1.25F, -1.5F, 3, 3, 3, dilation), PartPose.ZERO);
         }
     }
 
@@ -89,15 +56,5 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
             baseSize = 0.5f;
         }
         cir.setReturnValue(baseSize * multiplier);
-    }
-
-    @Override
-    public ModelPart getLeftBreastPart() {
-        return this.leftBreastPart;
-    }
-
-    @Override
-    public ModelPart getRightBreastPart() {
-        return this.rightBreastPart;
     }
 }
