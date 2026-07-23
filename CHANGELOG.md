@@ -7,14 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0+26.2] - 2026-07-23
+
+### Added
+* Injected a native **Cleavage Angle Slider** directly into MCA's in-game **Villager Editor Screen** (`VillagerEditorScreen`) under the `Character -> Body` tab via `VillagerEditorScreenMixin`.
+* Real-time preview model updating when adjusting cleavage angle sliders inside MCA's character customization GUI.
+
 ## [1.1.0+26.2] - 2026-07-23
 
 ### Added
 * Integrated in-game **ModMenu & YACL Config Screen** (`ModMenuIntegration` and `ConfigScreenHelper`).
-  - Interactive slider for Chest Scale Multiplier (10% to 1000%).
-  - Interactive slider for Cleavage Separation Angle (0° to 30°).
-  - Toggle switch for Gender-Inclusive Representation.
-* Implemented **Dual-Mesh Outward Cleavage System** with customizable separation angles.
+* Implemented **Dual-Mesh Outward Cleavage System** with customizable separation angles (`DualBreastModelPart`).
 * Added GameRule `mca_inclusive_expressions:cleavage_angle` (default `6` degrees).
 
 ## [1.0.0+26.2] - 2026-07-23
@@ -22,8 +25,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * Initial release of **MCA Inclusive Expressions Addon** for Minecraft 26.2+.
 * Dynamic 2.0x chest scaling multiplier for MCA character models.
-* Gender-inclusive body customization feature allowing male and neutral characters to feature chest scaling when enabled by server admins.
-* Registered GameRules:
-  - `mca_inclusive_expressions:scale` (default `200` = 2.0x, range `10` to `1000`).
-  - `mca_inclusive_expressions:allow_all_genders` (boolean, default **`false`** — OFF by default).
-* Added zero-dependency `ModVersionGuard` check on startup.
+* Gender-inclusive body customization feature.

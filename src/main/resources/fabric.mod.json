@@ -3,7 +3,7 @@
   "id": "mca_inclusive_expressions_addon",
   "version": "${version}",
   "name": "MCA Inclusive Expressions Addon",
-  "description": "Instant Gratification addon for MCA Reborn (Minecraft Comes Alive) providing dual-mesh model separation, cleavage angle controls, and gender-inclusive body feature customization.",
+  "description": "Instant Gratification addon for MCA Reborn (Minecraft Comes Alive) providing native in-game Villager Editor GUI cleavage angle controls, dual-mesh model separation, and gender-inclusive body feature customization.",
   "authors": [
     "Dasik (Rifaditya)"
   ],
