@@ -36,9 +36,9 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
                 new GameRule<>(
                     GameRuleCategory.MISC,
                     GameRuleType.INT,
-                    IntegerArgumentType.integer(10, 1000),
+                    IntegerArgumentType.integer(0, 1000),
                     GameRuleTypeVisitor::visitInteger,
-                    Codec.intRange(10, 1000),
+                    Codec.intRange(0, 1000),
                     i -> i,
                     200,
                     FeatureFlagSet.of()
@@ -63,7 +63,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v1.4.0+26.2 with dedicated Breast sub-tabs, chest scale controls, and ModMenu settings.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v1.5.1+26.2 with 0%-1000% breast size slider range and ModMenu settings.");
     }
 
     public static float getScaleMultiplier() {

@@ -12,13 +12,13 @@ public class ConfigScreenHelper {
     public static Screen createYaclScreen(Screen parent) {
         Option<Integer> scaleOption = Option.<Integer>createBuilder()
             .name(Component.literal("Chest Scale Multiplier (%)"))
-            .description(OptionDescription.of(Component.literal("Sets the scaling multiplier for villager chest feature models (10% to 1000%). Default: 200%")))
+            .description(OptionDescription.of(Component.literal("Sets the scaling multiplier for villager chest feature models (0% to 1000%). Default: 200%")))
             .binding(
                 200,
                 () -> (int) (MCAInclusiveExpressionsAddon.defaultMultiplier * 100),
                 newVal -> MCAInclusiveExpressionsAddon.defaultMultiplier = newVal / 100.0
             )
-            .controller(opt -> IntegerFieldControllerBuilder.create(opt).range(10, 1000))
+            .controller(opt -> IntegerFieldControllerBuilder.create(opt).range(0, 1000))
             .build();
 
         Option<Boolean> genderOption = Option.<Boolean>createBuilder()

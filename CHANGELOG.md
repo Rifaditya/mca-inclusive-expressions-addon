@@ -7,16 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.5.1+26.2] - 2026-07-23
+
+### Changed
+* Extended **`Breast Size: X%`** slider minimum range from `10%` to **`0%`** (`0%` to `1000%`) across the Villager Editor GUI, GameRules, and ModMenu config screen.
+* Sliding to `0%` scales chest feature models down completely to flat (`0.0`).
+
 ## [1.5.0+26.2] - 2026-07-23
 
 ### Changed
 * Unified base genetics `Breast` gene slider and `Chest Scale` multiplier into **ONE single, intuitive `Breast Size: X%` slider** (10% to 1000%) inside the dedicated **`Breast` Sub-Tab**.
-* Moving the single `Breast Size` slider automatically updates both genetics and scale multipliers with real-time 3D preview model updates.
 
 ## [1.4.1+26.2] - 2026-07-23
 
 ### Changed
-* Removed duplicate `Breast` gene slider from MCA's `Body` sub-tab and expanded `Skin: Natural` mode button to full width (`DATA_WIDTH`).
+* Removed duplicate `Breast` gene slider from MCA's `Body` sub-tab.
 
 ## [1.4.0+26.2] - 2026-07-23
 

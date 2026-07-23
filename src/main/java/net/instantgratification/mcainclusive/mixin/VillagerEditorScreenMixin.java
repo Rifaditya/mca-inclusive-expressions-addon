@@ -98,7 +98,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             int x = this.width / 2;
             int widgetWidth = DATA_WIDTH;
 
-            // Single Unified Breast Size Slider (10% to 1000%)
+            // Single Unified Breast Size Slider (0% to 1000%)
             int currentSizePct = (int) (MCAInclusiveExpressionsAddon.defaultMultiplier * 100);
             this.addRenderableWidget(new IntegerSliderWidget(
                 x,
@@ -106,7 +106,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 widgetWidth,
                 20,
                 currentSizePct,
-                10,
+                0,
                 1000,
                 val -> {
                     MCAInclusiveExpressionsAddon.defaultMultiplier = val / 100.0;
