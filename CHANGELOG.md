@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.1+26.2] - 2026-07-23
+
+### Fixed
+* Fixed GUI widget overlap in MCA's **Villager Editor Screen** (`VillagerEditorScreen`) by placing `Breast` and `Angle` sliders side-by-side with 4px padding on Row 4.
+* Implemented body translation inheritance (`this.getBodyPart().translateAndRotate(matrices)`) for dual-cube cleavage rendering to prevent floating geometry during crouching, sleeping, or riding.
+
 ## [1.2.0+26.2] - 2026-07-23
 
 ### Added
 * Injected a native **Cleavage Angle Slider** directly into MCA's in-game **Villager Editor Screen** (`VillagerEditorScreen`) under the `Character -> Body` tab via `VillagerEditorScreenMixin`.
-* Real-time preview model updating when adjusting cleavage angle sliders inside MCA's character customization GUI.
 
 ## [1.1.0+26.2] - 2026-07-23
 
@@ -24,5 +29,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * Initial release of **MCA Inclusive Expressions Addon** for Minecraft 26.2+.
-* Dynamic 2.0x chest scaling multiplier for MCA character models.
-* Gender-inclusive body customization feature.

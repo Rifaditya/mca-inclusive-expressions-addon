@@ -24,14 +24,14 @@ public abstract class VillagerEditorScreenMixin extends Screen {
     @Inject(method = "setPage", at = @At("TAIL"))
     private void onSetPageTail(String page, CallbackInfo ci) {
         if ("body".equals(page)) {
-            int x = this.width / 2;
-            int y = this.height / 2 - 80 + 24 + 4 + 24; // Positioned right under the Breast & Skin mode controls
-            int widgetWidth = DATA_WIDTH;
+            int leftX = this.width / 2 + DATA_WIDTH / 2 + 2;
+            int y = this.height / 2 - 80 + 24 + 4 + 24; // Row 4 right-half position
+            int widgetWidth = DATA_WIDTH / 2 - 2;
 
             int currentAngle = MCAInclusiveExpressionsAddon.getCleavageAngle();
 
             this.addRenderableWidget(new IntegerSliderWidget(
-                x,
+                leftX,
                 y,
                 widgetWidth,
                 20,
@@ -39,7 +39,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 0,
                 30,
                 val -> MCAInclusiveExpressionsAddon.defaultCleavageAngle = val,
-                val -> Component.literal("Cleavage Angle: " + val + "°"),
+                val -> Component.literal("Angle: " + val + "°"),
                 () -> Component.literal("Adjusts outward cleavage separation angle for dual-mesh breasts")
             ));
         }
