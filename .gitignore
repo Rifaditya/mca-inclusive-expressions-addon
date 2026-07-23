@@ -1,0 +1,14 @@
+.gradle/
+build/
+bin/
+out/
+.idea/
+*.iml
+.vscode/
+*.ipr
+*.iws
+
+# Binary & Archive exclusion law
+Archive/
+Archive Jar of all versions/
+*.jar
