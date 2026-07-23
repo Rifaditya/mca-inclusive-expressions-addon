@@ -7,22 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.6.1+26.2] - 2026-07-23
+
+### Changed
+* Injected into `VillagerEntityBaseModelMCA.newBreasts` to physically split MCA's single 6x3x3 chest box into **two distinct 3x3x3 cubes** (**Left Breast** and **Right Breast**).
+* Displays **2 separate 3D rectangles** on the villager model in both the editor preview and in-game!
+
 ## [1.6.0+26.2] - 2026-07-23
 
 ### Added
 * Split chest models into independent **Left Breast** and **Right Breast** controls with linked/unlinked asymmetric customization.
 * Set default slider range to **`0%` to `200%`** (standard size `100%`).
-* Added in-GUI **Max Scale Limit** toggle button (`200%`, `300%`, `500%`, `1000%`) allowing players to cycle slider upper limits on demand.
+* Added in-GUI **Max Scale Limit** toggle button (`200%`, `300%`, `500%`, `1000%`).
 
 ## [1.5.1+26.2] - 2026-07-23
 
 ### Changed
-* Extended **`Breast Size: X%`** slider minimum range from `10%` to **`0%`** (`0%` to `1000%`) across the Villager Editor GUI, GameRules, and ModMenu config screen.
+* Extended **`Breast Size: X%`** slider minimum range from `10%` to **`0%`** (`0%` to `1000%`).
 
 ## [1.5.0+26.2] - 2026-07-23
 
 ### Changed
-* Unified base genetics `Breast` gene slider and `Chest Scale` multiplier into **ONE single, intuitive `Breast Size: X%` slider** (10% to 1000%) inside the dedicated **`Breast` Sub-Tab**.
+* Unified base genetics `Breast` gene slider and `Chest Scale` multiplier into **ONE single `Breast Size: X%` slider** (10% to 1000%) inside the dedicated **`Breast` Sub-Tab**.
 
 ## [1.4.1+26.2] - 2026-07-23
 
@@ -32,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.4.0+26.2] - 2026-07-23
 
 ### Changed
-* Streamlined and redone addon architecture: removed dual breast models and cleavage angle calculations entirely.
+* Streamlined and redone addon architecture: removed dual breast models and cleavage angle calculations.
 
 ## [1.3.1+26.2] - 2026-07-23
 

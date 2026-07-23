@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `1.6.1+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-1.6.1+26.2.jar`
+* **Changes**:
+  - Injected into `VillagerEntityBaseModelMCA.newBreasts` to split MCA's single 6x3x3 box into two distinct 3x3x3 cubes (Left & Right Breast) for true 2-rectangle 3D model rendering.
+
+---
+
 ### Release `1.6.0+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.6.0+26.2.jar`
