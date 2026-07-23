@@ -11,6 +11,7 @@ import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
 import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,6 +19,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +78,44 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             }
         } catch (Throwable ignored) {
         }
+    }
+
+    @Inject(method = "createEditorData", at = @At("TAIL"), cancellable = true, remap = false)
+    private void onCreateEditorData(CallbackInfoReturnable<CompoundTag> cir) {
+        CompoundTag tag = cir.getReturnValue();
+        if (tag == null) {
+            tag = new CompoundTag();
+        }
+
+        GeneticsDuck src = null;
+        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+            src = duck;
+        } else if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+            src = duck;
+        }
+
+        if (src != null) {
+            tag.putFloat("mca_inclusive_expressions:left_breast_size", src.getLeftBreastSize());
+            tag.putFloat("mca_inclusive_expressions:right_breast_size", src.getRightBreastSize());
+
+            tag.putFloat("mca_inclusive_expressions:left_breast_x", src.getLeftBreastX());
+            tag.putFloat("mca_inclusive_expressions:left_breast_y", src.getLeftBreastY());
+            tag.putFloat("mca_inclusive_expressions:left_breast_z", src.getLeftBreastZ());
+
+            tag.putFloat("mca_inclusive_expressions:right_breast_x", src.getRightBreastX());
+            tag.putFloat("mca_inclusive_expressions:right_breast_y", src.getRightBreastY());
+            tag.putFloat("mca_inclusive_expressions:right_breast_z", src.getRightBreastZ());
+
+            tag.putFloat("mca_inclusive_expressions:left_breast_pitch", src.getLeftBreastPitch());
+            tag.putFloat("mca_inclusive_expressions:left_breast_yaw", src.getLeftBreastYaw());
+            tag.putFloat("mca_inclusive_expressions:left_breast_roll", src.getLeftBreastRoll());
+
+            tag.putFloat("mca_inclusive_expressions:right_breast_pitch", src.getRightBreastPitch());
+            tag.putFloat("mca_inclusive_expressions:right_breast_yaw", src.getRightBreastYaw());
+            tag.putFloat("mca_inclusive_expressions:right_breast_roll", src.getRightBreastRoll());
+        }
+
+        cir.setReturnValue(tag);
     }
 
     @Inject(method = "init", at = @At("TAIL"))

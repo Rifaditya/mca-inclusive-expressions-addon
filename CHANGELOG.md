@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.2.0+26.2] - 2026-07-23
+
+### Fixed
+* **Character Editor Save Engine (Villagers & Players)**: Injected into `VillagerEditorScreen.createEditorData()` to package all 14 3D parameters into the outgoing C2S network packet, and created `VillagerEditorSyncRequestMixin` to whitelist `mca_inclusive_expressions:*` keys on the server. This guarantees permanent save persistence for both Villagers and Player models upon pressing the "Done" button!
+
 ## [2.1.4+26.2] - 2026-07-23
 
 ### Fixed

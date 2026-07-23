@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.2.0+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.2.0+26.2.jar`
+* **Changes**:
+  - Injected into VillagerEditorScreen.createEditorData() to package all 14 3D parameters into the outgoing C2S network packet, and created VillagerEditorSyncRequestMixin to whitelist mca_inclusive_expressions:* keys on the server. This guarantees permanent save persistence for both Villagers and Player models upon pressing the "Done" button!
+
+---
+
 ### Release `2.1.4+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.1.4+26.2.jar`
