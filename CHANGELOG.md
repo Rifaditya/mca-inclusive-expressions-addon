@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.7.4+26.2] - 2026-07-23
+
+### Fixed
+* Corrected method descriptor for `onBodyData` in `VillagerEntityModelMixin` to `(CubeDeformation)` resolving `InvalidInjectionException` startup crash.
+
 ## [1.7.3+26.2] - 2026-07-23
 
 ### Fixed
 * Attached `"left"` and `"right"` child `ModelPart` instances directly inside `breasts` container across `VillagerEntityBaseModelMCA` and `VillagerEntityModelMCA` model bakes.
-* Implemented failsafe fallback rendering in `CommonVillagerInterfaceMixin.onRenderCommon` so **Left Breast Size** and **Right Breast Size** scale **each cube 100% independently in 3D** without models ever disappearing!
 
 ## [1.7.2+26.2] - 2026-07-23
 

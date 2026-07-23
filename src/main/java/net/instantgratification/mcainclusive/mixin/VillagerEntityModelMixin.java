@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class VillagerEntityModelMixin {
 
     @Inject(method = "bodyData", at = @At("RETURN"), remap = false)
-    private static void onBodyData(CubeDeformation dilation, boolean slim, CallbackInfoReturnable<MeshDefinition> cir) {
+    private static void onBodyData(CubeDeformation dilation, CallbackInfoReturnable<MeshDefinition> cir) {
         MeshDefinition modelData = cir.getReturnValue();
         if (modelData != null) {
             PartDefinition root = modelData.getRoot();
