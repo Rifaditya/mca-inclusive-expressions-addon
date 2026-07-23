@@ -24,7 +24,17 @@ public interface CommonVillagerInterfaceMixin {
     private void onRenderCommon(PoseStack matrices, VertexConsumer vertices, int light, int overlay, int color, CallbackInfo ci) {
         CommonVillagerModel<?> self = (CommonVillagerModel<?>) this;
 
-        // Render Breasts ONLY (Head, Body, Arms, Legs, Clothing, and Hair are rendered natively by MCA)
+        // 1. Render Head Parts (Head, Hair, Eyes, Glasses, Hat)
+        float headSize = self.getDimensions().getHead();
+        matrices.pushPose();
+        matrices.scale(headSize, headSize, headSize);
+        self.getCommonHeadParts().forEach(part -> part.render(matrices, vertices, light, overlay, color));
+        matrices.popPose();
+
+        // 2. Render Body Parts (Body, Shirt, Jacket)
+        self.getCommonBodyParts().forEach(part -> part.render(matrices, vertices, light, overlay, color));
+
+        // 3. Render Breasts (Custom 3D Dual-Breast System with 0%-100% Size, 6-Axis Orthogonal Position, 3-Axis Euler Rotation)
         if (self.getBreastPart().visible && self.getBodyPart().visible) {
             float leftMult = MCAInclusiveExpressionsAddon.getLeftScaleMultiplier();
             float rightMult = MCAInclusiveExpressionsAddon.getRightScaleMultiplier();
@@ -200,6 +210,7 @@ public interface CommonVillagerInterfaceMixin {
                 matrices.popPose();
             }
         }
+
         ci.cancel();
     }
 }
