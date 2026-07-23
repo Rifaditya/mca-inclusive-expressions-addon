@@ -94,26 +94,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             ));
             y += 24;
 
-            // 2. Cleavage Angle Slider
-            int currentAngle = MCAInclusiveExpressionsAddon.getCleavageAngle();
-            this.addRenderableWidget(new IntegerSliderWidget(
-                x,
-                y,
-                widgetWidth,
-                20,
-                currentAngle,
-                0,
-                30,
-                val -> {
-                    MCAInclusiveExpressionsAddon.defaultCleavageAngle = val;
-                    refreshPreviewDimensions();
-                },
-                val -> Component.literal("Cleavage Angle: " + val + "°"),
-                () -> Component.literal("Adjusts outward cleavage separation angle for dual-mesh breasts")
-            ));
-            y += 24;
-
-            // 3. Gender Representation Inclusivity Toggle
+            // 2. Gender Representation Inclusivity Toggle
             boolean allowAll = MCAInclusiveExpressionsAddon.isAllowAllGenders();
             this.addRenderableWidget(new ButtonWidget(
                 x,

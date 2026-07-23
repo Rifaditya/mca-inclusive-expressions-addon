@@ -4,7 +4,6 @@ package net.instantgratification.mcainclusive.mixin;
 import net.conczin.mca.client.model.CommonVillagerModel;
 import net.conczin.mca.client.model.VillagerEntityBaseModelMCA;
 import net.conczin.mca.client.render.VillagerRenderState;
-import net.minecraft.client.model.geom.ModelPart;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,16 +29,8 @@ public abstract class CommonVillagerModelMixin implements CommonVillagerModel<Ob
 
     @Inject(method = "setupAnim", at = @At("TAIL"))
     private void onSetupAnim(VillagerRenderState state, CallbackInfo ci) {
-        int cleavageAngle = MCAInclusiveExpressionsAddon.getCleavageAngle();
-        float radAngle = (float) Math.toRadians(cleavageAngle);
-
-        boolean allowAll = MCAInclusiveExpressionsAddon.isAllowAllGenders();
-        if (allowAll) {
+        if (MCAInclusiveExpressionsAddon.isAllowAllGenders()) {
             getBreastPart().visible = true;
-        }
-
-        for (ModelPart part : getBreastParts()) {
-            part.yRot = radAngle;
         }
     }
 }

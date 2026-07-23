@@ -2,43 +2,51 @@
 package net.instantgratification.mcainclusive.client;
 
 import dev.isxander.yacl3.api.*;
-import dev.isxander.yacl3.api.controller.BooleanControllerBuilder;
-import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import dev.isxander.yacl3.api.controller.IntegerFieldControllerBuilder;
+import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-@Environment(EnvType.CLIENT)
 public class ConfigScreenHelper {
     public static Screen createYaclScreen(Screen parent) {
-        return YetAnotherConfigLib.createBuilder()
-            .title(Component.literal("MCA Inclusive Expressions Settings"))
+        Option<Integer> scaleOption = Option.<Integer>createBuilder()
+            .name(Component.literal("Chest Scale Multiplier (%)"))
+            .description(OptionDescription.of(Component.literal("Sets the scaling multiplier for villager chest feature models (10% to 1000%). Default: 200%")))
+            .binding(
+                200,
+                () -> (int) (MCAInclusiveExpressionsAddon.defaultMultiplier * 100),
+                newVal -> MCAInclusiveExpressionsAddon.defaultMultiplier = newVal / 100.0
+            )
+            .controller(opt -> IntegerFieldControllerBuilder.create(opt).range(10, 1000))
+            .build();
+
+        Option<Boolean> genderOption = Option.<Boolean>createBuilder()
+            .name(Component.literal("Allow All Genders"))
+            .description(OptionDescription.of(Component.literal("Allows male and unassigned villagers to display chest feature customization options.")))
+            .binding(
+                false,
+                () -> MCAInclusiveExpressionsAddon.allowAllGenders,
+                newVal -> MCAInclusiveExpressionsAddon.allowAllGenders = newVal
+            )
+            .controller(TickBoxControllerBuilder::create)
+            .build();
+
+        OptionGroup mainGroup = OptionGroup.createBuilder()
+            .name(Component.literal("Chest Feature Customization Settings"))
+            .option(scaleOption)
+            .option(genderOption)
+            .build();
+
+        YetAnotherConfigLib configLib = YetAnotherConfigLib.createBuilder()
+            .title(Component.literal("MCA Inclusive Expressions Addon Config"))
             .category(ConfigCategory.createBuilder()
-                .name(Component.literal("General Settings"))
-                .option(Option.<Integer>createBuilder()
-                    .name(Component.literal("Chest Scale Multiplier (%)"))
-                    .description(OptionDescription.of(Component.literal("Adjusts the maximum breast feature scale multiplier (100 = 1.0x, 200 = 2.0x).")))
-                    .binding(
-                        200,
-                        () -> (int) (MCAInclusiveExpressionsAddon.getScaleMultiplier() * 100),
-                        val -> MCAInclusiveExpressionsAddon.defaultMultiplier = val / 100.0
-                    )
-                    .controller(opt -> IntegerSliderControllerBuilder.create(opt).range(10, 1000).step(10))
-                    .build())
-                .option(Option.<Boolean>createBuilder()
-                    .name(Component.literal("Gender-Inclusive Representation"))
-                    .description(OptionDescription.of(Component.literal("Enables chest feature rendering and genetics for male and neutral character models.")))
-                    .binding(
-                        false,
-                        MCAInclusiveExpressionsAddon::isAllowAllGenders,
-                        val -> { }
-                    )
-                    .controller(BooleanControllerBuilder::create)
-                    .build())
+                .name(Component.literal("General"))
+                .group(mainGroup)
                 .build())
-            .build()
-            .generateScreen(parent);
+            .save(() -> MCAInclusiveExpressionsAddon.LOGGER.info("[MCA Inclusive Expressions Addon] Config saved."))
+            .build();
+
+        return configLib.generateScreen(parent);
     }
 }
