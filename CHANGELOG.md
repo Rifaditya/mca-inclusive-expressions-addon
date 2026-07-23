@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.0.1+26.2] - 2026-07-23
+
+### Fixed
+* **Calibrated 1:1 Normal Scale Calibration**: Eliminated MCA's internal `getBreastSize() * getBreasts()` sub-fraction multiplication (`0.25f * 0.20f = 0.05f`) so that `99%` / `100%` renders at full 1.0x normal MCA size, `200%` renders at 2.0x, and `500%` renders at 5.0x massive size.
+
 ## [2.0.0+26.2] - 2026-07-23
 
 ### Changed

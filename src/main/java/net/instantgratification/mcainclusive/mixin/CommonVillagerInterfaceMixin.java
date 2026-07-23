@@ -32,13 +32,8 @@ public interface CommonVillagerInterfaceMixin {
         // Body
         self.getCommonBodyParts().forEach(a -> a.render(matrices, vertices, light, overlay, color));
 
-        // Breasts (Direct 1:1 Linear Matrix Scaling with MCA's native -35° angle!)
+        // Breasts (Calibrated 1:1 Normal Scale Matrix Scaling with MCA's native -35° angle!)
         if (self.getBreastPart().visible && self.getBodyPart().visible) {
-            float baseSize = self.getBreastSize();
-            if (baseSize == 0 && MCAInclusiveExpressionsAddon.isAllowAllGenders()) {
-                baseSize = 0.5f;
-            }
-
             float leftMult = MCAInclusiveExpressionsAddon.getLeftScaleMultiplier();
             float rightMult = MCAInclusiveExpressionsAddon.getRightScaleMultiplier();
             float leftX = 0.0f, leftY = 0.0f, leftZ = 0.0f;
@@ -55,9 +50,9 @@ public interface CommonVillagerInterfaceMixin {
                 rightZ = duck.getRenderRightZ();
             }
 
-            // Direct linear 1:1 scaling (100% = 1.0x, 500% = 5.0x, 1000% = 10.0x)
-            float leftBreastSize = baseSize * leftMult * self.getDimensions().getBreasts();
-            float rightBreastSize = baseSize * rightMult * self.getDimensions().getBreasts();
+            // Calibrated 1:1 scale (100% = 1.0x normal size, 99% = 0.99x, 500% = 5.0x, 1000% = 10.0x)
+            float leftBreastSize = leftMult;
+            float rightBreastSize = rightMult;
 
             for (ModelPart part : self.getBreastParts()) {
                 if (part == null || !part.visible || part.skipDraw) continue;
@@ -69,7 +64,7 @@ public interface CommonVillagerInterfaceMixin {
                 ModelPartAccessor partAccess = (ModelPartAccessor) (Object) part;
                 List<ModelPart.Cube> cubes = partAccess.getCubes();
                 if (cubes != null && cubes.size() >= 2) {
-                    // Render Left Breast Cube (Index 0) with direct 1:1 linear scale and 3D translation
+                    // Render Left Breast Cube (Index 0) with 1:1 scale and 3D translation
                     if (leftBreastSize > 0) {
                         matrices.pushPose();
                         matrices.translate(leftX, leftY, leftZ);
@@ -78,7 +73,7 @@ public interface CommonVillagerInterfaceMixin {
                         matrices.popPose();
                     }
 
-                    // Render Right Breast Cube (Index 1) with direct 1:1 linear scale and 3D translation
+                    // Render Right Breast Cube (Index 1) with 1:1 scale and 3D translation
                     if (rightBreastSize > 0) {
                         matrices.pushPose();
                         matrices.translate(rightX, rightY, rightZ);
