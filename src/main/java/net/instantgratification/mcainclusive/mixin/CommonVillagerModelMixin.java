@@ -54,10 +54,10 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
             PartDefinition root = modelData.getRoot();
             // Container breasts part with 0 cubes so renderCommon visibility check passes
             root.addOrReplaceChild("breasts", CubeListBuilder.create(), PartPose.ZERO);
-            // Left Breast Box (width 3, height 3, depth 3)
-            root.addOrReplaceChild("left_breast", CubeListBuilder.create().texOffs(18, 21).addBox(-3.25F, -1.25F, -1.5F, 3, 3, 3, dilation), PartPose.ZERO);
-            // Right Breast Box (width 3, height 3, depth 3)
-            root.addOrReplaceChild("right_breast", CubeListBuilder.create().texOffs(21, 21).addBox(0.25F, -1.25F, -1.5F, 3, 3, 3, dilation), PartPose.ZERO);
+            // Left Breast Box (pivot at X = -1.75F)
+            root.addOrReplaceChild("left_breast", CubeListBuilder.create().texOffs(18, 21).addBox(-1.5F, -1.25F, -1.5F, 2.75F, 3, 3, dilation), PartPose.offset(-1.75F, 0.0F, 0.0F));
+            // Right Breast Box (pivot at X = +1.75F)
+            root.addOrReplaceChild("right_breast", CubeListBuilder.create().texOffs(21, 21).addBox(-1.25F, -1.25F, -1.5F, 2.75F, 3, 3, dilation), PartPose.offset(1.75F, 0.0F, 0.0F));
         }
     }
 
@@ -72,6 +72,10 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
             // Copy body transforms using MCA's copyPartState helper
             CommonVillagerModel.copyPartState(this.leftBreastPart, this.body);
             CommonVillagerModel.copyPartState(this.rightBreastPart, this.body);
+
+            // Re-apply pivot offsets relative to body
+            this.leftBreastPart.x += -1.75F;
+            this.rightBreastPart.x += 1.75F;
 
             float baseSize = this.breastSize;
             if (baseSize == 0 && MCAInclusiveExpressionsAddon.isAllowAllGenders()) {

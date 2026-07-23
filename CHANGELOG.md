@@ -7,15 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.6.4+26.2] - 2026-07-23
+
+### Fixed
+* Assigned separate `PartPose` pivot offsets to `left_breast` (`X = -1.75F`) and `right_breast` (`X = +1.75F`), ensuring each breast cube scales outward from its own center.
+* Preserved a permanent cleavage separation gap so breasts **ALWAYS render as 2 distinct 3D cubes** under all scale sizes (`0%` to `1000%`).
+
 ## [1.6.3+26.2] - 2026-07-23
 
 ### Fixed
-* Fixed render gate condition in `CommonVillagerModelMixin` by ensuring container `breasts.visible` remains `true` so MCA's `renderCommon` method enters the `getBreastParts()` loop for `left_breast` and `right_breast` 3D model parts.
+* Fixed render gate condition in `CommonVillagerModelMixin` by ensuring container `breasts.visible` remains `true`.
 
 ## [1.6.2+26.2] - 2026-07-23
 
 ### Changed
-* Created separate `left_breast` and `right_breast` `ModelPart` instances, allowing **Left Breast Size** and **Right Breast Size** sliders to scale **each individual 3D cube 100% independently**.
+* Created separate `left_breast` and `right_breast` `ModelPart` instances.
 
 ## [1.6.1+26.2] - 2026-07-23
 
