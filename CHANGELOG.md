@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.1+26.2] - 2026-07-23
+
+### Fixed
+* **GUI Real-Time Preview Synchronization**: Implemented automatic genetics parameter synchronization from `villager` to `villagerVisualization` upon GUI screen initialization (`init` & `setPage`), eliminating the visual disconnect between real in-world entity size and GUI 3D preview model size.
+
 ## [2.1.0+26.2] - 2026-07-23
 
 ### Added

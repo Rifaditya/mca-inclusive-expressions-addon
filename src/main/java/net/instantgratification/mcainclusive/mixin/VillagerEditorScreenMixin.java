@@ -39,6 +39,32 @@ public abstract class VillagerEditorScreenMixin extends Screen {
         super(title);
     }
 
+    @Unique
+    private void syncPreviewGenetics() {
+        if (villager != null && villagerVisualization != null) {
+            if (villager.getGenetics() instanceof GeneticsDuck src && villagerVisualization.getGenetics() instanceof GeneticsDuck dst) {
+                dst.setLeftBreastSize(src.getLeftBreastSize());
+                dst.setRightBreastSize(src.getRightBreastSize());
+
+                dst.setLeftBreastX(src.getLeftBreastX());
+                dst.setLeftBreastY(src.getLeftBreastY());
+                dst.setLeftBreastZ(src.getLeftBreastZ());
+
+                dst.setRightBreastX(src.getRightBreastX());
+                dst.setRightBreastY(src.getRightBreastY());
+                dst.setRightBreastZ(src.getRightBreastZ());
+
+                dst.setLeftBreastPitch(src.getLeftBreastPitch());
+                dst.setLeftBreastYaw(src.getLeftBreastYaw());
+                dst.setLeftBreastRoll(src.getLeftBreastRoll());
+
+                dst.setRightBreastPitch(src.getRightBreastPitch());
+                dst.setRightBreastYaw(src.getRightBreastYaw());
+                dst.setRightBreastRoll(src.getRightBreastRoll());
+            }
+        }
+    }
+
     private void refreshPreviewDimensions() {
         try {
             if (villager != null) {
@@ -49,6 +75,11 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             }
         } catch (Throwable ignored) {
         }
+    }
+
+    @Inject(method = "init", at = @At("TAIL"))
+    private void onInitTail(CallbackInfo ci) {
+        syncPreviewGenetics();
     }
 
     @Inject(method = "addCharacterSubpageTabs", at = @At("HEAD"), cancellable = true)
@@ -75,6 +106,8 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
     @Inject(method = "setPage", at = @At("TAIL"))
     private void onSetPageTail(String page, CallbackInfo ci) {
+        syncPreviewGenetics();
+
         if ("body".equals(page)) {
             // Remove duplicate Breast slider from Body tab and expand Skin Mode button to full DATA_WIDTH
             List<AbstractWidget> toRemove = new ArrayList<>();
@@ -185,6 +218,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         MCAInclusiveExpressionsAddon.linkSliders = !MCAInclusiveExpressionsAddon.linkSliders;
                         if (MCAInclusiveExpressionsAddon.linkSliders) {
                             float leftVal = (float) MCAInclusiveExpressionsAddon.defaultLeftMultiplier;
+                            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) leftVal = duck.getLeftBreastSize();
                             MCAInclusiveExpressionsAddon.defaultRightMultiplier = leftVal;
                             if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastSize(leftVal);
                             if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastSize(leftVal);
@@ -358,8 +392,8 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                     leftColX, y, halfWidth, 20, curLeftRoll, -90, 90,
                     val -> {
                         float angle = (float) val;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastRoll(angle);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastRoll(angle);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastPitch(angle);
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastPitch(angle);
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Roll (Z): " + (val >= 0 ? "+" : "") + val + "°"),
