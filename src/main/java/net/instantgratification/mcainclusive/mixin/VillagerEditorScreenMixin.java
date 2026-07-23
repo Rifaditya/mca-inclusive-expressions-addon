@@ -6,9 +6,9 @@ import net.conczin.mca.client.gui.widget.GeneSliderWidget;
 import net.conczin.mca.client.gui.widget.IntegerSliderWidget;
 import net.conczin.mca.client.gui.widget.TooltipButtonWidget;
 import net.conczin.mca.entity.VillagerEntityMCA;
-import net.conczin.mca.entity.ai.Genetics;
 import net.conczin.mca.util.compat.ButtonWidget;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
+import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -101,6 +101,9 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
             // 1. Left Breast Size Slider
             int currentLeftPct = (int) (MCAInclusiveExpressionsAddon.defaultLeftMultiplier * 100);
+            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                currentLeftPct = (int) (duck.getLeftBreastSize() * 100.0f);
+            }
             this.addRenderableWidget(new IntegerSliderWidget(
                 x,
                 y,
@@ -110,16 +113,19 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 0,
                 maxLimit,
                 val -> {
-                    MCAInclusiveExpressionsAddon.defaultLeftMultiplier = val / 100.0;
-                    if (MCAInclusiveExpressionsAddon.linkSliders) {
-                        MCAInclusiveExpressionsAddon.defaultRightMultiplier = val / 100.0;
+                    float scale = val / 100.0f;
+                    MCAInclusiveExpressionsAddon.defaultLeftMultiplier = scale;
+                    if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                        duck.setLeftBreastSize(scale);
+                        if (MCAInclusiveExpressionsAddon.linkSliders) {
+                            duck.setRightBreastSize(scale);
+                        }
                     }
-                    float geneVal = (float) (val / (double) maxLimit);
-                    if (villager != null) {
-                        villager.getGenetics().setGene(Genetics.BREAST, geneVal);
-                    }
-                    if (villagerVisualization != null) {
-                        villagerVisualization.getGenetics().setGene(Genetics.BREAST, geneVal);
+                    if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                        duck.setLeftBreastSize(scale);
+                        if (MCAInclusiveExpressionsAddon.linkSliders) {
+                            duck.setRightBreastSize(scale);
+                        }
                     }
                     refreshPreviewDimensions();
                 },
@@ -130,6 +136,9 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
             // 2. Right Breast Size Slider
             int currentRightPct = (int) (MCAInclusiveExpressionsAddon.defaultRightMultiplier * 100);
+            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                currentRightPct = (int) (duck.getRightBreastSize() * 100.0f);
+            }
             this.addRenderableWidget(new IntegerSliderWidget(
                 x,
                 y,
@@ -139,16 +148,19 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 0,
                 maxLimit,
                 val -> {
-                    MCAInclusiveExpressionsAddon.defaultRightMultiplier = val / 100.0;
-                    if (MCAInclusiveExpressionsAddon.linkSliders) {
-                        MCAInclusiveExpressionsAddon.defaultLeftMultiplier = val / 100.0;
+                    float scale = val / 100.0f;
+                    MCAInclusiveExpressionsAddon.defaultRightMultiplier = scale;
+                    if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                        duck.setRightBreastSize(scale);
+                        if (MCAInclusiveExpressionsAddon.linkSliders) {
+                            duck.setLeftBreastSize(scale);
+                        }
                     }
-                    float geneVal = (float) (val / (double) maxLimit);
-                    if (villager != null) {
-                        villager.getGenetics().setGene(Genetics.BREAST, geneVal);
-                    }
-                    if (villagerVisualization != null) {
-                        villagerVisualization.getGenetics().setGene(Genetics.BREAST, geneVal);
+                    if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                        duck.setRightBreastSize(scale);
+                        if (MCAInclusiveExpressionsAddon.linkSliders) {
+                            duck.setLeftBreastSize(scale);
+                        }
                     }
                     refreshPreviewDimensions();
                 },
@@ -168,7 +180,14 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 b -> {
                     MCAInclusiveExpressionsAddon.linkSliders = !MCAInclusiveExpressionsAddon.linkSliders;
                     if (MCAInclusiveExpressionsAddon.linkSliders) {
-                        MCAInclusiveExpressionsAddon.defaultRightMultiplier = MCAInclusiveExpressionsAddon.defaultLeftMultiplier;
+                        float leftVal = (float) MCAInclusiveExpressionsAddon.defaultLeftMultiplier;
+                        MCAInclusiveExpressionsAddon.defaultRightMultiplier = leftVal;
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastSize(leftVal);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastSize(leftVal);
+                        }
                     }
                     refreshPreviewDimensions();
                     this.setPage("breast_addon");

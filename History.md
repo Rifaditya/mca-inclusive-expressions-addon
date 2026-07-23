@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `1.8.0+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-1.8.0+26.2.jar`
+* **Changes**:
+  - Implemented GeneticsDuck interface on MCA's Genetics class to give every villager two 100% independent genetic breast properties (leftBreastSize and rightBreastSize) with full NBT persistence, genetic inheritance, and independent 3D MatrixStack scaling.
+
+---
+
 ### Release `1.7.5+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.7.5+26.2.jar`

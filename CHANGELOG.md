@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.8.0+26.2] - 2026-07-23
+
+### Added
+* Implemented `GeneticsDuck` interface on MCA's `Genetics` class to give every villager **two 100% independent genetic breast properties (`leftBreastSize` and `rightBreastSize`)**.
+* Added NBT serialization (`mca_inclusive_expressions:breast_left` and `mca_inclusive_expressions:breast_right`) for permanent world storage.
+* Connected Left Breast and Right Breast sliders to `GeneticsDuck` for **true independent 3D asymmetric scaling and genetic inheritance**!
+
 ## [1.7.5+26.2] - 2026-07-23
 
 ### Fixed
