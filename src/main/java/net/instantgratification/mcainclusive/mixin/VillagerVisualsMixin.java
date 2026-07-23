@@ -2,6 +2,7 @@
 package net.instantgratification.mcainclusive.mixin;
 
 import net.conczin.mca.entity.VillagerEntityMCA;
+import net.conczin.mca.entity.VillagerLike;
 import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
 import net.instantgratification.mcainclusive.ducks.VillagerRenderStateDuck;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -17,8 +18,22 @@ public abstract class VillagerVisualsMixin {
 
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void onExtractRenderState(Entity entity, EntityRenderState state, float partialTick, CallbackInfo ci) {
-        if (entity instanceof VillagerEntityMCA villager && state instanceof VillagerRenderStateDuck stateDuck) {
-            if (villager.getGenetics() instanceof GeneticsDuck geneticsDuck) {
+        if (state instanceof VillagerRenderStateDuck stateDuck && entity != null) {
+            GeneticsDuck geneticsDuck = null;
+
+            if (entity instanceof VillagerEntityMCA villager && villager.getGenetics() instanceof GeneticsDuck duck) {
+                geneticsDuck = duck;
+            } else {
+                try {
+                    VillagerLike<?> villagerLike = VillagerLike.toVillager(entity);
+                    if (villagerLike != null && villagerLike.getGenetics() instanceof GeneticsDuck duck) {
+                        geneticsDuck = duck;
+                    }
+                } catch (Throwable ignored) {
+                }
+            }
+
+            if (geneticsDuck != null) {
                 stateDuck.setLeftBreastScale(geneticsDuck.getLeftBreastSize());
                 stateDuck.setRightBreastScale(geneticsDuck.getRightBreastSize());
 

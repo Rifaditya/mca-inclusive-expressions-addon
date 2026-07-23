@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.5.1+26.2] - 2026-07-23
+
+### Fixed
+* **Universal 4-Viewport Synchronization Engine**:
+  - **Scoped GUI Override**: Scoped `getActiveGuiGenetics()` strictly to `villagerVisualization`'s 3D model inside `VillagerEditorScreen`. This prevents editor preview settings from bleeding into Paper Dolls, Inventory Screen character views, or background entities!
+  - **Player Entity Support (`VillagerVisualsMixin`)**: Extended `VillagerVisualsMixin` to extract saved 3D parameters for both Villagers and Players via `VillagerLike.toVillager(entity)` into `VillagerRenderStateDuck`. Real World 3D entities, Paper Dolls HUD, and Survival/Creative Inventory Screen character views now maintain 100% 1:1 synchronization!
+  - **Unpacked `MCAData` Compound NBT**: Updated `VillagerEntityMCAMixin` to read 3D keys from both top-level NBT and `tag.getCompound("MCAData")`.
+
 ## [2.5.0+26.2] - 2026-07-23
 
 ### Fixed

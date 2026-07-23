@@ -4,6 +4,16 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.5.1+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.5.1+26.2.jar`
+* **Changes**:
+  - Scoped getActiveGuiGenetics() strictly to villagerVisualization's 3D model inside VillagerEditorScreen, preventing editor preview settings from bleeding into Paper Dolls, Inventory Screen character views, or background entities!
+  - Extended VillagerVisualsMixin to extract saved 3D parameters for both Villagers and Players via VillagerLike.toVillager(entity) into VillagerRenderStateDuck. Real World 3D entities, Paper Dolls HUD, and Survival/Creative Inventory Screen character views now maintain 100% 1:1 synchronization!
+  - Updated VillagerEntityMCAMixin to read 3D keys from both top-level NBT and tag.getCompound("MCAData").
+
+---
+
 ### Release `2.5.0+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.5.0+26.2.jar`
