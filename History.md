@@ -4,12 +4,20 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `1.4.1+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-1.4.1+26.2.jar`
+* **Changes**:
+  - Consolidated Base Breast Gene Size, Chest Scale Multiplier %, and Gender Inclusivity controls into the dedicated `Breast` sub-tab in `VillagerEditorScreen`.
+  - Removed duplicate `Breast` slider from `Body` sub-tab and expanded `Skin: Natural` button to full `DATA_WIDTH`.
+
+---
+
 ### Release `1.4.0+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.4.0+26.2.jar`
 * **Changes**:
   - Redid and streamlined core codebase: removed dual breast models and cleavage angle calculations.
-  - Retained dedicated `Breast` sub-tab in `VillagerEditorScreen` containing Chest Scale Multiplier (10%-1000%) and Gender Representation Inclusivity controls.
 
 ---
 

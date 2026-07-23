@@ -2,10 +2,14 @@
 package net.instantgratification.mcainclusive.mixin;
 
 import net.conczin.mca.client.gui.VillagerEditorScreen;
-import net.conczin.mca.entity.VillagerEntityMCA;
-import net.conczin.mca.util.compat.ButtonWidget;
+import net.conczin.mca.client.gui.widget.GeneSliderWidget;
 import net.conczin.mca.client.gui.widget.IntegerSliderWidget;
+import net.conczin.mca.client.gui.widget.TooltipButtonWidget;
+import net.conczin.mca.entity.VillagerEntityMCA;
+import net.conczin.mca.entity.ai.Genetics;
+import net.conczin.mca.util.compat.ButtonWidget;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,6 +17,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mixin(value = VillagerEditorScreen.class, remap = false)
 public abstract class VillagerEditorScreenMixin extends Screen {
@@ -65,7 +72,23 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
     @Inject(method = "setPage", at = @At("TAIL"))
     private void onSetPageTail(String page, CallbackInfo ci) {
-        if ("breast_addon".equals(page)) {
+        if ("body".equals(page)) {
+            // Remove duplicate Breast slider from Body tab and expand Skin Mode button to full DATA_WIDTH
+            List<AbstractWidget> toRemove = new ArrayList<>();
+            for (var child : this.children()) {
+                if (child instanceof GeneSliderWidget slider) {
+                    if (slider.getX() == this.width / 2 && slider.getWidth() == DATA_WIDTH / 2) {
+                        toRemove.add(slider);
+                    }
+                } else if (child instanceof TooltipButtonWidget button) {
+                    if (button.getX() == this.width / 2 + DATA_WIDTH / 2 && button.getWidth() == DATA_WIDTH / 2) {
+                        button.setX(this.width / 2);
+                        button.setWidth(DATA_WIDTH);
+                    }
+                }
+            }
+            toRemove.forEach(this::removeWidget);
+        } else if ("breast_addon".equals(page)) {
             int y = this.height / 2 - 80;
 
             // Render sub-tabs header
@@ -75,7 +98,25 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             int x = this.width / 2;
             int widgetWidth = DATA_WIDTH;
 
-            // 1. Chest Scale Multiplier Slider
+            // 1. Base Breast Size Gene Slider (Genetics.BREAST)
+            if (villager != null) {
+                Genetics genetics = villager.getGenetics();
+                this.addRenderableWidget(new GeneSliderWidget(
+                    x,
+                    y,
+                    widgetWidth,
+                    20,
+                    Component.translatable(Genetics.BREAST.getTranslationKey()),
+                    genetics.getGene(Genetics.BREAST),
+                    val -> {
+                        genetics.setGene(Genetics.BREAST, val.floatValue());
+                        refreshPreviewDimensions();
+                    }
+                ));
+            }
+            y += 24;
+
+            // 2. Chest Scale Multiplier Slider
             int currentScalePct = (int) (MCAInclusiveExpressionsAddon.defaultMultiplier * 100);
             this.addRenderableWidget(new IntegerSliderWidget(
                 x,
@@ -94,7 +135,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             ));
             y += 24;
 
-            // 2. Gender Representation Inclusivity Toggle
+            // 3. Gender Representation Inclusivity Toggle
             boolean allowAll = MCAInclusiveExpressionsAddon.isAllowAllGenders();
             this.addRenderableWidget(new ButtonWidget(
                 x,
