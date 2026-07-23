@@ -34,13 +34,12 @@ public abstract class VillagerEditorScreenMixin extends Screen {
     @Shadow protected abstract void addCharacterSubpageTab(int x, int y, int width, String page, String selectedPage);
 
     @Unique private static String breastSubpage = "size";
-    public static VillagerEditorScreen activeEditorScreen = null;
 
     protected VillagerEditorScreenMixin(Component title) {
         super(title);
     }
 
-    public static GeneticsDuck getActiveGuiGenetics(Screen screen) {
+    public static GeneticsDuck getActiveGuiGenetics(Object screen) {
         if (screen instanceof VillagerEditorScreen editor) {
             VillagerEditorScreenMixin mixin = (VillagerEditorScreenMixin) (Object) editor;
             if (mixin.villagerVisualization != null && mixin.villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
@@ -93,14 +92,14 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void onInitTail(CallbackInfo ci) {
-        activeEditorScreen = (VillagerEditorScreen) (Object) this;
+        MCAInclusiveExpressionsAddon.activeEditorScreen = this;
         syncPreviewGenetics();
     }
 
     @Inject(method = "onClose", at = @At("TAIL"), require = 0)
     private void onCloseTail(CallbackInfo ci) {
-        if (activeEditorScreen == (Object) this) {
-            activeEditorScreen = null;
+        if (MCAInclusiveExpressionsAddon.activeEditorScreen == (Object) this) {
+            MCAInclusiveExpressionsAddon.activeEditorScreen = null;
         }
     }
 

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.3+26.2] - 2026-07-23
+
+### Fixed
+* **Mixin Static Field Crash Fix**: Relocated `activeEditorScreen` reference to `MCAInclusiveExpressionsAddon`, satisfying Fabric Mixin static field rules and resolving `InvalidMixinException` startup crash.
+
 ## [2.1.2+26.2] - 2026-07-23
 
 ### Fixed

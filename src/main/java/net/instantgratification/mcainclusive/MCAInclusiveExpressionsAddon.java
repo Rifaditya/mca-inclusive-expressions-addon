@@ -28,6 +28,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     public static boolean linkSliders = true;
     public static int maxScaleLimit = 500;
     public static boolean allowAllGenders = false;
+    public static Object activeEditorScreen = null;
 
     @Override
     public void onInitialize() {
@@ -82,7 +83,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.0.0+26.2 with direct 1:1 linear scaling and GameRule-governed max scale limits.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.1.3+26.2.");
     }
 
     public static int getMaxScaleLimit() {

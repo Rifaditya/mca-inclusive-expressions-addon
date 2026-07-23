@@ -69,8 +69,8 @@ public interface CommonVillagerInterfaceMixin {
 
             // 2. Failsafe Direct GUI Screen Override (When VillagerEditorScreen is open)
             try {
-                if (VillagerEditorScreenMixin.activeEditorScreen != null) {
-                    GeneticsDuck guiDuck = VillagerEditorScreenMixin.getActiveGuiGenetics(VillagerEditorScreenMixin.activeEditorScreen);
+                if (MCAInclusiveExpressionsAddon.activeEditorScreen != null) {
+                    GeneticsDuck guiDuck = VillagerEditorScreenMixin.getActiveGuiGenetics(MCAInclusiveExpressionsAddon.activeEditorScreen);
                     if (guiDuck != null) {
                         leftMult = guiDuck.getLeftBreastSize();
                         rightMult = guiDuck.getRightBreastSize();
