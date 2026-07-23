@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.4.1+26.2] - 2026-07-23
+
+### Fixed
+* **Foreground Tooltip Rendering Engine**: Created `ExtendedSliderWidgetMixin` to cancel inline tooltip rendering in `ExtendedSliderWidget` during the widget draw pass, delegating tooltips to Minecraft's top-level `this.setTooltip(Tooltip.create(text))` pipeline. Tooltips now render on the topmost foreground layer above all sliders and buttons with zero clipping or text hiding!
+
 ## [2.4.0+26.2] - 2026-07-23
 
 ### Changed
