@@ -1,0 +1,74 @@
+<div align="center">
+  <h1>MCA Inclusive Expressions</h1>
+  <p><b>Core MCA Enhancement Mod for Minecraft Comes Alive Reborn</b></p>
+  <p>
+    <a href="https://fabricmc.net/"><img src="https://img.shields.io/badge/Loader-Fabric-dbb084?style=for-the-badge" alt="Fabric"></a>
+    <a href="https://www.minecraft.net/"><img src="https://img.shields.io/badge/Minecraft-26.2%2B-5b8731?style=for-the-badge" alt="Minecraft 26.2+"></a>
+    <a href="https://www.gnu.org/licenses/gpl-3.0.html"><img src="https://img.shields.io/badge/License-GPLv3-blue?style=for-the-badge" alt="GPLv3"></a>
+  </p>
+</div>
+
+<hr>
+
+<h2>🌟 What is MCA Inclusive Expressions?</h2>
+
+<p><b>MCA Inclusive Expressions</b> is a primary <b>Core Enhancement Mod</b> for <b>MCA Reborn (Minecraft Comes Alive)</b>. It deeply refactors MCA's genetics system, 3D character renderer, and in-game editor interface to provide <b>100% independent left and right 3D breast model part scaling</b>, asymmetric customization, and inclusive body feature options for all villager gender expressions.</p>
+
+<blockquote>
+  <p><b>Active Version Policy</b>: Built natively for <b>Minecraft 26.2+ (Fabric Loader 0.16.0+)</b>. Requires MCA Reborn.</p>
+</blockquote>
+
+<hr>
+
+<h2>⚡ Key Features</h2>
+
+<h3>📐 Independent 3D Matrix Model Part Scaling</h3>
+<p>Replaces MCA's default single unified chest box with <b>two distinct 3D cuboid model parts</b> (<code>left_breast</code> and <code>right_breast</code>). Each cube scales outward from its own independent center point using custom MatrixStack transformations, guaranteeing <b>true 3D visual asymmetry</b> and preserving a natural cleavage gap at all size settings!</p>
+
+<h3>🎨 Dedicated In-Game Breast Sub-Tab</h3>
+<p>Adds a clean, dedicated <b>Breast Sub-Tab</b> directly inside MCA's <b>Villager Editor Screen</b> (<code>Character -&gt; Body, Clothes, Hair, Eyes, Breast</code>):</p>
+<ul>
+  <li><b>Left Breast Size Slider</b>: <code>0%</code> to <code>Max Limit%</code> (Standard default <code>100%</code>).</li>
+  <li><b>Right Breast Size Slider</b>: <code>0%</code> to <code>Max Limit%</code> (Standard default <code>100%</code>).</li>
+  <li><b>Slider Link Mode Toggle</b>: Easily switch between <code>LINKED (Symmetric)</code> and <code>UNLINKED (Asymmetric)</code> scaling.</li>
+  <li><b>Max Scale Limit Toggle Button</b>: In-GUI toggle cycling max scale range (<code>200% Default</code>, <code>300%</code>, <code>500%</code>, <code>1000%</code>).</li>
+  <li><b>Gender Representation Inclusivity Toggle</b>: Enable or disable chest scaling features across all villager gender expressions.</li>
+</ul>
+
+<h3>🔍 Real-Time 3D Preview</h3>
+<p>All slider adjustments immediately update the 3D villager model in the editor preview screen in real time with zero delay or screen reloads.</p>
+
+<hr>
+
+<h2>⚙️ Configuration &amp; GUI</h2>
+
+<p>Fully compatible with <b>ModMenu</b> and <b>YetAnotherConfigLib (YACL)</b>. Server host parameters can also be configured via namespaced GameRules:</p>
+<ul>
+  <li><code>/gamerule mca_inclusive_expressions:scale 100</code> (Default chest scale multiplier)</li>
+  <li><code>/gamerule mca_inclusive_expressions:allow_all_genders true</code> (Enable gender inclusivity globally)</li>
+</ul>
+
+<hr>
+
+<h2>📜 Credits &amp; License</h2>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>Author</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Lead Developer</b></td>
+      <td><b>Dasik (Rifaditya)</b></td>
+    </tr>
+    <tr>
+      <td><b>Target Mod Platform</b></td>
+      <td><b>MCA Reborn Team (Conczin)</b></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Licensed under the <b>GNU General Public License v3.0 (GPLv3)</b>. Included in modpacks freely under GPLv3 rules.</p>

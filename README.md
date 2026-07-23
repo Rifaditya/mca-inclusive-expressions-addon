@@ -1,20 +1,54 @@
-# MCA Inclusive Expressions Addon
+<p align="center">
+  <h1 align="center">MCA Inclusive Expressions</h1>
+  <p align="center"><b>Core MCA Enhancement Mod for Minecraft Comes Alive Reborn</b></p>
+</p>
 
-An **Instant Gratification (IG)** collection addon for **MCA Reborn (Minecraft Comes Alive)** targeting Minecraft 26.2+.
+<p align="center">
+  <a href="https://fabricmc.net/"><img src="https://img.shields.io/badge/Loader-Fabric-dbb084?style=for-the-badge" alt="Fabric"></a>
+  <a href="https://www.minecraft.net/"><img src="https://img.shields.io/badge/Minecraft-26.2%2B-5b8731?style=for-the-badge" alt="Minecraft 26.2+"></a>
+  <a href="https://www.gnu.org/licenses/gpl-3.0.html"><img src="https://img.shields.io/badge/License-GPLv3-blue?style=for-the-badge" alt="GPLv3"></a>
+</p>
 
-## Features
-* **Expanded Character Customization Scaling**: Multiplies female character chest feature scaling by `2.0x` over baseline MCA defaults.
-* **Gender-Inclusive Representation Toggle**: Includes a GameRule allowing male and neutral characters to feature chest scaling and genetics when enabled by server admins (disabled by default for standard MCA behavior).
-* **Seamless Overlay Scaling**: Dynamically shifts position origins ($Y, Z$) so clothing, jacket, and armor layers stretch cleanly without Z-fighting or torso mesh clipping.
+---
 
-## Configurable GameRules
-* `/gamerule mca_inclusive_expressions:scale <value>`: Sets scaling multiplier (`200` = 2.0x, range `10` to `1000`).
-* `/gamerule mca_inclusive_expressions:allow_all_genders <true|false>`: Toggles gender-inclusive chest scaling for all genders (default `false`).
+## 🌟 Overview
 
-## Requirements
-* Minecraft `26.2+`
-* Fabric Loader `>=0.16.0`
-* MCA Reborn (Minecraft Comes Alive) `>=8.0.0`
+**MCA Inclusive Expressions** is a primary **Core Enhancement Mod** for **MCA Reborn (Minecraft Comes Alive)**. It deeply refactors MCA's genetics system, 3D character renderer, and in-game editor interface to provide **100% independent left and right 3D breast model part scaling**, asymmetric customization, and inclusive body feature options for all villager gender expressions.
 
-## License
-Copyright (C) 2026 Dasik (Rifaditya) | GNU General Public License v3.0 (GPLv3)
+> **Active Version Policy**: Built natively for **Minecraft 26.2+ (Fabric Loader 0.16.0+)**. Requires MCA Reborn.
+
+---
+
+## 🛠️ Building & Development
+
+### Requirements
+* Java 25 JDK
+* Gradle 9.3+
+
+### Compiling from Source
+```bash
+git clone https://github.com/Rifaditya/mca-inclusive-expressions-addon.git
+cd mca-inclusive-expressions-addon
+./gradlew build --no-daemon
+```
+The compiled JAR artifact will be located in `build/libs/mca-inclusive-expressions-addon-1.7.0+26.2.jar`.
+
+---
+
+## 📚 Platform Descriptions & Documentation
+
+- [Modrinth Description](Doc/Platform%20Pages/modrinth_page.md)
+- [CurseForge HTML Description](Doc/Platform%20Pages/curseforge_page.html)
+- [Version History](History.md)
+- [Changelog](CHANGELOG.md)
+
+---
+
+## 📜 Credits & License
+
+| Role | Author |
+| :--- | :--- |
+| **Lead Developer** | **Dasik (Rifaditya)** |
+| **Target Mod Platform** | **MCA Reborn Team (Conczin)** |
+
+Licensed under the **GNU General Public License v3.0 (GPLv3)**.
