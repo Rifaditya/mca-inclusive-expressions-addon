@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.5.0+26.2] - 2026-07-23
+
+### Fixed
+* **100% Individualized NBT Persistence Engine**:
+  - **Removed Global Default Mutations**: Eliminated global static variable mutations (`MCAInclusiveExpressionsAddon.defaultLeftMultiplier`) when dragging sliders in `VillagerEditorScreen`. Sliders now mutate ONLY the individual target entity's `GeneticsDuck` instance, guaranteeing 100% per-character genetic isolation with zero entity-to-entity bleed!
+  - **Direct Entity NBT Persistence (`VillagerEntityMCAMixin`)**: Created `VillagerEntityMCAMixin` to inject into `readAdditionalSaveData`, `readAdditionalSaveDataForEditor`, and `addAdditionalSaveData` on `VillagerEntityMCA`. All 14 3D parameters (Size, Position, Rotation) are now written directly to and loaded from world NBT on both server and client, ensuring permanent save persistence upon pressing "Done"!
+
 ## [2.4.1+26.2] - 2026-07-23
 
 ### Fixed

@@ -14,7 +14,8 @@
     "VillagerEditorScreenMixin",
     "VillagerEditorScreenAccess",
     "VillagerEditorSyncRequestMixin",
-    "ExtendedSliderWidgetMixin"
+    "ExtendedSliderWidgetMixin",
+    "VillagerEntityMCAMixin"
   ],
   "client": [
   ],

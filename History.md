@@ -4,6 +4,15 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.5.0+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.5.0+26.2.jar`
+* **Changes**:
+  - Eliminated global static variable mutations when dragging sliders in VillagerEditorScreen. Sliders now mutate ONLY the target entity's GeneticsDuck instance, guaranteeing 100% per-character genetic isolation!
+  - Created VillagerEntityMCAMixin to inject into readAdditionalSaveData, readAdditionalSaveDataForEditor, and addAdditionalSaveData on VillagerEntityMCA. All 14 3D parameters are now written directly to and loaded from world NBT on both server and client!
+
+---
+
 ### Release `2.4.1+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.4.1+26.2.jar`

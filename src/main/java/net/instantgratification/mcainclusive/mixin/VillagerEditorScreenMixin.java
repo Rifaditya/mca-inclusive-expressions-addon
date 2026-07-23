@@ -211,16 +211,16 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             y += 24;
 
             if ("size".equals(breastSubpage)) {
-                // --- Sub-Category 1: Size ---
-                int currentLeftPct = (int) (MCAInclusiveExpressionsAddon.defaultLeftMultiplier * 100);
+                // --- Sub-Category 1: Size (100% Individualized Per Entity) ---
+                int currentLeftPct = 100;
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
-                    currentLeftPct = (int) (duck.getLeftBreastSize() * 100.0f);
+                    float val = duck.getLeftBreastSize();
+                    currentLeftPct = val > 0 ? (int) (val * 100.0f) : 100;
                 }
                 this.addRenderableWidget(new IntegerSliderWidget(
                     leftColX, y, halfWidth, 20, currentLeftPct, 0, maxLimit,
                     val -> {
                         float scale = val / 100.0f;
-                        MCAInclusiveExpressionsAddon.defaultLeftMultiplier = scale;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastSize(scale);
@@ -235,15 +235,15 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                     () -> Component.literal("Adjusts left chest volume")
                 ));
 
-                int currentRightPct = (int) (MCAInclusiveExpressionsAddon.defaultRightMultiplier * 100);
+                int currentRightPct = 100;
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
-                    currentRightPct = (int) (duck.getRightBreastSize() * 100.0f);
+                    float val = duck.getRightBreastSize();
+                    currentRightPct = val > 0 ? (int) (val * 100.0f) : 100;
                 }
                 this.addRenderableWidget(new IntegerSliderWidget(
                     rightColX, y, halfWidth, 20, currentRightPct, 0, maxLimit,
                     val -> {
                         float scale = val / 100.0f;
-                        MCAInclusiveExpressionsAddon.defaultRightMultiplier = scale;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastSize(scale);
@@ -266,9 +266,8 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                     b -> {
                         MCAInclusiveExpressionsAddon.linkSliders = !MCAInclusiveExpressionsAddon.linkSliders;
                         if (MCAInclusiveExpressionsAddon.linkSliders) {
-                            float leftVal = (float) MCAInclusiveExpressionsAddon.defaultLeftMultiplier;
+                            float leftVal = 1.0f;
                             if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) leftVal = duck.getLeftBreastSize();
-                            MCAInclusiveExpressionsAddon.defaultRightMultiplier = leftVal;
                             if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastSize(leftVal);
                             if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastSize(leftVal);
                         }
