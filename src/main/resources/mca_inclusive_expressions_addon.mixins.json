@@ -6,7 +6,7 @@
     "GeneticsMixin",
     "CommonVillagerModelMixin",
     "CommonVillagerInterfaceMixin",
-    "VillagerEntityModelMixin",
+    "ModelPartAccessor",
     "PlayerEntityExtendedModelMixin",
     "PlayerArmorExtendedModelMixin",
     "VillagerVisualsMixin",

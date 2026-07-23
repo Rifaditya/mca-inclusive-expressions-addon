@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `1.7.5+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-1.7.5+26.2.jar`
+* **Changes**:
+  - Restored MCA's native -35 degree breast rotation angle via part.translateAndRotate(matrices) and scaled cubes.get(0) with leftBreastSize matrix and cubes.get(1) with rightBreastSize matrix.
+
+---
+
 ### Release `1.7.4+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.7.4+26.2.jar`

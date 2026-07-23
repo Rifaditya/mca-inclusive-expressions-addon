@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.7.5+26.2] - 2026-07-23
+
+### Fixed
+* Restored MCA's native **-35° breast rotation angle** via `part.translateAndRotate(matrices)`.
+* Scaled `cubes.get(0)` (Left Breast) with `leftBreastSize` MatrixStack scaling and `cubes.get(1)` (Right Breast) with `rightBreastSize` MatrixStack scaling for **100% independent left and right 3D cube scaling**!
+
 ## [1.7.4+26.2] - 2026-07-23
 
 ### Fixed
