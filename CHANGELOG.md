@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.4.0+26.2] - 2026-07-23
+
+### Changed
+* **2.0x Base Scale Calibration Engine**: Calibrated 100% Breast Size slider to render at **2.0x base scale multiplier** (`0% = 0.0x`, `50% = 1.0x`, `100% = 2.0x`, `200% = 4.0x`, `500% = 10.0x`), providing double standard volume at default 100% size.
+
 ## [2.3.1+26.2] - 2026-07-23
 
 ### Added

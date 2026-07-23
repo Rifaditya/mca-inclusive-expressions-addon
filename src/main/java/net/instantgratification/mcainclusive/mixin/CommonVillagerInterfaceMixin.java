@@ -93,8 +93,9 @@ public interface CommonVillagerInterfaceMixin {
             } catch (Throwable ignored) {
             }
 
-            float leftBreastSize = leftMult;
-            float rightBreastSize = rightMult;
+            // Calibrated 2.0x base scale at 100% (so 100% = 2.0x volume scale)
+            float leftBreastSize = leftMult * 2.0f;
+            float rightBreastSize = rightMult * 2.0f;
 
             for (ModelPart part : self.getBreastParts()) {
                 if (part == null || !part.visible || part.skipDraw) continue;

@@ -90,7 +90,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.3.1+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.4.0+26.2.");
     }
 
     public static GeneticsDuck getActiveGuiGenetics() {
@@ -117,12 +117,12 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     }
 
     public static float getLeftScaleMultiplier() {
-        float multiplier = (float) defaultLeftMultiplier;
+        float multiplier = (float) defaultLeftMultiplier * 2.0f;
         try {
             var serverOpt = net.conczin.mca.MCA.getServer();
             if (serverOpt.isPresent() && SCALE_RULE != null) {
                 int ruleValue = serverOpt.get().getGameRules().get(SCALE_RULE);
-                multiplier = (ruleValue / 100.0f) * (float) defaultLeftMultiplier;
+                multiplier = (ruleValue / 100.0f) * (float) defaultLeftMultiplier * 2.0f;
             }
         } catch (Throwable ignored) {
         }
@@ -130,12 +130,12 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     }
 
     public static float getRightScaleMultiplier() {
-        float multiplier = (float) defaultRightMultiplier;
+        float multiplier = (float) defaultRightMultiplier * 2.0f;
         try {
             var serverOpt = net.conczin.mca.MCA.getServer();
             if (serverOpt.isPresent() && SCALE_RULE != null) {
                 int ruleValue = serverOpt.get().getGameRules().get(SCALE_RULE);
-                multiplier = (ruleValue / 100.0f) * (float) defaultRightMultiplier;
+                multiplier = (ruleValue / 100.0f) * (float) defaultRightMultiplier * 2.0f;
             }
         } catch (Throwable ignored) {
         }
