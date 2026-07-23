@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.6.0+26.2] - 2026-07-23
+
+### Added
+* Split chest models into independent **Left Breast** and **Right Breast** controls with linked/unlinked asymmetric customization.
+* Set default slider range to **`0%` to `200%`** (standard size `100%`).
+* Added in-GUI **Max Scale Limit** toggle button (`200%`, `300%`, `500%`, `1000%`) allowing players to cycle slider upper limits on demand.
+
 ## [1.5.1+26.2] - 2026-07-23
 
 ### Changed
 * Extended **`Breast Size: X%`** slider minimum range from `10%` to **`0%`** (`0%` to `1000%`) across the Villager Editor GUI, GameRules, and ModMenu config screen.
-* Sliding to `0%` scales chest feature models down completely to flat (`0.0`).
 
 ## [1.5.0+26.2] - 2026-07-23
 

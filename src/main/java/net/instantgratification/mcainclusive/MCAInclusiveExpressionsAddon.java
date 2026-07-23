@@ -22,7 +22,10 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     public static GameRule<Integer> SCALE_RULE;
     public static GameRule<Boolean> ALLOW_ALL_GENDERS_RULE;
 
-    public static double defaultMultiplier = 2.0;
+    public static double defaultLeftMultiplier = 1.0;
+    public static double defaultRightMultiplier = 1.0;
+    public static boolean linkSliders = true;
+    public static int maxScaleLimit = 200;
     public static boolean allowAllGenders = false;
 
     @Override
@@ -40,7 +43,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
                     GameRuleTypeVisitor::visitInteger,
                     Codec.intRange(0, 1000),
                     i -> i,
-                    200,
+                    100,
                     FeatureFlagSet.of()
                 )
             );
@@ -63,20 +66,41 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v1.5.1+26.2 with 0%-1000% breast size slider range and ModMenu settings.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v1.6.0+26.2 with dual breast controls (200% default max, customizable limits) and ModMenu settings.");
     }
 
-    public static float getScaleMultiplier() {
-        float multiplier = (float) defaultMultiplier;
+    public static float getLeftScaleMultiplier() {
+        float multiplier = (float) defaultLeftMultiplier;
         try {
             var serverOpt = net.conczin.mca.MCA.getServer();
             if (serverOpt.isPresent() && SCALE_RULE != null) {
                 int ruleValue = serverOpt.get().getGameRules().get(SCALE_RULE);
-                multiplier = ruleValue / 100.0f;
+                multiplier = (ruleValue / 100.0f) * (float) defaultLeftMultiplier;
             }
         } catch (Throwable ignored) {
         }
         return multiplier;
+    }
+
+    public static float getRightScaleMultiplier() {
+        float multiplier = (float) defaultRightMultiplier;
+        try {
+            var serverOpt = net.conczin.mca.MCA.getServer();
+            if (serverOpt.isPresent() && SCALE_RULE != null) {
+                int ruleValue = serverOpt.get().getGameRules().get(SCALE_RULE);
+                multiplier = (ruleValue / 100.0f) * (float) defaultRightMultiplier;
+            }
+        } catch (Throwable ignored) {
+        }
+        return multiplier;
+    }
+
+    public static float getAverageScaleMultiplier() {
+        return (getLeftScaleMultiplier() + getRightScaleMultiplier()) / 2.0f;
+    }
+
+    public static float getScaleMultiplier() {
+        return getAverageScaleMultiplier();
     }
 
     public static boolean isAllowAllGenders() {

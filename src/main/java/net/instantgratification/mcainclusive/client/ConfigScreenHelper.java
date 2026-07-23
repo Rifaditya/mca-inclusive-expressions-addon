@@ -10,13 +10,24 @@ import net.minecraft.network.chat.Component;
 
 public class ConfigScreenHelper {
     public static Screen createYaclScreen(Screen parent) {
-        Option<Integer> scaleOption = Option.<Integer>createBuilder()
-            .name(Component.literal("Chest Scale Multiplier (%)"))
-            .description(OptionDescription.of(Component.literal("Sets the scaling multiplier for villager chest feature models (0% to 1000%). Default: 200%")))
+        Option<Integer> leftScaleOption = Option.<Integer>createBuilder()
+            .name(Component.literal("Left Breast Scale (%)"))
+            .description(OptionDescription.of(Component.literal("Sets the left breast feature scaling multiplier (0% to 1000%). Default: 100%")))
             .binding(
-                200,
-                () -> (int) (MCAInclusiveExpressionsAddon.defaultMultiplier * 100),
-                newVal -> MCAInclusiveExpressionsAddon.defaultMultiplier = newVal / 100.0
+                100,
+                () -> (int) (MCAInclusiveExpressionsAddon.defaultLeftMultiplier * 100),
+                newVal -> MCAInclusiveExpressionsAddon.defaultLeftMultiplier = newVal / 100.0
+            )
+            .controller(opt -> IntegerFieldControllerBuilder.create(opt).range(0, 1000))
+            .build();
+
+        Option<Integer> rightScaleOption = Option.<Integer>createBuilder()
+            .name(Component.literal("Right Breast Scale (%)"))
+            .description(OptionDescription.of(Component.literal("Sets the right breast feature scaling multiplier (0% to 1000%). Default: 100%")))
+            .binding(
+                100,
+                () -> (int) (MCAInclusiveExpressionsAddon.defaultRightMultiplier * 100),
+                newVal -> MCAInclusiveExpressionsAddon.defaultRightMultiplier = newVal / 100.0
             )
             .controller(opt -> IntegerFieldControllerBuilder.create(opt).range(0, 1000))
             .build();
@@ -34,7 +45,8 @@ public class ConfigScreenHelper {
 
         OptionGroup mainGroup = OptionGroup.createBuilder()
             .name(Component.literal("Chest Feature Customization Settings"))
-            .option(scaleOption)
+            .option(leftScaleOption)
+            .option(rightScaleOption)
             .option(genderOption)
             .build();
 

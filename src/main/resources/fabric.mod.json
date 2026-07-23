@@ -3,7 +3,7 @@
   "id": "mca_inclusive_expressions_addon",
   "version": "${version}",
   "name": "MCA Inclusive Expressions Addon",
-  "description": "Instant Gratification addon for MCA Reborn (Minecraft Comes Alive) providing dedicated Breast sub-tabs, 0%-1000% breast size slider controls, real-time 3D model preview rendering, and gender-inclusive body feature customization.",
+  "description": "Instant Gratification addon for MCA Reborn (Minecraft Comes Alive) providing dedicated Breast sub-tabs, independent left and right dual breast controls, configurable max scale limits (200%-1000%), real-time 3D model preview rendering, and gender-inclusive body feature customization.",
   "authors": [
     "Dasik (Rifaditya)"
   ],

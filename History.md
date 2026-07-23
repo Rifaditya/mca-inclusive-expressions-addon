@@ -4,6 +4,16 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `1.6.0+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-1.6.0+26.2.jar`
+* **Changes**:
+  - Implemented independent Left Breast & Right Breast controls with linked/unlinked asymmetry modes.
+  - Set default slider range to 0%-200% (default 100%).
+  - Added customizable Max Scale Limit toggle button (200%, 300%, 500%, 1000%).
+
+---
+
 ### Release `1.5.1+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.5.1+26.2.jar`
