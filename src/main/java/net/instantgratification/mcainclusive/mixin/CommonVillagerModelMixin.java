@@ -48,23 +48,46 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
     }
 
     @Override public float getRenderLeftScale() { return this.currentLeftScale; }
+    @Override public void setRenderLeftScale(float val) { this.currentLeftScale = val; }
+
     @Override public float getRenderRightScale() { return this.currentRightScale; }
+    @Override public void setRenderRightScale(float val) { this.currentRightScale = val; }
 
     @Override public float getRenderLeftX() { return this.currentLeftX; }
+    @Override public void setRenderLeftX(float val) { this.currentLeftX = val; }
+
     @Override public float getRenderLeftY() { return this.currentLeftY; }
+    @Override public void setRenderLeftY(float val) { this.currentLeftY = val; }
+
     @Override public float getRenderLeftZ() { return this.currentLeftZ; }
+    @Override public void setRenderLeftZ(float val) { this.currentLeftZ = val; }
 
     @Override public float getRenderRightX() { return this.currentRightX; }
+    @Override public void setRenderRightX(float val) { this.currentRightX = val; }
+
     @Override public float getRenderRightY() { return this.currentRightY; }
+    @Override public void setRenderRightY(float val) { this.currentRightY = val; }
+
     @Override public float getRenderRightZ() { return this.currentRightZ; }
+    @Override public void setRenderRightZ(float val) { this.currentRightZ = val; }
 
     @Override public float getRenderLeftPitch() { return this.currentLeftPitch; }
+    @Override public void setRenderLeftPitch(float val) { this.currentLeftPitch = val; }
+
     @Override public float getRenderLeftYaw() { return this.currentLeftYaw; }
+    @Override public void setRenderLeftYaw(float val) { this.currentLeftYaw = val; }
+
     @Override public float getRenderLeftRoll() { return this.currentLeftRoll; }
+    @Override public void setRenderLeftRoll(float val) { this.currentLeftRoll = val; }
 
     @Override public float getRenderRightPitch() { return this.currentRightPitch; }
+    @Override public void setRenderRightPitch(float val) { this.currentRightPitch = val; }
+
     @Override public float getRenderRightYaw() { return this.currentRightYaw; }
+    @Override public void setRenderRightYaw(float val) { this.currentRightYaw = val; }
+
     @Override public float getRenderRightRoll() { return this.currentRightRoll; }
+    @Override public void setRenderRightRoll(float val) { this.currentRightRoll = val; }
 
     @Inject(method = "setupAnim", at = @At("HEAD"))
     private void onSetupAnim(VillagerRenderState state, CallbackInfo ci) {
@@ -87,6 +110,30 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
             this.currentRightPitch = stateDuck.getRightBreastPitch();
             this.currentRightYaw = stateDuck.getRightBreastYaw();
             this.currentRightRoll = stateDuck.getRightBreastRoll();
+        }
+    }
+
+    @Inject(method = "copyCommonAttributes", at = @At("TAIL"))
+    private void onCopyCommonAttributes(CommonVillagerModel<?> parent, CallbackInfo ci) {
+        if (parent instanceof CommonVillagerModelDuck src) {
+            this.currentLeftScale = src.getRenderLeftScale();
+            this.currentRightScale = src.getRenderRightScale();
+
+            this.currentLeftX = src.getRenderLeftX();
+            this.currentLeftY = src.getRenderLeftY();
+            this.currentLeftZ = src.getRenderLeftZ();
+
+            this.currentRightX = src.getRenderRightX();
+            this.currentRightY = src.getRenderRightY();
+            this.currentRightZ = src.getRenderRightZ();
+
+            this.currentLeftPitch = src.getRenderLeftPitch();
+            this.currentLeftYaw = src.getRenderLeftYaw();
+            this.currentLeftRoll = src.getRenderLeftRoll();
+
+            this.currentRightPitch = src.getRenderRightPitch();
+            this.currentRightYaw = src.getRenderRightYaw();
+            this.currentRightRoll = src.getRenderRightRoll();
         }
     }
 
