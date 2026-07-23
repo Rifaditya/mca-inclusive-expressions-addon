@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.0.2+26.2] - 2026-07-23
+
+### Fixed
+* **Total Size and Position Isolation**: Implemented local pivot-centered matrix stack transformations (`(-1.75f, 0.25f, 0.0f)` for Left and `(+1.75f, 0.25f, 0.0f)` for Right) so Size sliders modify volume ONLY with zero position drift across the body.
+
 ## [2.0.1+26.2] - 2026-07-23
 
 ### Fixed

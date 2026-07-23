@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.0.2+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.0.2+26.2.jar`
+* **Changes**:
+  - Implemented local pivot-centered matrix stack transformations ((-1.75f, 0.25f, 0.0f) for Left and (+1.75f, 0.25f, 0.0f) for Right) so Size sliders modify volume ONLY with zero position drift across the body.
+
+---
+
 ### Release `2.0.1+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.0.1+26.2.jar`

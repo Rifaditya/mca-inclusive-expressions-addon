@@ -32,7 +32,7 @@ public interface CommonVillagerInterfaceMixin {
         // Body
         self.getCommonBodyParts().forEach(a -> a.render(matrices, vertices, light, overlay, color));
 
-        // Breasts (Calibrated 1:1 Normal Scale Matrix Scaling with MCA's native -35° angle!)
+        // Breasts (Local Pivot Matrix Scaling with ZERO position drift!)
         if (self.getBreastPart().visible && self.getBodyPart().visible) {
             float leftMult = MCAInclusiveExpressionsAddon.getLeftScaleMultiplier();
             float rightMult = MCAInclusiveExpressionsAddon.getRightScaleMultiplier();
@@ -50,7 +50,6 @@ public interface CommonVillagerInterfaceMixin {
                 rightZ = duck.getRenderRightZ();
             }
 
-            // Calibrated 1:1 scale (100% = 1.0x normal size, 99% = 0.99x, 500% = 5.0x, 1000% = 10.0x)
             float leftBreastSize = leftMult;
             float rightBreastSize = rightMult;
 
@@ -64,20 +63,38 @@ public interface CommonVillagerInterfaceMixin {
                 ModelPartAccessor partAccess = (ModelPartAccessor) (Object) part;
                 List<ModelPart.Cube> cubes = partAccess.getCubes();
                 if (cubes != null && cubes.size() >= 2) {
-                    // Render Left Breast Cube (Index 0) with 1:1 scale and 3D translation
+                    // Left Breast Box Center Pivot: (-1.75f, 0.25f, 0.0f) in model coordinates
+                    float leftPivotX = -1.75f / 16.0f;
+                    float leftPivotY = 0.25f / 16.0f;
+                    float leftPivotZ = 0.0f;
+
                     if (leftBreastSize > 0) {
                         matrices.pushPose();
-                        matrices.translate(leftX, leftY, leftZ);
+                        // 1. Position offset + move to local pivot center
+                        matrices.translate(leftPivotX + leftX, leftPivotY + leftY, leftPivotZ + leftZ);
+                        // 2. Scale volume locally around pivot (zero position drift!)
                         matrices.scale(leftBreastSize, leftBreastSize, leftBreastSize);
+                        // 3. Translate back from pivot
+                        matrices.translate(-leftPivotX, -leftPivotY, -leftPivotZ);
+
                         cubes.get(0).compile(matrices.last(), vertices, light, overlay, color);
                         matrices.popPose();
                     }
 
-                    // Render Right Breast Cube (Index 1) with 1:1 scale and 3D translation
+                    // Right Breast Box Center Pivot: (+1.75f, 0.25f, 0.0f) in model coordinates
+                    float rightPivotX = 1.75f / 16.0f;
+                    float rightPivotY = 0.25f / 16.0f;
+                    float rightPivotZ = 0.0f;
+
                     if (rightBreastSize > 0) {
                         matrices.pushPose();
-                        matrices.translate(rightX, rightY, rightZ);
+                        // 1. Position offset + move to local pivot center
+                        matrices.translate(rightPivotX + rightX, rightPivotY + rightY, rightPivotZ + rightZ);
+                        // 2. Scale volume locally around pivot (zero position drift!)
                         matrices.scale(rightBreastSize, rightBreastSize, rightBreastSize);
+                        // 3. Translate back from pivot
+                        matrices.translate(-rightPivotX, -rightPivotY, -rightPivotZ);
+
                         cubes.get(1).compile(matrices.last(), vertices, light, overlay, color);
                         matrices.popPose();
                     }
