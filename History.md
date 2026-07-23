@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `1.8.5+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-1.8.5+26.2.jar`
+* **Changes**:
+  - Centered 3D MatrixStack scaling around Left Breast's pivot center (-1.75F, 0.25F, 0.0F) and Right Breast's pivot center (+1.75F, 0.25F, 0.0F) for 100% total 3D mesh isolation.
+
+---
+
 ### Release `1.8.0+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.8.0+26.2.jar`

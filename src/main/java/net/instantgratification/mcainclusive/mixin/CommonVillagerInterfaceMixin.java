@@ -31,7 +31,7 @@ public interface CommonVillagerInterfaceMixin {
         // Body
         self.getCommonBodyParts().forEach(a -> a.render(matrices, vertices, light, overlay, color));
 
-        // Breasts (Independent Left and Right Matrix Scaling with MCA's native -35° angle!)
+        // Breasts (Independent Left and Right Matrix Scaling with MCA's native -35° angle & Pivot Isolation!)
         if (self.getBreastPart().visible && self.getBodyPart().visible) {
             float baseSize = self.getBreastSize();
             if (baseSize == 0 && MCAInclusiveExpressionsAddon.isAllowAllGenders()) {
@@ -40,6 +40,8 @@ public interface CommonVillagerInterfaceMixin {
 
             float leftMult = MCAInclusiveExpressionsAddon.getLeftScaleMultiplier();
             float rightMult = MCAInclusiveExpressionsAddon.getRightScaleMultiplier();
+            float leftXOffset = 0.0f;
+            float rightXOffset = 0.0f;
 
             float leftBreastSize = baseSize * leftMult * self.getDimensions().getBreasts();
             float rightBreastSize = baseSize * rightMult * self.getDimensions().getBreasts();
@@ -54,26 +56,30 @@ public interface CommonVillagerInterfaceMixin {
                 ModelPartAccessor partAccess = (ModelPartAccessor) (Object) part;
                 List<ModelPart.Cube> cubes = partAccess.getCubes();
                 if (cubes != null && cubes.size() >= 2) {
-                    // Render Left Breast Cube (Index 0) at Left Breast Size matrix scale
+                    // Render Left Breast Cube (Index 0) centered at (-1.75F + leftXOffset, 0.25F, 0.0F)
                     if (leftBreastSize > 0) {
                         matrices.pushPose();
+                        matrices.translate(-1.75f + leftXOffset, 0.25f, 0.0f);
                         matrices.scale(
                             leftBreastSize * 0.2f + 1.05f,
                             leftBreastSize * 0.75f + 0.75f,
                             leftBreastSize * 0.75f + 0.75f
                         );
+                        matrices.translate(1.75f - leftXOffset, -0.25f, 0.0f);
                         cubes.get(0).compile(matrices.last(), vertices, light, overlay, color);
                         matrices.popPose();
                     }
 
-                    // Render Right Breast Cube (Index 1) at Right Breast Size matrix scale
+                    // Render Right Breast Cube (Index 1) centered at (+1.75F + rightXOffset, 0.25F, 0.0F)
                     if (rightBreastSize > 0) {
                         matrices.pushPose();
+                        matrices.translate(1.75f + rightXOffset, 0.25f, 0.0f);
                         matrices.scale(
                             rightBreastSize * 0.2f + 1.05f,
                             rightBreastSize * 0.75f + 0.75f,
                             rightBreastSize * 0.75f + 0.75f
                         );
+                        matrices.translate(-1.75f - rightXOffset, -0.25f, 0.0f);
                         cubes.get(1).compile(matrices.last(), vertices, light, overlay, color);
                         matrices.popPose();
                     }

@@ -17,11 +17,10 @@ public abstract class GeneticsMixin implements GeneticsDuck {
     @Shadow public abstract Gender getGender();
     @Shadow public abstract float getGene(Genetics.GeneType type);
 
-    @Unique
-    private float leftBreastSize = 1.0f;
-
-    @Unique
-    private float rightBreastSize = 1.0f;
+    @Unique private float leftBreastSize = 1.0f;
+    @Unique private float rightBreastSize = 1.0f;
+    @Unique private float leftBreastX = 0.0f;
+    @Unique private float rightBreastX = 0.0f;
 
     @Override
     public float getLeftBreastSize() {
@@ -41,6 +40,26 @@ public abstract class GeneticsMixin implements GeneticsDuck {
     @Override
     public void setRightBreastSize(float val) {
         this.rightBreastSize = val;
+    }
+
+    @Override
+    public float getLeftBreastX() {
+        return this.leftBreastX;
+    }
+
+    @Override
+    public void setLeftBreastX(float val) {
+        this.leftBreastX = val;
+    }
+
+    @Override
+    public float getRightBreastX() {
+        return this.rightBreastX;
+    }
+
+    @Override
+    public void setRightBreastX(float val) {
+        this.rightBreastX = val;
     }
 
     @Inject(method = "getBreastSize", at = @At("HEAD"), cancellable = true)

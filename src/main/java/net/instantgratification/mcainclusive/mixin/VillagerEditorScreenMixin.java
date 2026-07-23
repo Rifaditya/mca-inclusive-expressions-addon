@@ -89,7 +89,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             }
             toRemove.forEach(this::removeWidget);
         } else if ("breast_addon".equals(page)) {
-            int y = this.height / 2 - 80;
+            int y = this.height / 2 - 85;
 
             // Render sub-tabs header
             this.addCharacterSubpageTabs(y, "breast_addon");
@@ -169,7 +169,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             ));
             y += 22;
 
-            // 3. Slider Link Mode Toggle
+            // 3. Slider Link Mode Toggle Button
             boolean linked = MCAInclusiveExpressionsAddon.linkSliders;
             this.addRenderableWidget(new ButtonWidget(
                 x,

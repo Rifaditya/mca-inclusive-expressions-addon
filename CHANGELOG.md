@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.8.5+26.2] - 2026-07-23
+
+### Fixed
+* Centered 3D MatrixStack scaling around Left Breast's pivot center `(-1.75F, 0.25F, 0.0F)` and Right Breast's pivot center `(+1.75F, 0.25F, 0.0F)` for **100% total 3D mesh isolation**.
+* Added independent X-position offset translations for left and right breasts.
+
 ## [1.8.0+26.2] - 2026-07-23
 
 ### Added

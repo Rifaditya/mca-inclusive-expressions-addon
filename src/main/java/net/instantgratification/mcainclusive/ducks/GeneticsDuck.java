@@ -6,4 +6,9 @@ public interface GeneticsDuck {
     void setLeftBreastSize(float val);
     float getRightBreastSize();
     void setRightBreastSize(float val);
+
+    float getLeftBreastX();
+    void setLeftBreastX(float val);
+    float getRightBreastX();
+    void setRightBreastX(float val);
 }
