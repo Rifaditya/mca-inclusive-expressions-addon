@@ -95,135 +95,185 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             this.addCharacterSubpageTabs(y, "breast_addon");
             y += 24;
 
-            int x = this.width / 2;
-            int widgetWidth = DATA_WIDTH;
+            int leftColX = this.width / 2;
+            int rightColX = this.width / 2 + DATA_WIDTH / 2;
+            int halfWidth = DATA_WIDTH / 2;
+            int fullWidth = DATA_WIDTH;
             int maxLimit = MCAInclusiveExpressionsAddon.maxScaleLimit;
 
-            // 1. Left Breast Size Slider
+            // --- Row 1: Left & Right Size Sliders ---
             int currentLeftPct = (int) (MCAInclusiveExpressionsAddon.defaultLeftMultiplier * 100);
             if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                 currentLeftPct = (int) (duck.getLeftBreastSize() * 100.0f);
             }
             this.addRenderableWidget(new IntegerSliderWidget(
-                x,
-                y,
-                widgetWidth,
-                20,
-                currentLeftPct,
-                0,
-                maxLimit,
+                leftColX, y, halfWidth, 20, currentLeftPct, 0, maxLimit,
                 val -> {
                     float scale = val / 100.0f;
                     MCAInclusiveExpressionsAddon.defaultLeftMultiplier = scale;
                     if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                         duck.setLeftBreastSize(scale);
-                        if (MCAInclusiveExpressionsAddon.linkSliders) {
-                            duck.setRightBreastSize(scale);
-                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastSize(scale);
                     }
                     if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                         duck.setLeftBreastSize(scale);
-                        if (MCAInclusiveExpressionsAddon.linkSliders) {
-                            duck.setRightBreastSize(scale);
-                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastSize(scale);
                     }
                     refreshPreviewDimensions();
                 },
-                val -> Component.literal("Left Breast Size: " + val + "%"),
-                () -> Component.literal("Adjusts left chest feature size")
+                val -> Component.literal("Left Size: " + val + "%"),
+                () -> Component.literal("Adjusts left chest size")
             ));
-            y += 22;
 
-            // 2. Right Breast Size Slider
             int currentRightPct = (int) (MCAInclusiveExpressionsAddon.defaultRightMultiplier * 100);
             if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                 currentRightPct = (int) (duck.getRightBreastSize() * 100.0f);
             }
             this.addRenderableWidget(new IntegerSliderWidget(
-                x,
-                y,
-                widgetWidth,
-                20,
-                currentRightPct,
-                0,
-                maxLimit,
+                rightColX, y, halfWidth, 20, currentRightPct, 0, maxLimit,
                 val -> {
                     float scale = val / 100.0f;
                     MCAInclusiveExpressionsAddon.defaultRightMultiplier = scale;
                     if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                         duck.setRightBreastSize(scale);
-                        if (MCAInclusiveExpressionsAddon.linkSliders) {
-                            duck.setLeftBreastSize(scale);
-                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastSize(scale);
                     }
                     if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                         duck.setRightBreastSize(scale);
-                        if (MCAInclusiveExpressionsAddon.linkSliders) {
-                            duck.setLeftBreastSize(scale);
-                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastSize(scale);
                     }
                     refreshPreviewDimensions();
                 },
-                val -> Component.literal("Right Breast Size: " + val + "%"),
-                () -> Component.literal("Adjusts right chest feature size")
+                val -> Component.literal("Right Size: " + val + "%"),
+                () -> Component.literal("Adjusts right chest size")
             ));
             y += 22;
 
-            // 3. Slider Link Mode Toggle Button
+            // --- Row 2: Left & Right X-Position Sliders (-1.0F to +1.0F mapped to -100 to +100) ---
+            int curLeftX = 0;
+            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curLeftX = (int) (duck.getLeftBreastX() * 100.0f);
+            this.addRenderableWidget(new IntegerSliderWidget(
+                leftColX, y, halfWidth, 20, curLeftX, -100, 100,
+                val -> {
+                    float offset = val / 100.0f;
+                    if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastX(offset);
+                    if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastX(offset);
+                    refreshPreviewDimensions();
+                },
+                val -> Component.literal("Left X-Pos: " + (val >= 0 ? "+" : "") + val),
+                () -> Component.literal("Adjusts left chest horizontal position")
+            ));
+
+            int curRightX = 0;
+            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightX = (int) (duck.getRightBreastX() * 100.0f);
+            this.addRenderableWidget(new IntegerSliderWidget(
+                rightColX, y, halfWidth, 20, curRightX, -100, 100,
+                val -> {
+                    float offset = val / 100.0f;
+                    if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastX(offset);
+                    if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastX(offset);
+                    refreshPreviewDimensions();
+                },
+                val -> Component.literal("Right X-Pos: " + (val >= 0 ? "+" : "") + val),
+                () -> Component.literal("Adjusts right chest horizontal position")
+            ));
+            y += 22;
+
+            // --- Row 3: Left & Right Y-Position Sliders ---
+            int curLeftY = 0;
+            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curLeftY = (int) (duck.getLeftBreastY() * 100.0f);
+            this.addRenderableWidget(new IntegerSliderWidget(
+                leftColX, y, halfWidth, 20, curLeftY, -100, 100,
+                val -> {
+                    float offset = val / 100.0f;
+                    if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastY(offset);
+                    if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastY(offset);
+                    refreshPreviewDimensions();
+                },
+                val -> Component.literal("Left Y-Pos: " + (val >= 0 ? "+" : "") + val),
+                () -> Component.literal("Adjusts left chest vertical position")
+            ));
+
+            int curRightY = 0;
+            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightY = (int) (duck.getRightBreastY() * 100.0f);
+            this.addRenderableWidget(new IntegerSliderWidget(
+                rightColX, y, halfWidth, 20, curRightY, -100, 100,
+                val -> {
+                    float offset = val / 100.0f;
+                    if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastY(offset);
+                    if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastY(offset);
+                    refreshPreviewDimensions();
+                },
+                val -> Component.literal("Right Y-Pos: " + (val >= 0 ? "+" : "") + val),
+                () -> Component.literal("Adjusts right chest vertical position")
+            ));
+            y += 22;
+
+            // --- Row 4: Left & Right Z-Position Sliders ---
+            int curLeftZ = 0;
+            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curLeftZ = (int) (duck.getLeftBreastZ() * 100.0f);
+            this.addRenderableWidget(new IntegerSliderWidget(
+                leftColX, y, halfWidth, 20, curLeftZ, -100, 100,
+                val -> {
+                    float offset = val / 100.0f;
+                    if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastZ(offset);
+                    if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastZ(offset);
+                    refreshPreviewDimensions();
+                },
+                val -> Component.literal("Left Z-Pos: " + (val >= 0 ? "+" : "") + val),
+                () -> Component.literal("Adjusts left chest depth position")
+            ));
+
+            int curRightZ = 0;
+            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightZ = (int) (duck.getRightBreastZ() * 100.0f);
+            this.addRenderableWidget(new IntegerSliderWidget(
+                rightColX, y, halfWidth, 20, curRightZ, -100, 100,
+                val -> {
+                    float offset = val / 100.0f;
+                    if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastZ(offset);
+                    if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastZ(offset);
+                    refreshPreviewDimensions();
+                },
+                val -> Component.literal("Right Z-Pos: " + (val >= 0 ? "+" : "") + val),
+                () -> Component.literal("Adjusts right chest depth position")
+            ));
+            y += 22;
+
+            // --- Row 5: Link Mode & Max Scale Limit Buttons ---
             boolean linked = MCAInclusiveExpressionsAddon.linkSliders;
             this.addRenderableWidget(new ButtonWidget(
-                x,
-                y,
-                widgetWidth,
-                20,
-                Component.literal("Slider Link Mode: " + (linked ? "LINKED (Symmetric)" : "UNLINKED (Asymmetric)")),
+                leftColX, y, halfWidth, 20,
+                Component.literal("Link: " + (linked ? "LINKED" : "UNLINKED")),
                 b -> {
                     MCAInclusiveExpressionsAddon.linkSliders = !MCAInclusiveExpressionsAddon.linkSliders;
                     if (MCAInclusiveExpressionsAddon.linkSliders) {
                         float leftVal = (float) MCAInclusiveExpressionsAddon.defaultLeftMultiplier;
                         MCAInclusiveExpressionsAddon.defaultRightMultiplier = leftVal;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
-                            duck.setRightBreastSize(leftVal);
-                        }
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
-                            duck.setRightBreastSize(leftVal);
-                        }
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastSize(leftVal);
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastSize(leftVal);
                     }
                     refreshPreviewDimensions();
                     this.setPage("breast_addon");
                 }
             ));
-            y += 22;
 
-            // 4. Max Scale Limit Toggle
             this.addRenderableWidget(new ButtonWidget(
-                x,
-                y,
-                widgetWidth,
-                20,
-                Component.literal("Max Scale Limit: " + maxLimit + "%" + (maxLimit == 200 ? " (Default)" : "")),
+                rightColX, y, halfWidth, 20,
+                Component.literal("Max Limit: " + maxLimit + "%"),
                 b -> {
-                    if (maxLimit == 200) {
-                        MCAInclusiveExpressionsAddon.maxScaleLimit = 300;
-                    } else if (maxLimit == 300) {
-                        MCAInclusiveExpressionsAddon.maxScaleLimit = 500;
-                    } else if (maxLimit == 500) {
-                        MCAInclusiveExpressionsAddon.maxScaleLimit = 1000;
-                    } else {
-                        MCAInclusiveExpressionsAddon.maxScaleLimit = 200;
-                    }
+                    if (maxLimit == 200) MCAInclusiveExpressionsAddon.maxScaleLimit = 300;
+                    else if (maxLimit == 300) MCAInclusiveExpressionsAddon.maxScaleLimit = 500;
+                    else if (maxLimit == 500) MCAInclusiveExpressionsAddon.maxScaleLimit = 1000;
+                    else MCAInclusiveExpressionsAddon.maxScaleLimit = 200;
                     this.setPage("breast_addon");
                 }
             ));
             y += 22;
 
-            // 5. Gender Representation Inclusivity Toggle
+            // --- Row 6: Gender Representation Inclusivity Toggle ---
             boolean allowAll = MCAInclusiveExpressionsAddon.isAllowAllGenders();
             this.addRenderableWidget(new ButtonWidget(
-                x,
-                y,
-                widgetWidth,
-                20,
+                leftColX, y, fullWidth, 20,
                 Component.literal("Gender Inclusivity: " + (allowAll ? "ENABLED (All Genders)" : "DISABLED (Female Only)")),
                 b -> {
                     MCAInclusiveExpressionsAddon.allowAllGenders = !MCAInclusiveExpressionsAddon.allowAllGenders;

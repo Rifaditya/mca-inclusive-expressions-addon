@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.9.0+26.2] - 2026-07-23
+
+### Added
+* Attached `VillagerRenderStateDuck` to MCA's `VillagerRenderState` to transfer all 8 3D parameters (`leftSize`, `rightSize`, `leftX`, `leftY`, `leftZ`, `rightX`, `rightY`, `rightZ`) per villager, eliminating global static variable pollution during rendering.
+* Added **6 independent 3D position sliders** (Left X/Y/Z and Right X/Y/Z) in a clean 2-column GUI layout inside the `Breast` sub-tab.
+* Restored MCA's native chest default alignment.
+
 ## [1.8.5+26.2] - 2026-07-23
 
 ### Fixed

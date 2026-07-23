@@ -19,48 +19,54 @@ public abstract class GeneticsMixin implements GeneticsDuck {
 
     @Unique private float leftBreastSize = 1.0f;
     @Unique private float rightBreastSize = 1.0f;
+
     @Unique private float leftBreastX = 0.0f;
+    @Unique private float leftBreastY = 0.0f;
+    @Unique private float leftBreastZ = 0.0f;
+
     @Unique private float rightBreastX = 0.0f;
+    @Unique private float rightBreastY = 0.0f;
+    @Unique private float rightBreastZ = 0.0f;
 
     @Override
-    public float getLeftBreastSize() {
-        return this.leftBreastSize;
-    }
+    public float getLeftBreastSize() { return this.leftBreastSize; }
+    @Override
+    public void setLeftBreastSize(float val) { this.leftBreastSize = val; }
 
     @Override
-    public void setLeftBreastSize(float val) {
-        this.leftBreastSize = val;
-    }
+    public float getRightBreastSize() { return this.rightBreastSize; }
+    @Override
+    public void setRightBreastSize(float val) { this.rightBreastSize = val; }
 
     @Override
-    public float getRightBreastSize() {
-        return this.rightBreastSize;
-    }
+    public float getLeftBreastX() { return this.leftBreastX; }
+    @Override
+    public void setLeftBreastX(float val) { this.leftBreastX = val; }
 
     @Override
-    public void setRightBreastSize(float val) {
-        this.rightBreastSize = val;
-    }
+    public float getLeftBreastY() { return this.leftBreastY; }
+    @Override
+    public void setLeftBreastY(float val) { this.leftBreastY = val; }
 
     @Override
-    public float getLeftBreastX() {
-        return this.leftBreastX;
-    }
+    public float getLeftBreastZ() { return this.leftBreastZ; }
+    @Override
+    public void setLeftBreastZ(float val) { this.leftBreastZ = val; }
 
     @Override
-    public void setLeftBreastX(float val) {
-        this.leftBreastX = val;
-    }
+    public float getRightBreastX() { return this.rightBreastX; }
+    @Override
+    public void setRightBreastX(float val) { this.rightBreastX = val; }
 
     @Override
-    public float getRightBreastX() {
-        return this.rightBreastX;
-    }
+    public float getRightBreastY() { return this.rightBreastY; }
+    @Override
+    public void setRightBreastY(float val) { this.rightBreastY = val; }
 
     @Override
-    public void setRightBreastX(float val) {
-        this.rightBreastX = val;
-    }
+    public float getRightBreastZ() { return this.rightBreastZ; }
+    @Override
+    public void setRightBreastZ(float val) { this.rightBreastZ = val; }
 
     @Inject(method = "getBreastSize", at = @At("HEAD"), cancellable = true)
     private void onGetBreastSize(CallbackInfoReturnable<Float> cir) {

@@ -4,6 +4,16 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `1.9.0+26.2` (2026-07-23)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-1.9.0+26.2.jar`
+* **Changes**:
+  - Implemented VillagerRenderStateDuck to transfer 8 3D parameters per villager into VillagerRenderState, eliminating global static variable pollution during rendering.
+  - Added 6 independent 3D position sliders (Left X/Y/Z and Right X/Y/Z) in a 2-column 6-row GUI layout.
+  - Restored MCA native chest alignment.
+
+---
+
 ### Release `1.8.5+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-1.8.5+26.2.jar`

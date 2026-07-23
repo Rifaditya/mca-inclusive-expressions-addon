@@ -1,11 +1,11 @@
 // Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.instantgratification.mcainclusive.ducks;
 
-public interface GeneticsDuck {
-    float getLeftBreastSize();
-    void setLeftBreastSize(float val);
-    float getRightBreastSize();
-    void setRightBreastSize(float val);
+public interface VillagerRenderStateDuck {
+    float getLeftBreastScale();
+    void setLeftBreastScale(float val);
+    float getRightBreastScale();
+    void setRightBreastScale(float val);
 
     float getLeftBreastX();
     void setLeftBreastX(float val);

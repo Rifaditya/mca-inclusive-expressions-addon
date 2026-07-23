@@ -10,6 +10,7 @@
     "PlayerEntityExtendedModelMixin",
     "PlayerArmorExtendedModelMixin",
     "VillagerVisualsMixin",
+    "VillagerRenderStateMixin",
     "VillagerEditorScreenMixin"
   ],
   "client": [
