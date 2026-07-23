@@ -2,16 +2,20 @@
 package net.instantgratification.mcainclusive.mixin;
 
 import net.conczin.mca.entity.ai.Genetics;
+import net.conczin.mca.entity.ai.relationship.Gender;
+import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
 import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
-import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = Genetics.class, remap = false)
 public abstract class GeneticsMixin implements GeneticsDuck {
+    @Shadow public abstract Gender getGender();
+    @Shadow public abstract float getGene(Genetics.GeneType type);
 
     @Unique
     private float leftBreastSize = 1.0f;
@@ -39,15 +43,11 @@ public abstract class GeneticsMixin implements GeneticsDuck {
         this.rightBreastSize = val;
     }
 
-    @Inject(method = "save", at = @At("TAIL"), remap = false)
-    private void onSave(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putFloat("mca_inclusive_expressions:breast_left", this.leftBreastSize);
-        nbt.putFloat("mca_inclusive_expressions:breast_right", this.rightBreastSize);
-    }
-
-    @Inject(method = "load", at = @At("TAIL"), remap = false)
-    private void onLoad(CompoundTag nbt, CallbackInfo ci) {
-        nbt.getFloat("mca_inclusive_expressions:breast_left").ifPresent(val -> this.leftBreastSize = val);
-        nbt.getFloat("mca_inclusive_expressions:breast_right").ifPresent(val -> this.rightBreastSize = val);
+    @Inject(method = "getBreastSize", at = @At("HEAD"), cancellable = true)
+    private void onGetBreastSize(CallbackInfoReturnable<Float> cir) {
+        if (MCAInclusiveExpressionsAddon.isAllowAllGenders()) {
+            float geneVal = getGene(Genetics.BREAST);
+            cir.setReturnValue(geneVal > 0 ? geneVal : 0.5f);
+        }
     }
 }
