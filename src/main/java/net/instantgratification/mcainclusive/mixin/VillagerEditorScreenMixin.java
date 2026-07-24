@@ -8,6 +8,7 @@ import net.conczin.mca.client.gui.widget.TooltipButtonWidget;
 import net.conczin.mca.entity.VillagerEntityMCA;
 import net.conczin.mca.util.compat.ButtonWidget;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
+import net.instantgratification.mcainclusive.ducks.ExtendedSliderWidgetDuck;
 import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
@@ -380,7 +381,16 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                     float val = duck.getLeftBreastSize();
                     currentLeftPct = val > 0 ? (int) (val / 5.0f * 100.0f) : 20;
                 }
-                this.addRenderableWidget(new IntegerSliderWidget(
+                int currentRightPct = 20; // 20% maps to 1.0x native default scale
+                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                    float val = duck.getRightBreastSize();
+                    currentRightPct = val > 0 ? (int) (val / 5.0f * 100.0f) : 20;
+                }
+
+                final IntegerSliderWidget[] leftSizeHolder = new IntegerSliderWidget[1];
+                final IntegerSliderWidget[] rightSizeHolder = new IntegerSliderWidget[1];
+
+                leftSizeHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     leftColX, y, halfWidth, 20, currentLeftPct, 0, maxLimit,
                     val -> {
                         float scale = (val / 100.0f) * 5.0f; // Direct linear scale up to 5.0
@@ -392,18 +402,16 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                             duck.setLeftBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastSize(scale);
                         }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && rightSizeHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, 0, maxLimit);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Size: " + val + "%"),
                     () -> Component.literal("Adjusts left chest volume (100% = 5.0x max scale)")
                 ));
 
-                int currentRightPct = 20; // 20% maps to 1.0x native default scale
-                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
-                    float val = duck.getRightBreastSize();
-                    currentRightPct = val > 0 ? (int) (val / 5.0f * 100.0f) : 20;
-                }
-                this.addRenderableWidget(new IntegerSliderWidget(
+                rightSizeHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     rightColX, y, halfWidth, 20, currentRightPct, 0, maxLimit,
                     val -> {
                         float scale = (val / 100.0f) * 5.0f; // Direct linear scale up to 5.0
@@ -414,6 +422,9 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastSize(scale);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && leftSizeHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, 0, maxLimit);
                         }
                         refreshPreviewDimensions();
                     },
@@ -442,26 +453,48 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 // --- Sub-Category 2: Position ---
                 int curLeftX = 0;
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curLeftX = (int) (duck.getLeftBreastX() * 100.0f);
-                this.addRenderableWidget(new IntegerSliderWidget(
+                int curRightX = 0;
+                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightX = (int) (duck.getRightBreastX() * 100.0f);
+
+                final IntegerSliderWidget[] leftPosXHolder = new IntegerSliderWidget[1];
+                final IntegerSliderWidget[] rightPosXHolder = new IntegerSliderWidget[1];
+
+                leftPosXHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     leftColX, y, halfWidth, 20, curLeftX, -100, 100,
                     val -> {
                         float offset = val / 100.0f;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastX(offset);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastX(offset);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastX(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastX(offset);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastX(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastX(offset);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && rightPosXHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -100, 100);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left X-Pos: " + (val >= 0 ? "+" : "") + val),
                     () -> Component.literal("Adjusts left chest horizontal position")
                 ));
 
-                int curRightX = 0;
-                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightX = (int) (duck.getRightBreastX() * 100.0f);
-                this.addRenderableWidget(new IntegerSliderWidget(
+                rightPosXHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     rightColX, y, halfWidth, 20, curRightX, -100, 100,
                     val -> {
                         float offset = val / 100.0f;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastX(offset);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastX(offset);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastX(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastX(offset);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastX(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastX(offset);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && leftPosXHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -100, 100);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right X-Pos: " + (val >= 0 ? "+" : "") + val),
@@ -471,26 +504,48 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
                 int curLeftY = 0;
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curLeftY = (int) (duck.getLeftBreastY() * 100.0f);
-                this.addRenderableWidget(new IntegerSliderWidget(
+                int curRightY = 0;
+                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightY = (int) (duck.getRightBreastY() * 100.0f);
+
+                final IntegerSliderWidget[] leftPosYHolder = new IntegerSliderWidget[1];
+                final IntegerSliderWidget[] rightPosYHolder = new IntegerSliderWidget[1];
+
+                leftPosYHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     leftColX, y, halfWidth, 20, curLeftY, -100, 100,
                     val -> {
                         float offset = val / 100.0f;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastY(offset);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastY(offset);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastY(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastY(offset);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastY(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastY(offset);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && rightPosYHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -100, 100);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Y-Pos: " + (val >= 0 ? "+" : "") + val),
                     () -> Component.literal("Adjusts left chest vertical position")
                 ));
 
-                int curRightY = 0;
-                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightY = (int) (duck.getRightBreastY() * 100.0f);
-                this.addRenderableWidget(new IntegerSliderWidget(
+                rightPosYHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     rightColX, y, halfWidth, 20, curRightY, -100, 100,
                     val -> {
                         float offset = val / 100.0f;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastY(offset);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastY(offset);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastY(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastY(offset);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastY(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastY(offset);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && leftPosYHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -100, 100);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right Y-Pos: " + (val >= 0 ? "+" : "") + val),
@@ -500,26 +555,48 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
                 int curLeftZ = 0;
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curLeftZ = (int) (duck.getLeftBreastZ() * 100.0f);
-                this.addRenderableWidget(new IntegerSliderWidget(
+                int curRightZ = 0;
+                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightZ = (int) (duck.getRightBreastZ() * 100.0f);
+
+                final IntegerSliderWidget[] leftPosZHolder = new IntegerSliderWidget[1];
+                final IntegerSliderWidget[] rightPosZHolder = new IntegerSliderWidget[1];
+
+                leftPosZHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     leftColX, y, halfWidth, 20, curLeftZ, -100, 100,
                     val -> {
                         float offset = val / 100.0f;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastZ(offset);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastZ(offset);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastZ(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastZ(offset);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastZ(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastZ(offset);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && rightPosZHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -100, 100);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Z-Pos: " + (val >= 0 ? "+" : "") + val),
                     () -> Component.literal("Adjusts left chest depth position")
                 ));
 
-                int curRightZ = 0;
-                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightZ = (int) (duck.getRightBreastZ() * 100.0f);
-                this.addRenderableWidget(new IntegerSliderWidget(
+                rightPosZHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     rightColX, y, halfWidth, 20, curRightZ, -100, 100,
                     val -> {
                         float offset = val / 100.0f;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastZ(offset);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastZ(offset);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastZ(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastZ(offset);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastZ(offset);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastZ(offset);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && leftPosZHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -100, 100);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right Z-Pos: " + (val >= 0 ? "+" : "") + val),
@@ -529,26 +606,48 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 // --- Sub-Category 3: 3D Rotations ---
                 int curLeftPitch = 0;
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curLeftPitch = (int) duck.getLeftBreastPitch();
-                this.addRenderableWidget(new IntegerSliderWidget(
+                int curRightPitch = 0;
+                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightPitch = (int) duck.getRightBreastPitch();
+
+                final IntegerSliderWidget[] leftPitchHolder = new IntegerSliderWidget[1];
+                final IntegerSliderWidget[] rightPitchHolder = new IntegerSliderWidget[1];
+
+                leftPitchHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     leftColX, y, halfWidth, 20, curLeftPitch, -90, 90,
                     val -> {
                         float angle = (float) val;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastPitch(angle);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastPitch(angle);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastPitch(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastPitch(angle);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastPitch(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastPitch(angle);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && rightPitchHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -90, 90);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Pitch (X): " + (val >= 0 ? "+" : "") + val + "°"),
                     () -> Component.literal("Tips left chest up or down")
                 ));
 
-                int curRightPitch = 0;
-                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightPitch = (int) duck.getRightBreastPitch();
-                this.addRenderableWidget(new IntegerSliderWidget(
+                rightPitchHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     rightColX, y, halfWidth, 20, curRightPitch, -90, 90,
                     val -> {
                         float angle = (float) val;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastPitch(angle);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastPitch(angle);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastPitch(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastPitch(angle);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastPitch(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastPitch(angle);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && leftPitchHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -90, 90);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right Pitch (X): " + (val >= 0 ? "+" : "") + val + "°"),
@@ -558,26 +657,48 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
                 int curLeftYaw = 0;
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curLeftYaw = (int) duck.getLeftBreastYaw();
-                this.addRenderableWidget(new IntegerSliderWidget(
+                int curRightYaw = 0;
+                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightYaw = (int) duck.getRightBreastYaw();
+
+                final IntegerSliderWidget[] leftYawHolder = new IntegerSliderWidget[1];
+                final IntegerSliderWidget[] rightYawHolder = new IntegerSliderWidget[1];
+
+                leftYawHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     leftColX, y, halfWidth, 20, curLeftYaw, -90, 90,
                     val -> {
                         float angle = (float) val;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastYaw(angle);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastYaw(angle);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastYaw(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastYaw(angle);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastYaw(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastYaw(angle);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && rightYawHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -90, 90);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Yaw (Y): " + (val >= 0 ? "+" : "") + val + "°"),
                     () -> Component.literal("Swivels left cleavage angle outward/inward")
                 ));
 
-                int curRightYaw = 0;
-                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightYaw = (int) duck.getRightBreastYaw();
-                this.addRenderableWidget(new IntegerSliderWidget(
+                rightYawHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     rightColX, y, halfWidth, 20, curRightYaw, -90, 90,
                     val -> {
                         float angle = (float) val;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastYaw(angle);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastYaw(angle);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastYaw(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastYaw(angle);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastYaw(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastYaw(angle);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && leftYawHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -90, 90);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right Yaw (Y): " + (val >= 0 ? "+" : "") + val + "°"),
@@ -587,26 +708,48 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
                 int curLeftRoll = 0;
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curLeftRoll = (int) duck.getLeftBreastRoll();
-                this.addRenderableWidget(new IntegerSliderWidget(
+                int curRightRoll = 0;
+                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightRoll = (int) duck.getRightBreastRoll();
+
+                final IntegerSliderWidget[] leftRollHolder = new IntegerSliderWidget[1];
+                final IntegerSliderWidget[] rightRollHolder = new IntegerSliderWidget[1];
+
+                leftRollHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     leftColX, y, halfWidth, 20, curLeftRoll, -90, 90,
                     val -> {
                         float angle = (float) val;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastRoll(angle);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setLeftBreastRoll(angle);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastRoll(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastRoll(angle);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setLeftBreastRoll(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastRoll(angle);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && rightRollHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -90, 90);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Roll (Z): " + (val >= 0 ? "+" : "") + val + "°"),
                     () -> Component.literal("Tilts left chest sideways left or right")
                 ));
 
-                int curRightRoll = 0;
-                if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) curRightRoll = (int) duck.getRightBreastRoll();
-                this.addRenderableWidget(new IntegerSliderWidget(
+                rightRollHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     rightColX, y, halfWidth, 20, curRightRoll, -90, 90,
                     val -> {
                         float angle = (float) val;
-                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastRoll(angle);
-                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastRoll(angle);
+                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastRoll(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastRoll(angle);
+                        }
+                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                            duck.setRightBreastRoll(angle);
+                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastRoll(angle);
+                        }
+                        if (MCAInclusiveExpressionsAddon.linkSliders && leftRollHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(val, -90, 90);
+                        }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right Roll (Z): " + (val >= 0 ? "+" : "") + val + "°"),

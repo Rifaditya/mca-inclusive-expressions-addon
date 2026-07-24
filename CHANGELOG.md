@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.6+26.2] - 2026-07-24
+
+### Fixed
+* **Dynamic Linked Slider Synchronization Engine**: Created `ExtendedSliderWidgetDuck` and implemented `mca$setIntegerVal` on `ExtendedSliderWidgetMixin`. When `Slider Link Mode: LINKED (Symmetric)` is active in the GUI Editor, dragging one slider dynamically moves its partner slider's thumb position and updates its label text in real time (Photoshop link style).
+
 ## [4.4.5+26.2] - 2026-07-24
 
 ### Fixed
