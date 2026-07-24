@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.0+26.2.jar`
+* **Changes**:
+  - Resolved startup InvalidInjectionException crash by moving applyVillagerDimensions mixin target to CommonVillagerInterfaceMixin (interface mixin). Forced breasts.visible = true and breastSize = 1.0f for masculine characters with the Full-Chested trait.
+
+---
+
 ### Release `4.3.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.3.0+26.2.jar`

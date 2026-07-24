@@ -44,6 +44,17 @@ public interface CommonVillagerInterfaceMixin {
         }
     }
 
+    @Inject(method = "applyVillagerDimensions", at = @At("TAIL"), remap = false)
+    private void onApplyVillagerDimensions(net.conczin.mca.client.render.VillagerVisuals visuals, boolean crouching, CallbackInfo ci) {
+        CommonVillagerModel<?> self = (CommonVillagerModel<?>) (Object) this;
+        if (self.getBreastPart() != null) {
+            self.getBreastPart().visible = true;
+        }
+        if (self.getBreastSize() <= 0) {
+            self.setBreastSize(1.0f);
+        }
+    }
+
     @Inject(method = "renderCommon", at = @At("HEAD"), cancellable = true, remap = false)
     private void onRenderCommon(PoseStack matrices, VertexConsumer vertices, int light, int overlay, int color, CallbackInfo ci) {
         CommonVillagerModel<?> self = (CommonVillagerModel<?>) this;

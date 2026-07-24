@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.0+26.2] - 2026-07-24
+
+### Fixed
+* **CommonVillagerInterfaceMixin Crash Fix & Trait Render Engine**: Resolved startup `InvalidInjectionException` crash by moving `applyVillagerDimensions` mixin target to `CommonVillagerInterfaceMixin` (interface mixin). Forced `breasts.visible = true` and `breastSize = 1.0f` for masculine characters with the `Full-Chested` trait.
+
 ## [4.3.0+26.2] - 2026-07-24
 
 ### Fixed

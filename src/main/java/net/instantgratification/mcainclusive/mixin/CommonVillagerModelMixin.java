@@ -122,18 +122,6 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
         }
     }
 
-    @Inject(method = "applyVillagerDimensions", at = @At("TAIL"), remap = false)
-    private void onApplyVillagerDimensions(net.conczin.mca.client.render.VillagerVisuals visuals, boolean crouching, CallbackInfo ci) {
-        if (this.currentLeftScale > 0 || this.currentRightScale > 0 || MCAInclusiveExpressionsAddon.isAllowAllGenders() || (visuals != null && visuals.breastSize() > 0)) {
-            if (this.breasts != null) {
-                this.breasts.visible = true;
-            }
-            if (this.breastSize <= 0) {
-                this.breastSize = 1.0f;
-            }
-        }
-    }
-
     @Inject(method = "newBreasts", at = @At("HEAD"), cancellable = true, remap = false)
     private static void onNewBreasts(CubeDeformation dilation, int oy, CallbackInfoReturnable<CubeListBuilder> cir) {
         CubeListBuilder builder = CubeListBuilder.create();
