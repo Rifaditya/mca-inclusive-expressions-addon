@@ -47,11 +47,18 @@ public interface CommonVillagerInterfaceMixin {
     @Inject(method = "applyVillagerDimensions", at = @At("TAIL"), remap = false)
     private void onApplyVillagerDimensions(net.conczin.mca.client.render.VillagerVisuals visuals, boolean crouching, CallbackInfo ci) {
         CommonVillagerModel<?> self = (CommonVillagerModel<?>) (Object) this;
-        if (self.getBreastPart() != null) {
-            self.getBreastPart().visible = true;
+        boolean shouldEnable = MCAInclusiveExpressionsAddon.isForceAllBreasted();
+        if (!shouldEnable && self instanceof CommonVillagerModelDuck duck) {
+            shouldEnable = duck.getRenderLeftScale() > 0.0f || duck.getRenderRightScale() > 0.0f;
         }
-        if (self.getBreastSize() <= 0) {
-            self.setBreastSize(1.0f);
+
+        if (shouldEnable) {
+            if (self.getBreastPart() != null) {
+                self.getBreastPart().visible = true;
+            }
+            if (self.getBreastSize() <= 0.0f) {
+                self.setBreastSize(1.0f);
+            }
         }
     }
 

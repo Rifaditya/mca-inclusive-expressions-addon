@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.1+26.2] - 2026-07-24
+
+### Fixed
+* **Force All Breasted GameRule & Isolated Trait Render Engine**: Renamed GameRule to `mca_inclusive_expressions:force_all_breasted` ("Force All Breasted Mode"). Fixed model mixin conditional checks so that male characters WITHOUT the `Full-Chested` trait remain flat-chested when the GameRule is OFF, while males WITH the `Full-Chested` trait render 3D breasts cleanly. Added dot and colon format localization keys to `en_us.json`.
+
 ## [4.4.0+26.2] - 2026-07-24
 
 ### Fixed

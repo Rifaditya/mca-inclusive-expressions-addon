@@ -24,7 +24,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static GameRuleCategory MOD_CATEGORY;
-    public static GameRule<Boolean> ALLOW_ALL_GENDERS_RULE;
+    public static GameRule<Boolean> FORCE_ALL_BREASTED_RULE;
     public static GameRule<Integer> FULL_CHESTED_TRAIT_CHANCE_RULE;
 
     public static Traits.Trait FULL_CHESTED_TRAIT;
@@ -42,9 +42,9 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
         try {
             MOD_CATEGORY = GameRuleCategory.register(Identifier.fromNamespaceAndPath(MOD_ID, "category"));
 
-            ALLOW_ALL_GENDERS_RULE = Registry.register(
+            FORCE_ALL_BREASTED_RULE = Registry.register(
                 BuiltInRegistries.GAME_RULE,
-                "mca_inclusive_expressions:allow_all_genders",
+                "mca_inclusive_expressions:force_all_breasted",
                 new GameRule<>(
                     MOD_CATEGORY,
                     GameRuleType.BOOL,
@@ -77,7 +77,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules or Traits for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.0+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.1+26.2.");
     }
 
     public static GeneticsDuck getActiveGuiGenetics() {
@@ -112,28 +112,32 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
         return getAverageScaleMultiplier();
     }
 
-    public static boolean isAllowAllGenders() {
+    public static boolean isForceAllBreasted() {
         if (allowAllGenders) {
             return true;
         }
 
         try {
             var serverOpt = net.conczin.mca.MCA.getServer();
-            if (serverOpt.isPresent() && ALLOW_ALL_GENDERS_RULE != null) {
-                return serverOpt.get().getGameRules().get(ALLOW_ALL_GENDERS_RULE);
+            if (serverOpt.isPresent() && FORCE_ALL_BREASTED_RULE != null) {
+                return serverOpt.get().getGameRules().get(FORCE_ALL_BREASTED_RULE);
             }
         } catch (Throwable ignored) {
         }
 
         try {
             var mc = net.minecraft.client.Minecraft.getInstance();
-            if (mc != null && mc.getSingleplayerServer() != null && ALLOW_ALL_GENDERS_RULE != null) {
-                return mc.getSingleplayerServer().getGameRules().get(ALLOW_ALL_GENDERS_RULE);
+            if (mc != null && mc.getSingleplayerServer() != null && FORCE_ALL_BREASTED_RULE != null) {
+                return mc.getSingleplayerServer().getGameRules().get(FORCE_ALL_BREASTED_RULE);
             }
         } catch (Throwable ignored) {
         }
 
         return false;
+    }
+
+    public static boolean isAllowAllGenders() {
+        return isForceAllBreasted();
     }
 
     public static int getFullChestedTraitChance() {

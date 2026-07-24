@@ -104,9 +104,11 @@ public abstract class GeneticsMixin implements GeneticsDuck {
 
     @Inject(method = "getBreastSize", at = @At("HEAD"), cancellable = true)
     private void onGetBreastSize(CallbackInfoReturnable<Float> cir) {
-        if (this.leftBreastSize > 0.0f || this.rightBreastSize > 0.0f || MCAInclusiveExpressionsAddon.isAllowAllGenders()) {
+        if (this.leftBreastSize > 0.0f || this.rightBreastSize > 0.0f) {
             float base = Math.max(this.leftBreastSize, this.rightBreastSize);
-            cir.setReturnValue(base > 0.0f ? base : 1.0f);
+            cir.setReturnValue(base);
+        } else if (MCAInclusiveExpressionsAddon.isForceAllBreasted()) {
+            cir.setReturnValue(1.0f);
         }
     }
 

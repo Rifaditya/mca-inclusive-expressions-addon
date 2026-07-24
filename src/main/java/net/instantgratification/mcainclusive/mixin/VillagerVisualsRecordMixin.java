@@ -15,7 +15,7 @@ public abstract class VillagerVisualsRecordMixin {
 
     @Inject(method = "female", at = @At("HEAD"), cancellable = true)
     private void onFemale(CallbackInfoReturnable<Boolean> cir) {
-        if (MCAInclusiveExpressionsAddon.isAllowAllGenders() || this.breastSize() > 0.0f) {
+        if (MCAInclusiveExpressionsAddon.isForceAllBreasted() || this.breastSize() > 0.0f) {
             cir.setReturnValue(true);
         }
     }
