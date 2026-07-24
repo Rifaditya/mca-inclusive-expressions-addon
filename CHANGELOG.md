@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.4.0+26.2] - 2026-07-24
+
+### Fixed
+* **Trait Screen Pagination Refactor**: Intercepted `setPage("traits")` at `HEAD` to place `Full-Chested` at Index 0 in the dynamic traits list. Cleans up pagination math so exactly 8 visible traits render per page across Page 1, Page 2, and Page 3 with zero hidden buttons or layout overflow.
+
 ## [3.3.0+26.2] - 2026-07-24
 
 ### Added

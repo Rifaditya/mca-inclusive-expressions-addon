@@ -180,20 +180,137 @@ public abstract class VillagerEditorScreenMixin extends Screen {
         ci.cancel();
     }
 
+    @Inject(method = "setPage", at = @At("HEAD"), cancellable = true)
+    private void onSetPageHead(String page, CallbackInfo ci) {
+        if ("traits".equals(page)) {
+            this.clearWidgets();
+            this.page = "traits";
+
+            // 1. Build complete valid traits list with FULL_CHESTED_TRAIT at Index 0!
+            List<net.conczin.mca.entity.ai.Traits.Trait> traitList = new ArrayList<>();
+            if (MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
+                traitList.add(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
+            }
+
+            boolean isPlayer = villagerUUID != null && villagerUUID.equals(playerUUID);
+            for (net.conczin.mca.entity.ai.Traits.Trait t : net.conczin.mca.entity.ai.Traits.TRAIT_REGISTRY.values()) {
+                if (t != null && t != MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT && t.isEnabled()) {
+                    if (isPlayer) {
+                        if (net.conczin.mca.Config.getInstance().bypassTraitRestrictions || t.isUsableOnPlayer()) {
+                            traitList.add(t);
+                        }
+                    } else {
+                        traitList.add(t);
+                    }
+                }
+            }
+
+            // 2. Validate traitPage pagination bounds
+            int totalTraits = traitList.size();
+            int maxPages = (totalTraits + 7) / 8;
+            if (maxPages < 1) maxPages = 1;
+            if (this.traitPage >= maxPages) {
+                this.traitPage = 0;
+            }
+            if (this.traitPage < 0) {
+                this.traitPage = maxPages - 1;
+            }
+
+            // 3. Render Top Navigation Bar
+            int startY = this.height / 2 - 85;
+            int leftColX = this.width / 2;
+
+            // Presets button
+            this.addRenderableWidget(new ButtonWidget(
+                leftColX - DATA_WIDTH - 5, startY, DATA_WIDTH, 20,
+                Component.translatable("gui.mca.editor.presets"),
+                b -> this.setPage("presets")
+            ));
+
+            // Trait Shaders toggle button
+            boolean shadersOn = net.conczin.mca.Config.getInstance().enablePlayerShaders;
+            Component shaderText = Component.literal("Trait Shaders: ").append(
+                shadersOn ? Component.literal("ON").withStyle(net.minecraft.ChatFormatting.GREEN) : Component.literal("OFF").withStyle(net.minecraft.ChatFormatting.RED)
+            );
+            this.addRenderableWidget(new ButtonWidget(
+                leftColX - DATA_WIDTH - 5, startY + 24, DATA_WIDTH, 20,
+                shaderText,
+                b -> {
+                    net.conczin.mca.Config.getInstance().enablePlayerShaders = !net.conczin.mca.Config.getInstance().enablePlayerShaders;
+                    this.setPage("traits");
+                }
+            ));
+
+            // Page Navigation: < Page X >
+            int arrowWidth = 30;
+
+            this.addRenderableWidget(new ButtonWidget(
+                leftColX, startY + 24, arrowWidth, 20,
+                Component.literal("<"),
+                b -> {
+                    this.traitPage--;
+                    this.setPage("traits");
+                }
+            ));
+
+            Component pageLabel = Component.literal("Page " + (this.traitPage + 1));
+            this.addRenderableWidget(new ButtonWidget(
+                leftColX + arrowWidth + 2, startY + 24, DATA_WIDTH - (arrowWidth * 2) - 4, 20,
+                pageLabel,
+                b -> {}
+            ));
+
+            this.addRenderableWidget(new ButtonWidget(
+                leftColX + DATA_WIDTH - arrowWidth, startY + 24, arrowWidth, 20,
+                Component.literal(">"),
+                b -> {
+                    this.traitPage++;
+                    this.setPage("traits");
+                }
+            ));
+
+            // 4. Render up to 8 traits cleanly for current traitPage
+            int startIndex = this.traitPage * 8;
+            int traitY = startY + 48;
+
+            for (int i = 0; i < 8; i++) {
+                int idx = startIndex + i;
+                if (idx < totalTraits) {
+                    net.conczin.mca.entity.ai.Traits.Trait trait = traitList.get(idx);
+                    boolean hasTrait = false;
+                    if (villager != null && villager.getTraits() != null) {
+                        hasTrait = villager.getTraits().hasTrait(trait);
+                    }
+
+                    Component labelText = trait.getName().copy()
+                        .withStyle(hasTrait ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.GRAY);
+
+                    this.addRenderableWidget(new ButtonWidget(
+                        leftColX, traitY + (i * 22), DATA_WIDTH, 20,
+                        labelText,
+                        b -> {
+                            if (villager != null && villager.getTraits() != null) {
+                                if (villager.getTraits().hasTrait(trait)) {
+                                    villager.getTraits().removeTrait(trait);
+                                    b.setMessage(trait.getName().copy().withStyle(net.minecraft.ChatFormatting.GRAY));
+                                } else {
+                                    villager.getTraits().addTrait(trait);
+                                    b.setMessage(trait.getName().copy().withStyle(net.minecraft.ChatFormatting.GREEN));
+                                }
+                                refreshPreviewDimensions();
+                            }
+                        }
+                    ));
+                }
+            }
+
+            ci.cancel();
+        }
+    }
+
     @Inject(method = "setPage", at = @At("TAIL"))
     private void onSetPageTail(String page, CallbackInfo ci) {
         syncPreviewGenetics();
-
-        // Always clean up any existing Full-Chested button first across all page/tab flips
-        List<AbstractWidget> existingFullChested = new ArrayList<>();
-        for (var child : this.children()) {
-            if (child instanceof AbstractWidget widget && widget.getMessage() != null) {
-                if (widget.getMessage().getString().contains("Full-Chested")) {
-                    existingFullChested.add(widget);
-                }
-            }
-        }
-        existingFullChested.forEach(this::removeWidget);
 
         if ("body".equals(page)) {
             // Remove duplicate Breast slider from Body tab and expand Skin Mode button to full DATA_WIDTH
@@ -211,55 +328,6 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 }
             }
             toRemove.forEach(this::removeWidget);
-        } else if ("traits".equals(page)) {
-            // Place Full-Chested as Slot 0 at the top of Page 1 (this.traitPage == 0) above Lactose Intolerance
-            if (this.traitPage == 0) {
-                AbstractWidget firstButton = null;
-                int minY = Integer.MAX_VALUE;
-                List<AbstractWidget> traitButtons = new ArrayList<>();
-                for (var child : this.children()) {
-                    if (child instanceof AbstractWidget widget && widget.getX() == this.width / 2 && widget.getWidth() == DATA_WIDTH) {
-                        if (widget.getY() < this.height - 40) { // Exclude Done button at bottom
-                            traitButtons.add(widget);
-                            if (widget.getY() < minY) {
-                                minY = widget.getY();
-                                firstButton = widget;
-                            }
-                        }
-                    }
-                }
-
-                if (firstButton != null) {
-                    int topY = firstButton.getY(); // Top-most Y position (Slot 0)
-
-                    // Shift all native MCA traits on Page 1 down by 22px
-                    for (AbstractWidget b : traitButtons) {
-                        b.setY(b.getY() + 22);
-                    }
-
-                    boolean hasFullChested = false;
-                    if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
-                        hasFullChested = villager.getTraits().hasTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
-                    }
-                    Component label = Component.literal("Full-Chested").withStyle(hasFullChested ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.GRAY);
-                    this.addRenderableWidget(new ButtonWidget(
-                        this.width / 2, topY, DATA_WIDTH, 20,
-                        label,
-                        b -> {
-                            if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
-                                if (villager.getTraits().hasTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT)) {
-                                    villager.getTraits().removeTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
-                                    b.setMessage(Component.literal("Full-Chested").withStyle(net.minecraft.ChatFormatting.GRAY));
-                                } else {
-                                    villager.getTraits().addTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
-                                    b.setMessage(Component.literal("Full-Chested").withStyle(net.minecraft.ChatFormatting.GREEN));
-                                }
-                                refreshPreviewDimensions();
-                            }
-                        }
-                    ));
-                }
-            }
         } else if ("breast_addon".equals(page)) {
             int y = this.height / 2 - 85;
 

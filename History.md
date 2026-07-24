@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.4.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.4.0+26.2.jar`
+* **Changes**:
+  - Intercepted setPage("traits") at HEAD to place Full-Chested at Index 0 in the dynamic traits list. Cleans up pagination math so exactly 8 visible traits render per page across Page 1, Page 2, and Page 3 with zero hidden buttons or layout overflow.
+
+---
+
 ### Release `3.3.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.3.0+26.2.jar`
