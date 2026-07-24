@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.12+26.2] - 2026-07-24
+
+### Fixed
+* **Direct 1:1 Percentage Mapping Engine**: Fixed division-by-5 scaling offset in `VillagerEditorScreenMixin`. Genetics values now map 1:1 to 0%-100% on GUI sliders without squishing 20% down to 4% or 0%.
+
 ## [4.4.11+26.2] - 2026-07-24
 
 ### Changed

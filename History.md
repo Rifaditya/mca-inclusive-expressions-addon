@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.12+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.12+26.2.jar`
+* **Changes**:
+  - Fixed division-by-5 scaling offset in VillagerEditorScreenMixin. Genetics values now map 1:1 to 0%-100% on GUI sliders without squishing 20% down to 4% or 0%.
+
+---
+
 ### Release `4.4.11+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.11+26.2.jar`

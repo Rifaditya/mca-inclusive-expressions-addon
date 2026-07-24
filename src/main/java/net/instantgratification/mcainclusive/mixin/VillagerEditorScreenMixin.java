@@ -375,16 +375,16 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             y += 24;
 
             if ("size".equals(breastSubpage)) {
-                // --- Sub-Category 1: Size (Direct Linear Mapping: 0% = 0.0, 20% = 1.0, 100% = 5.0) ---
-                int currentLeftPct = 20; // 20% maps to 1.0x native default scale
+                // --- Sub-Category 1: Size (Direct 1:1 Percentage Mapping: 0% = 0.0, 100% = 1.0) ---
+                int currentLeftPct = 0;
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                     float val = duck.getLeftBreastSize();
-                    currentLeftPct = val > 0 ? (int) (val / 5.0f * 100.0f) : 20;
+                    currentLeftPct = val >= 0 ? (int) (val * 100.0f) : 0;
                 }
-                int currentRightPct = 20; // 20% maps to 1.0x native default scale
+                int currentRightPct = 0;
                 if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                     float val = duck.getRightBreastSize();
-                    currentRightPct = val > 0 ? (int) (val / 5.0f * 100.0f) : 20;
+                    currentRightPct = val >= 0 ? (int) (val * 100.0f) : 0;
                 }
 
                 final IntegerSliderWidget[] leftSizeHolder = new IntegerSliderWidget[1];
@@ -393,7 +393,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 leftSizeHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     leftColX, y, halfWidth, 20, currentLeftPct, 0, maxLimit,
                     val -> {
-                        float scale = (val / 100.0f) * 5.0f; // Direct linear scale up to 5.0
+                        float scale = val / 100.0f; // Direct 1:1 percentage mapping
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastSize(scale);
@@ -408,13 +408,13 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Size: " + val + "%"),
-                    () -> Component.literal("Adjusts left chest volume (100% = 5.0x max scale)")
+                    () -> Component.literal("Adjusts left chest volume (100% max scale)")
                 ));
 
                 rightSizeHolder[0] = this.addRenderableWidget(new IntegerSliderWidget(
                     rightColX, y, halfWidth, 20, currentRightPct, 0, maxLimit,
                     val -> {
-                        float scale = (val / 100.0f) * 5.0f; // Direct linear scale up to 5.0
+                        float scale = val / 100.0f; // Direct 1:1 percentage mapping
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastSize(scale);
@@ -429,7 +429,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right Size: " + val + "%"),
-                    () -> Component.literal("Adjusts right chest volume (100% = 5.0x max scale)")
+                    () -> Component.literal("Adjusts right chest volume (100% max scale)")
                 ));
                 y += 24;
 
