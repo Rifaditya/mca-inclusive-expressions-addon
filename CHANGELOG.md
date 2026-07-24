@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.3+26.2] - 2026-07-24
+
+### Fixed
+* **Guaranteed Trait GUI Button Placement Engine**: Added direct `Full-Chested` trait button placement inside `onSetPageTail` when the `traits` tab is rendered. Places `Full-Chested` at Slot 6 on Page 3 for NPC Villagers and Slot 5 on Page 2 for Player Characters with green/gray toggle styling.
+
 ## [3.1.2+26.2] - 2026-07-24
 
 ### Fixed
