@@ -415,6 +415,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         if (MCAInclusiveExpressionsAddon.linkSliders && rightSizeHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
                             duck.mca$setIntegerVal(val, 0, maxLimit);
                         }
+                        syncPreviewGenetics();
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Size: " + val + "%"),
@@ -446,6 +447,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         if (MCAInclusiveExpressionsAddon.linkSliders && leftSizeHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
                             duck.mca$setIntegerVal(val, 0, maxLimit);
                         }
+                        syncPreviewGenetics();
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right Size: " + val + "%"),

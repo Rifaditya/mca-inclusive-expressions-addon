@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.18+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.18+26.2.jar`
+* **Changes**:
+  - Fixed Y-Pos sag sign direction in calculateAutoYSag() (positive +0.25f max for downward model translation in Minecraft model coordinates). Added real-time syncPreviewGenetics() synchronization to Size slider callbacks.
+
+---
+
 ### Release `4.4.17+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.17+26.2.jar`

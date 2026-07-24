@@ -80,18 +80,18 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules or Traits for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.17+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.18+26.2.");
     }
 
     /**
-     * Calculates natural anatomical Y-position sag (-0.15f max at 4.44x scale) based on breast size scale.
+     * Calculates natural anatomical Y-position sag (+0.25f max at 4.44x scale, moving DOWNWARD) based on breast size scale.
      */
     public static float calculateAutoYSag(float breastSizeScale) {
         if (breastSizeScale <= 1.0f) {
             return 0.0f;
         }
         float norm = (breastSizeScale - 1.0f) / (4.44f - 1.0f);
-        return -0.15f * Math.min(1.0f, Math.max(0.0f, norm));
+        return 0.25f * Math.min(1.0f, Math.max(0.0f, norm));
     }
 
     /**

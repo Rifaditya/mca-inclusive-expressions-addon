@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.18+26.2] - 2026-07-24
+
+### Fixed
+* **Anatomical Downward Y-Pos Sag Fix**: Fixed Y-Pos sag sign direction in `calculateAutoYSag()` (positive `+0.25f` max for downward model translation in Minecraft model coordinates). Added real-time `syncPreviewGenetics()` synchronization to Size slider callbacks.
+
 ## [4.4.17+26.2] - 2026-07-24
 
 ### Added
