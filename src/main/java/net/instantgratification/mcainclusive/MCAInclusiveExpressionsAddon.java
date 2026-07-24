@@ -72,7 +72,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
                 )
             );
 
-            FULL_CHESTED_TRAIT = Traits.registerTrait("full_chested", 0.05f, 0.5f);
+            FULL_CHESTED_TRAIT = Traits.registerTrait("full_chested", 0.05f, 0.5f, true);
         } catch (Throwable t) {
             LOGGER.warn("Could not register GameRules or Traits for MCA Inclusive Expressions Addon", t);
         }

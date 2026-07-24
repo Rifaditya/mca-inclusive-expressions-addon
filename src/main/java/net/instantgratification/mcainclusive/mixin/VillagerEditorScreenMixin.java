@@ -44,6 +44,9 @@ public abstract class VillagerEditorScreenMixin extends Screen {
         java.util.Collection<net.conczin.mca.entity.ai.Traits.Trait> allTraits = net.conczin.mca.entity.ai.Traits.TRAIT_REGISTRY.values();
         java.util.List<net.conczin.mca.entity.ai.Traits.Trait> valid = allTraits.stream()
             .filter(t -> {
+                if (t == MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT) {
+                    return true;
+                }
                 boolean isPlayer = villagerUUID != null && villagerUUID.equals(playerUUID);
                 if (isPlayer) {
                     return (net.conczin.mca.Config.getInstance().bypassTraitRestrictions || t.isUsableOnPlayer()) && t.isEnabled();
