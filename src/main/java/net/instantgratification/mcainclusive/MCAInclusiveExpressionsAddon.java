@@ -79,17 +79,18 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules or Traits for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.14+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.15+26.2.");
     }
 
     /**
-     * Samples a breast size scale (0.0x to 1.0x) following a smooth Gaussian (Normal) Bell-Curve:
-     * Mean = 0.225 (22.5% center), StdDev = 0.075 (7.5%), providing natural continuous variance centered around 20%-25%.
+     * Samples a breast size scale (0.0x to 4.44x) following a smooth Gaussian (Normal) Bell-Curve:
+     * Mean = 0.225 (22.5% center -> 1.0f scale), StdDev = 0.075 (7.5% -> 0.333f scale), maxing out at 4.44f scale.
      */
     public static float sampleGraphBreastSize(net.minecraft.util.RandomSource random) {
         double gaussian = (random != null ? random.nextGaussian() : (new java.util.Random()).nextGaussian());
-        double val = 0.225 + gaussian * 0.075;
-        return (float) Math.min(1.0, Math.max(0.0, val));
+        double pct = 0.225 + gaussian * 0.075;
+        float clampedPct = (float) Math.min(1.0, Math.max(0.0, pct));
+        return clampedPct * 4.44f;
     }
 
     /**
@@ -100,9 +101,10 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
         if (baseScale <= 0.0f) {
             return new float[]{0.0f, 0.0f};
         }
-        float offset = (random != null ? (random.nextFloat() * 0.10f - 0.05f) : ((float) Math.random() * 0.10f - 0.05f));
-        float left = (float) Math.min(1.0, Math.max(0.0, baseScale + offset));
-        float right = (float) Math.min(1.0, Math.max(0.0, baseScale - offset));
+        // +-5% of 4.44f max scale = +-0.222f
+        float offset = (random != null ? (random.nextFloat() * 0.444f - 0.222f) : ((float) Math.random() * 0.444f - 0.222f));
+        float left = (float) Math.min(4.44, Math.max(0.0, baseScale + offset));
+        float right = (float) Math.min(4.44, Math.max(0.0, baseScale - offset));
         return new float[]{left, right};
     }
 

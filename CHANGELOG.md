@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.15+26.2] - 2026-07-24
+
+### Changed
+* **4.44f Max Scale Engine**: Calibrated maximum breast size scale to **4.44f** (100% on GUI slider = 4.44f BIG max volume scale). Gaussian spawn baseline (22.5%) maps to 1.00f standard scale, with $\pm 5\%$ ($\pm 0.222f$) natural anatomical asymmetry between left and right.
+
 ## [4.4.14+26.2] - 2026-07-24
 
 ### Added

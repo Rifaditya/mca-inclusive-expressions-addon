@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.15+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.15+26.2.jar`
+* **Changes**:
+  - Calibrated maximum breast size scale to 4.44f (100% on GUI slider = 4.44f BIG max volume scale). Gaussian spawn baseline (22.5%) maps to 1.00f standard scale, with +-5% (+-0.222f) natural anatomical asymmetry between left and right.
+
+---
+
 ### Release `4.4.14+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.14+26.2.jar`
