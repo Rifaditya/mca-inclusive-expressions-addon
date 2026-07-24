@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.7.0+26.2] - 2026-07-24
+
+### Fixed
+* **Defensive While-Loop Purge Engine**: Replaced linear widget iteration with a defensive `do-while` loop purge (`while(foundAny) { removeWidget(widget); break; }`). Eliminates index shifting bugs during GUI widget removal, ensuring 100% complete purging of all native trait buttons before rendering 6 non-overlapping traits per page.
+
 ## [3.6.0+26.2] - 2026-07-24
 
 ### Fixed

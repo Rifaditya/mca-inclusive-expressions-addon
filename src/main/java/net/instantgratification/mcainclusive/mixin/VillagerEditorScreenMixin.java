@@ -201,20 +201,24 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             }
             toRemove.forEach(this::removeWidget);
         } else if ("traits".equals(page)) {
-            // 1. Comprehensive widget purge: remove ALL native trait list buttons below the navigation header
+            // 1. Defensive while-loop purge: repeatedly remove native trait widgets until ZERO remain (eliminates index-shifting bugs!)
             int startY = this.height / 2 - 85;
             int traitHeaderY = startY + 24;
             int traitStartY = startY + 48;
 
-            List<AbstractWidget> nativeTraitButtons = new ArrayList<>();
-            for (var child : this.children()) {
-                if (child instanceof AbstractWidget widget) {
-                    if (widget.getX() >= this.width / 2 - 10 && widget.getY() > traitHeaderY + 10 && widget.getY() < this.height - 40) {
-                        nativeTraitButtons.add(widget);
+            boolean foundAny;
+            do {
+                foundAny = false;
+                for (var child : new ArrayList<>(this.children())) {
+                    if (child instanceof AbstractWidget widget) {
+                        if (widget.getX() >= this.width / 2 - 10 && widget.getY() > traitHeaderY + 10 && widget.getY() < this.height - 40) {
+                            this.removeWidget(widget);
+                            foundAny = true;
+                            break;
+                        }
                     }
                 }
-            }
-            nativeTraitButtons.forEach(this::removeWidget);
+            } while (foundAny);
 
             // 2. Build complete valid traits list with FULL_CHESTED_TRAIT at Index 0!
             List<net.conczin.mca.entity.ai.Traits.Trait> traitList = new ArrayList<>();
