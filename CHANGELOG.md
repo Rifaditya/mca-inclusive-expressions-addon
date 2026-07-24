@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.9.0+26.2] - 2026-07-24
+
+### Fixed
+* **All Genders Male Breast Rendering Engine**: Updated `CommonVillagerInterfaceMixin.onRenderCommon` to evaluate `boolean breastVisible = self.getBreastPart().visible || MCAInclusiveExpressionsAddon.isAllowAllGenders()`, overriding MCA's default male breast hiding behavior when `/gamerule mca_inclusive_expressions:allow_all_genders true` is enabled. Male characters now render customized 3D breasts in real-time.
+
 ## [2.8.0+26.2] - 2026-07-24
 
 ### Changed

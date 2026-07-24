@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.9.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.9.0+26.2.jar`
+* **Changes**:
+  - Overrode MCA's default male breast hiding behavior in CommonVillagerInterfaceMixin.onRenderCommon when allow_all_genders GameRule is active, rendering custom 3D breasts on male characters in real-time.
+
+---
+
 ### Release `2.8.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.8.0+26.2.jar`
