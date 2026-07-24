@@ -30,12 +30,29 @@ public abstract class VillagerEditorScreenMixin extends Screen {
     @Shadow protected static int DATA_WIDTH;
     @Shadow protected VillagerEntityMCA villager;
     @Shadow protected VillagerEntityMCA villagerVisualization;
+    @Shadow protected java.util.UUID villagerUUID;
+    @Shadow protected java.util.UUID playerUUID;
 
     @Shadow protected abstract void setPage(String page);
     @Shadow protected abstract void addCharacterSubpageTabs(int y, String selectedPage);
     @Shadow protected abstract void addCharacterSubpageTab(int x, int y, int width, String page, String selectedPage);
 
     @Unique private static String breastSubpage = "size";
+
+    @Inject(method = "getValidTraits", at = @At("HEAD"), cancellable = true, remap = false)
+    private void onGetValidTraits(CallbackInfoReturnable<net.conczin.mca.entity.ai.Traits.Trait[]> cir) {
+        java.util.Collection<net.conczin.mca.entity.ai.Traits.Trait> allTraits = net.conczin.mca.entity.ai.Traits.TRAIT_REGISTRY.values();
+        java.util.List<net.conczin.mca.entity.ai.Traits.Trait> valid = allTraits.stream()
+            .filter(t -> {
+                boolean isPlayer = villagerUUID != null && villagerUUID.equals(playerUUID);
+                if (isPlayer) {
+                    return (net.conczin.mca.Config.getInstance().bypassTraitRestrictions || t.isUsableOnPlayer()) && t.isEnabled();
+                }
+                return t.isEnabled();
+            })
+            .toList();
+        cir.setReturnValue(valid.toArray(new net.conczin.mca.entity.ai.Traits.Trait[0]));
+    }
 
     protected VillagerEditorScreenMixin(Component title) {
         super(title);
