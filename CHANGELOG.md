@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.14+26.2] - 2026-07-24
+
+### Added
+* **Anatomical Asymmetry Engine**: Implemented natural anatomical asymmetry (`MCAInclusiveExpressionsAddon.sampleAsymmetricBreastSizes()`) applying a random variance of up to $\pm 5\%$ between left and right breast sizes upon villager spawn for realistic 3D anatomical diversity.
+
 ## [4.4.13+26.2] - 2026-07-24
 
 ### Changed

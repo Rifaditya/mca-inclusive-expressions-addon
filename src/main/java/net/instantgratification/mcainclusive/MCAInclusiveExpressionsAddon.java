@@ -79,7 +79,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules or Traits for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.13+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.14+26.2.");
     }
 
     /**
@@ -90,6 +90,20 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
         double gaussian = (random != null ? random.nextGaussian() : (new java.util.Random()).nextGaussian());
         double val = 0.225 + gaussian * 0.075;
         return (float) Math.min(1.0, Math.max(0.0, val));
+    }
+
+    /**
+     * Samples a pair of breast sizes [leftScale, rightScale] with natural anatomical asymmetry (±5% variance between left & right).
+     */
+    public static float[] sampleAsymmetricBreastSizes(net.minecraft.util.RandomSource random) {
+        float baseScale = sampleGraphBreastSize(random);
+        if (baseScale <= 0.0f) {
+            return new float[]{0.0f, 0.0f};
+        }
+        float offset = (random != null ? (random.nextFloat() * 0.10f - 0.05f) : ((float) Math.random() * 0.10f - 0.05f));
+        float left = (float) Math.min(1.0, Math.max(0.0, baseScale + offset));
+        float right = (float) Math.min(1.0, Math.max(0.0, baseScale - offset));
+        return new float[]{left, right};
     }
 
     public static GeneticsDuck getActiveGuiGenetics() {
