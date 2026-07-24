@@ -20,6 +20,30 @@ import java.util.Map;
 @Mixin(value = CommonVillagerModel.class, remap = false)
 public interface CommonVillagerInterfaceMixin {
 
+    @Inject(method = "copyCommonAttributes", at = @At("TAIL"), remap = false)
+    private void onCopyCommonAttributes(CommonVillagerModel<?> parent, CallbackInfo ci) {
+        if (parent instanceof CommonVillagerModelDuck src && this instanceof CommonVillagerModelDuck dst) {
+            dst.setRenderLeftScale(src.getRenderLeftScale());
+            dst.setRenderRightScale(src.getRenderRightScale());
+
+            dst.setRenderLeftX(src.getRenderLeftX());
+            dst.setRenderLeftY(src.getRenderLeftY());
+            dst.setRenderLeftZ(src.getRenderLeftZ());
+
+            dst.setRenderRightX(src.getRenderRightX());
+            dst.setRenderRightY(src.getRenderRightY());
+            dst.setRenderRightZ(src.getRenderRightZ());
+
+            dst.setRenderLeftPitch(src.getRenderLeftPitch());
+            dst.setRenderLeftYaw(src.getRenderLeftYaw());
+            dst.setRenderLeftRoll(src.getRenderLeftRoll());
+
+            dst.setRenderRightPitch(src.getRenderRightPitch());
+            dst.setRenderRightYaw(src.getRenderRightYaw());
+            dst.setRenderRightRoll(src.getRenderRightRoll());
+        }
+    }
+
     @Inject(method = "renderCommon", at = @At("HEAD"), cancellable = true, remap = false)
     private void onRenderCommon(PoseStack matrices, VertexConsumer vertices, int light, int overlay, int color, CallbackInfo ci) {
         CommonVillagerModel<?> self = (CommonVillagerModel<?>) this;

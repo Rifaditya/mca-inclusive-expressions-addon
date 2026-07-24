@@ -113,30 +113,6 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
         }
     }
 
-    @Inject(method = "copyCommonAttributes", at = @At("TAIL"))
-    private void onCopyCommonAttributes(CommonVillagerModel<?> parent, CallbackInfo ci) {
-        if (parent instanceof CommonVillagerModelDuck src) {
-            this.currentLeftScale = src.getRenderLeftScale();
-            this.currentRightScale = src.getRenderRightScale();
-
-            this.currentLeftX = src.getRenderLeftX();
-            this.currentLeftY = src.getRenderLeftY();
-            this.currentLeftZ = src.getRenderLeftZ();
-
-            this.currentRightX = src.getRenderRightX();
-            this.currentRightY = src.getRenderRightY();
-            this.currentRightZ = src.getRenderRightZ();
-
-            this.currentLeftPitch = src.getRenderLeftPitch();
-            this.currentLeftYaw = src.getRenderLeftYaw();
-            this.currentLeftRoll = src.getRenderLeftRoll();
-
-            this.currentRightPitch = src.getRenderRightPitch();
-            this.currentRightYaw = src.getRenderRightYaw();
-            this.currentRightRoll = src.getRenderRightRoll();
-        }
-    }
-
     @Inject(method = "newBreasts", at = @At("HEAD"), cancellable = true, remap = false)
     private static void onNewBreasts(CubeDeformation dilation, int oy, CallbackInfoReturnable<CubeListBuilder> cir) {
         CubeListBuilder builder = CubeListBuilder.create();
