@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.9+26.2] - 2026-07-24
+
+### Fixed
+* **100% Native MCA Trait Registry Integration**: Purged all custom mixin trait button overlays and re-alignment loops from `onSetPageTail`. MCA's native trait list engine handles `FULL_CHESTED_TRAIT` 100% natively via `@Overwrite getValidTraits()`, eliminating page-overlay bugs.
+
 ## [3.1.8+26.2] - 2026-07-24
 
 ### Fixed

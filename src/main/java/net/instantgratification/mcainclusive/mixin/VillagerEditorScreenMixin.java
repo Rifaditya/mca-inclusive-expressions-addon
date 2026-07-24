@@ -200,53 +200,6 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 }
             }
             toRemove.forEach(this::removeWidget);
-        } else if ("traits".equals(page)) {
-            // Fail-safe: Check if Full-Chested button was rendered natively by MCA
-            boolean alreadyRendered = false;
-            for (var child : this.children()) {
-                if (child instanceof AbstractWidget widget && widget.getMessage() != null) {
-                    if (widget.getMessage().getString().contains("Full-Chested")) {
-                        alreadyRendered = true;
-                        break;
-                    }
-                }
-            }
-            if (!alreadyRendered) {
-                boolean isPlayer = villagerUUID != null && villagerUUID.equals(playerUUID);
-                int leftColX = this.width / 2;
-                boolean hasFullChested = false;
-                if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
-                    hasFullChested = villager.getTraits().hasTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
-                }
-                Component label = Component.literal("Full-Chested").withStyle(hasFullChested ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.GRAY);
-                this.addRenderableWidget(new ButtonWidget(
-                    leftColX, 200, DATA_WIDTH, 20,
-                    label,
-                    b -> {
-                        if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
-                            if (villager.getTraits().hasTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT)) {
-                                villager.getTraits().removeTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
-                                b.setMessage(Component.literal("Full-Chested").withStyle(net.minecraft.ChatFormatting.GRAY));
-                            } else {
-                                villager.getTraits().addTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
-                                b.setMessage(Component.literal("Full-Chested").withStyle(net.minecraft.ChatFormatting.GREEN));
-                            }
-                            refreshPreviewDimensions();
-                        }
-                    }
-                ));
-            }
-
-            // TIGHT PACKING RE-ALIGNMENT PASS: Tightly stack all rendered trait buttons with zero gaps!
-            int slot = 0;
-            for (var child : this.children()) {
-                if (child instanceof AbstractWidget widget && widget.getX() == this.width / 2 && widget.getWidth() == DATA_WIDTH) {
-                    if (widget.getY() < this.height - 40) {
-                        widget.setY(64 + (slot * 22));
-                        slot++;
-                    }
-                }
-            }
         } else if ("breast_addon".equals(page)) {
             int y = this.height / 2 - 85;
 
