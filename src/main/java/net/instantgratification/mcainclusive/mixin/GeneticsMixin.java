@@ -104,11 +104,19 @@ public abstract class GeneticsMixin implements GeneticsDuck {
 
     @Inject(method = "getBreastSize", at = @At("HEAD"), cancellable = true)
     private void onGetBreastSize(CallbackInfoReturnable<Float> cir) {
+        if (MCAInclusiveExpressionsAddon.isForceAllBreasted()) {
+            cir.setReturnValue(1.0f);
+            return;
+        }
+
+        net.conczin.mca.entity.ai.Genetics self = (net.conczin.mca.entity.ai.Genetics) (Object) this;
+        boolean isMale = (self.getGender() == net.conczin.mca.entity.ai.relationship.Gender.MALE);
+
         if (this.leftBreastSize > 0.0f || this.rightBreastSize > 0.0f) {
             float base = Math.max(this.leftBreastSize, this.rightBreastSize);
             cir.setReturnValue(base);
-        } else if (MCAInclusiveExpressionsAddon.isForceAllBreasted()) {
-            cir.setReturnValue(1.0f);
+        } else if (isMale) {
+            cir.setReturnValue(0.0f);
         }
     }
 

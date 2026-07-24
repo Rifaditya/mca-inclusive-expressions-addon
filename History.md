@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.2+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.2+26.2.jar`
+* **Changes**:
+  - Fixed client player data lookup via MCAClient.getPlayerData(player.getUUID()) in VillagerVisualsMixin so Real World, Inventory, Paper Dolls HUD, and GUI Editor remain 100% synchronized. Added automatic breast scale reset to 0.0f when Full-Chested trait is toggled OFF, and enforced strict 0.0f returns in GeneticsMixin for male characters without the trait.
+
+---
+
 ### Release `4.4.1+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.1+26.2.jar`

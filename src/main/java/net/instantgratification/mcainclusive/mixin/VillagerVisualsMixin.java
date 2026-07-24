@@ -23,6 +23,19 @@ public abstract class VillagerVisualsMixin {
 
             if (entity instanceof VillagerEntityMCA villager && villager.getGenetics() instanceof GeneticsDuck duck) {
                 geneticsDuck = duck;
+            } else if (entity instanceof net.minecraft.world.entity.player.Player player) {
+                try {
+                    var opt = net.conczin.mca.MCAClient.getPlayerData(player.getUUID());
+                    if (opt.isPresent() && opt.get().getGenetics() instanceof GeneticsDuck duck) {
+                        geneticsDuck = duck;
+                    } else {
+                        VillagerLike<?> villagerLike = VillagerLike.toVillager(entity);
+                        if (villagerLike != null && villagerLike.getGenetics() instanceof GeneticsDuck duck2) {
+                            geneticsDuck = duck2;
+                        }
+                    }
+                } catch (Throwable ignored) {
+                }
             } else {
                 try {
                     VillagerLike<?> villagerLike = VillagerLike.toVillager(entity);
@@ -34,21 +47,35 @@ public abstract class VillagerVisualsMixin {
             }
 
             if (geneticsDuck != null) {
-                float leftScale = geneticsDuck.getLeftBreastSize();
-                float rightScale = geneticsDuck.getRightBreastSize();
+                boolean isMale = false;
+                if (geneticsDuck instanceof net.conczin.mca.entity.ai.Genetics gen) {
+                    isMale = (gen.getGender() == net.conczin.mca.entity.ai.relationship.Gender.MALE);
+                }
 
                 boolean hasFullChested = false;
                 try {
-                    VillagerLike<?> villagerLike = VillagerLike.toVillager(entity);
-                    if (villagerLike != null && villagerLike.getTraits() != null && net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
-                        hasFullChested = villagerLike.getTraits().hasTrait(net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
+                    if (entity instanceof VillagerEntityMCA villager && villager.getTraits() != null) {
+                        hasFullChested = villager.getTraits().hasTrait(net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
+                    } else if (entity instanceof net.minecraft.world.entity.player.Player player) {
+                        var opt = net.conczin.mca.MCAClient.getPlayerData(player.getUUID());
+                        if (opt.isPresent() && opt.get().getTraits() != null) {
+                            hasFullChested = opt.get().getTraits().hasTrait(net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
+                        }
                     }
                 } catch (Throwable ignored) {
                 }
 
-                if (hasFullChested && leftScale <= 0 && rightScale <= 0) {
-                    leftScale = 1.0f;
-                    rightScale = 1.0f;
+                float leftScale = 0.0f;
+                float rightScale = 0.0f;
+
+                if (net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon.isForceAllBreasted() || !isMale || hasFullChested) {
+                    leftScale = geneticsDuck.getLeftBreastSize();
+                    rightScale = geneticsDuck.getRightBreastSize();
+
+                    if (hasFullChested && leftScale <= 0.0f && rightScale <= 0.0f) {
+                        leftScale = 1.0f;
+                        rightScale = 1.0f;
+                    }
                 }
 
                 stateDuck.setLeftBreastScale(leftScale);

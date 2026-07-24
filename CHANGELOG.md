@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.2+26.2] - 2026-07-24
+
+### Fixed
+* **Universal 4-Viewport Synchronization & Trait Reset Engine**: Fixed client player data lookup via `MCAClient.getPlayerData(player.getUUID())` in `VillagerVisualsMixin` so Real World, Inventory, Paper Dolls HUD, and GUI Editor remain 100% synchronized. Added automatic breast scale reset to `0.0f` when `Full-Chested` trait is toggled OFF, and enforced strict `0.0f` returns in `GeneticsMixin` for male characters without the trait.
+
 ## [4.4.1+26.2] - 2026-07-24
 
 ### Fixed

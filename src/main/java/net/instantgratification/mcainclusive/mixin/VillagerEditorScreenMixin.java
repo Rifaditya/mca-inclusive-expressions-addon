@@ -290,6 +290,16 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                                 if (villager.getTraits().hasTrait(trait)) {
                                     villager.getTraits().removeTrait(trait);
                                     b.setMessage(trait.getName().copy().withStyle(net.minecraft.ChatFormatting.GRAY));
+                                    if (trait == MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT) {
+                                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                                            duck.setLeftBreastSize(0.0f);
+                                            duck.setRightBreastSize(0.0f);
+                                        }
+                                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                                            duck.setLeftBreastSize(0.0f);
+                                            duck.setRightBreastSize(0.0f);
+                                        }
+                                    }
                                 } else {
                                     villager.getTraits().addTrait(trait);
                                     b.setMessage(trait.getName().copy().withStyle(net.minecraft.ChatFormatting.GREEN));
