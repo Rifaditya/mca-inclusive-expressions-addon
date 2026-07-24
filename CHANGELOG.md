@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.13+26.2] - 2026-07-24
+
+### Changed
+* **Gaussian Bell-Curve Spawn Engine**: Redid villager breast size spawn distribution from scratch using a continuous Gaussian (Normal) Bell-Curve centered at **22.5%** ($\mu = 0.225$, $\sigma = 0.075$), generating smooth, natural, continuous genetic variance across all newly spawned female and full-chested male villagers.
+
 ## [4.4.12+26.2] - 2026-07-24
 
 ### Fixed

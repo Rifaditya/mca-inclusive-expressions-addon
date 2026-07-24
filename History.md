@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.13+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.13+26.2.jar`
+* **Changes**:
+  - Redid villager breast size spawn distribution from scratch using a continuous Gaussian (Normal) Bell-Curve centered at 22.5% (Mean = 0.225, StdDev = 0.075), generating smooth, natural, continuous genetic variance across all newly spawned female and full-chested male villagers.
+
+---
+
 ### Release `4.4.12+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.12+26.2.jar`
