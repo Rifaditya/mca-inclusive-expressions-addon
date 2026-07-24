@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.2.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.2.0+26.2.jar`
+* **Changes**:
+  - Implemented resolution-agnostic dynamic button discovery (lastButton.getY() + 22) on Page 3 (this.traitPage == 2). Automatically attaches Full-Chested directly below No Aging with zero gap across all window sizes, display resolutions, and GUI scaling factors, with dynamic cleanup on page flips.
+
+---
+
 ### Release `3.1.9+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.1.9+26.2.jar`
