@@ -275,18 +275,6 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         this.setPage("breast_addon");
                     }
                 ));
-                y += 24;
-
-                boolean allowAll = MCAInclusiveExpressionsAddon.isAllowAllGenders();
-                this.addRenderableWidget(new ButtonWidget(
-                    leftColX, y, fullWidth, 20,
-                    Component.literal("Gender Inclusivity: " + (allowAll ? "ENABLED (All Genders)" : "DISABLED (Female Only)")),
-                    b -> {
-                        MCAInclusiveExpressionsAddon.allowAllGenders = !MCAInclusiveExpressionsAddon.allowAllGenders;
-                        refreshPreviewDimensions();
-                        this.setPage("breast_addon");
-                    }
-                ));
             } else if ("pos".equals(breastSubpage)) {
                 // --- Sub-Category 2: Position ---
                 int curLeftX = 0;
