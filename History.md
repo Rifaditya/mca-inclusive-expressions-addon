@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.5.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.5.0+26.2.jar`
+* **Changes**:
+  - Restored MCA's native top tabs (General, Character, Personality, Traits, Debug), preview models, and localized headers. Refactored trait list rendering in onSetPageTail to 6 traits per page with Full-Chested at Index 0, guaranteeing zero bottom cutoff on windowed screens.
+
+---
+
 ### Release `3.4.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.4.0+26.2.jar`

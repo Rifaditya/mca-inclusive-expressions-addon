@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.5.0+26.2] - 2026-07-24
+
+### Fixed
+* **6-Traits-Per-Page Resolution Engine**: Restored MCA's native top tabs (`General`, `Character`, `Personality`, `Traits`, `Debug`), preview models, and localized headers. Refactored trait list rendering in `onSetPageTail` to 6 traits per page with `Full-Chested` at Index 0, guaranteeing zero bottom cutoff on windowed screens.
+
 ## [3.4.0+26.2] - 2026-07-24
 
 ### Fixed

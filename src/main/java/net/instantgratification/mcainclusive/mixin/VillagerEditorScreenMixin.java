@@ -180,13 +180,42 @@ public abstract class VillagerEditorScreenMixin extends Screen {
         ci.cancel();
     }
 
-    @Inject(method = "setPage", at = @At("HEAD"), cancellable = true)
-    private void onSetPageHead(String page, CallbackInfo ci) {
-        if ("traits".equals(page)) {
-            this.clearWidgets();
-            this.page = "traits";
+    @Inject(method = "setPage", at = @At("TAIL"))
+    private void onSetPageTail(String page, CallbackInfo ci) {
+        syncPreviewGenetics();
 
-            // 1. Build complete valid traits list with FULL_CHESTED_TRAIT at Index 0!
+        if ("body".equals(page)) {
+            // Remove duplicate Breast slider from Body tab and expand Skin Mode button to full DATA_WIDTH
+            List<AbstractWidget> toRemove = new ArrayList<>();
+            for (var child : this.children()) {
+                if (child instanceof GeneSliderWidget slider) {
+                    if (slider.getX() == this.width / 2 && slider.getWidth() == DATA_WIDTH / 2) {
+                        toRemove.add(slider);
+                    }
+                } else if (child instanceof TooltipButtonWidget button) {
+                    if (button.getX() == this.width / 2 + DATA_WIDTH / 2 && button.getWidth() == DATA_WIDTH / 2) {
+                        button.setX(this.width / 2);
+                        button.setWidth(DATA_WIDTH);
+                    }
+                }
+            }
+            toRemove.forEach(this::removeWidget);
+        } else if ("traits".equals(page)) {
+            // 1. Remove native MCA trait list buttons (leaving navigation header & top tabs intact!)
+            int startY = this.height / 2 - 85;
+            int traitStartY = startY + 48;
+
+            List<AbstractWidget> nativeTraitButtons = new ArrayList<>();
+            for (var child : this.children()) {
+                if (child instanceof AbstractWidget widget && widget.getX() == this.width / 2 && widget.getWidth() == DATA_WIDTH) {
+                    if (widget.getY() >= traitStartY && widget.getY() < this.height - 40) {
+                        nativeTraitButtons.add(widget);
+                    }
+                }
+            }
+            nativeTraitButtons.forEach(this::removeWidget);
+
+            // 2. Build complete valid traits list with FULL_CHESTED_TRAIT at Index 0!
             List<net.conczin.mca.entity.ai.Traits.Trait> traitList = new ArrayList<>();
             if (MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
                 traitList.add(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
@@ -205,9 +234,9 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 }
             }
 
-            // 2. Validate traitPage pagination bounds
+            // 3. Validate traitPage bounds (6 traits per page)
             int totalTraits = traitList.size();
-            int maxPages = (totalTraits + 7) / 8;
+            int maxPages = (totalTraits + 5) / 6;
             if (maxPages < 1) maxPages = 1;
             if (this.traitPage >= maxPages) {
                 this.traitPage = 0;
@@ -216,64 +245,18 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 this.traitPage = maxPages - 1;
             }
 
-            // 3. Render Top Navigation Bar
-            int startY = this.height / 2 - 85;
+            // 4. Update Page Navigation label widget if present
+            for (var child : this.children()) {
+                if (child instanceof ButtonWidget b && b.getX() > this.width / 2 && b.getX() < this.width / 2 + DATA_WIDTH - 40 && b.getY() == startY + 24) {
+                    b.setMessage(Component.literal("Page " + (this.traitPage + 1)));
+                }
+            }
+
+            // 5. Render up to 6 traits cleanly for current traitPage (ZERO CUTOFF at bottom!)
+            int startIndex = this.traitPage * 6;
             int leftColX = this.width / 2;
 
-            // Presets button
-            this.addRenderableWidget(new ButtonWidget(
-                leftColX - DATA_WIDTH - 5, startY, DATA_WIDTH, 20,
-                Component.translatable("gui.mca.editor.presets"),
-                b -> this.setPage("presets")
-            ));
-
-            // Trait Shaders toggle button
-            boolean shadersOn = net.conczin.mca.Config.getInstance().enablePlayerShaders;
-            Component shaderText = Component.literal("Trait Shaders: ").append(
-                shadersOn ? Component.literal("ON").withStyle(net.minecraft.ChatFormatting.GREEN) : Component.literal("OFF").withStyle(net.minecraft.ChatFormatting.RED)
-            );
-            this.addRenderableWidget(new ButtonWidget(
-                leftColX - DATA_WIDTH - 5, startY + 24, DATA_WIDTH, 20,
-                shaderText,
-                b -> {
-                    net.conczin.mca.Config.getInstance().enablePlayerShaders = !net.conczin.mca.Config.getInstance().enablePlayerShaders;
-                    this.setPage("traits");
-                }
-            ));
-
-            // Page Navigation: < Page X >
-            int arrowWidth = 30;
-
-            this.addRenderableWidget(new ButtonWidget(
-                leftColX, startY + 24, arrowWidth, 20,
-                Component.literal("<"),
-                b -> {
-                    this.traitPage--;
-                    this.setPage("traits");
-                }
-            ));
-
-            Component pageLabel = Component.literal("Page " + (this.traitPage + 1));
-            this.addRenderableWidget(new ButtonWidget(
-                leftColX + arrowWidth + 2, startY + 24, DATA_WIDTH - (arrowWidth * 2) - 4, 20,
-                pageLabel,
-                b -> {}
-            ));
-
-            this.addRenderableWidget(new ButtonWidget(
-                leftColX + DATA_WIDTH - arrowWidth, startY + 24, arrowWidth, 20,
-                Component.literal(">"),
-                b -> {
-                    this.traitPage++;
-                    this.setPage("traits");
-                }
-            ));
-
-            // 4. Render up to 8 traits cleanly for current traitPage
-            int startIndex = this.traitPage * 8;
-            int traitY = startY + 48;
-
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 6; i++) {
                 int idx = startIndex + i;
                 if (idx < totalTraits) {
                     net.conczin.mca.entity.ai.Traits.Trait trait = traitList.get(idx);
@@ -286,7 +269,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         .withStyle(hasTrait ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.GRAY);
 
                     this.addRenderableWidget(new ButtonWidget(
-                        leftColX, traitY + (i * 22), DATA_WIDTH, 20,
+                        leftColX, traitStartY + (i * 22), DATA_WIDTH, 20,
                         labelText,
                         b -> {
                             if (villager != null && villager.getTraits() != null) {
@@ -303,17 +286,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                     ));
                 }
             }
-
-            ci.cancel();
-        }
-    }
-
-    @Inject(method = "setPage", at = @At("TAIL"))
-    private void onSetPageTail(String page, CallbackInfo ci) {
-        syncPreviewGenetics();
-
-        if ("body".equals(page)) {
-            // Remove duplicate Breast slider from Body tab and expand Skin Mode button to full DATA_WIDTH
+        } else if ("body".equals(page)) {
             List<AbstractWidget> toRemove = new ArrayList<>();
             for (var child : this.children()) {
                 if (child instanceof GeneSliderWidget slider) {
