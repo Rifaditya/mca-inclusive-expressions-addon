@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.5+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.5+26.2.jar`
+* **Changes**:
+  - Created TraitsMixin targeting Traits.randomize() at TAIL. Evaluates Full-Chested Trait Spawn Chance (%) GameRule when male MCA villagers spawn. Guarantees that newly spawned male villagers receive the Full-Chested trait and 3D breasts at 100% chance (or configured percentage).
+
+---
+
 ### Release `4.4.4+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.4+26.2.jar`

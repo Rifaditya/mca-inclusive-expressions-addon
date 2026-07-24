@@ -14,7 +14,8 @@
     "VillagerEditorSyncRequestMixin",
     "VillagerEntityMCAMixin",
     "VillagerDimensionsMixin",
-    "VillagerVisualsRecordMixin"
+    "VillagerVisualsRecordMixin",
+    "TraitsMixin"
   ],
   "client": [
     "VillagerEditorScreenMixin",
