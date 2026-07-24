@@ -79,21 +79,29 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules or Traits for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.10+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.11+26.2.");
     }
 
     /**
-     * Samples a breast size scale (0.0x to 1.0x) following the user's custom statistical distribution graph:
-     * Mean ~28.08%, Median ~29.57%, Mode ~35.08%, normal dropoff above 40%, with rare outlier tail up to 100%.
+     * Samples a breast size scale (0.0x to 1.0x) following exact user probability tiers:
+     * - 1 in 1000 (0.1% chance): 50% to 100% (0.50x to 1.00x)
+     * - 1 in 10 (10.0% chance): 20% to 35% (0.20x to 0.35x)
+     * - The Rest (89.9% chance): 0% to 20% (0.00x to 0.20x)
      */
     public static float sampleGraphBreastSize(net.minecraft.util.RandomSource random) {
-        float u = (random != null) ? random.nextFloat() : (float) Math.random();
-        float baseSize = 0.40f * (float) Math.pow(Math.sin(u * Math.PI / 2.0), 1.35);
-        if ((random != null ? random.nextFloat() : (float) Math.random()) < 0.05f) {
-            float bonus = (random != null ? random.nextFloat() : (float) Math.random()) * 0.60f;
-            baseSize += bonus;
+        float roll = (random != null ? random.nextFloat() : (float) Math.random()) * 1000.0f;
+        float inner = (random != null ? random.nextFloat() : (float) Math.random());
+
+        if (roll < 1.0f) {
+            // 1 in 1000 (0.1%): 50% to 100%
+            return 0.50f + inner * 0.50f;
+        } else if (roll < 101.0f) {
+            // 1 in 10 (100 in 1000 = 10.0%): 20% to 35%
+            return 0.20f + inner * 0.15f;
+        } else {
+            // The Rest (899 in 1000 = 89.9%): 0% to 20%
+            return 0.00f + inner * 0.20f;
         }
-        return Math.min(1.0f, Math.max(0.0f, baseSize));
     }
 
     public static GeneticsDuck getActiveGuiGenetics() {

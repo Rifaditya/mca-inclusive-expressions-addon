@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.11+26.2] - 2026-07-24
+
+### Changed
+* **Tiered Probability Spawn Engine**: Rewrote `sampleGraphBreastSize()` to implement your exact probability tiers for spawned female and full-chested male villagers:
+  - **1 in 1000 (0.1%)**: 50% to 100% size
+  - **1 in 10 (10.0%)**: 20% to 35% size
+  - **The Rest (89.9%)**: 0% to 20% size
+
 ## [4.4.10+26.2] - 2026-07-24
 
 ### Fixed
