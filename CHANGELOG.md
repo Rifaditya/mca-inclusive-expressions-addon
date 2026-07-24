@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.16+26.2] - 2026-07-24
+
+### Changed
+* **Default Y-Pos Baseline Engine**: Shifted 3D rendering Y-position translation baseline by `+0.10f` (`CommonVillagerInterfaceMixin`) so that `Left Y-Pos: +0` / `Right Y-Pos: +0` in the GUI editor sits at the natural height previously achieved at `+10`.
+
 ## [4.4.15+26.2] - 2026-07-24
 
 ### Changed
