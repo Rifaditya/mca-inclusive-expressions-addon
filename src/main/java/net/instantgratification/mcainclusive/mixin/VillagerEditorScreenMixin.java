@@ -214,36 +214,37 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             if (!alreadyRendered) {
                 boolean isPlayer = villagerUUID != null && villagerUUID.equals(playerUUID);
                 int leftColX = this.width / 2;
-                int targetSlotY = -1;
-
-                if (isPlayer && this.traitPage == 1) { // Page 2 for Player Characters
-                    targetSlotY = 64 + (4 * 22); // Y = 152
-                } else if (!isPlayer && this.traitPage == 2) { // Page 3 for NPC Villagers
-                    targetSlotY = 64 + (5 * 22); // Y = 174
+                boolean hasFullChested = false;
+                if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
+                    hasFullChested = villager.getTraits().hasTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
                 }
-
-                if (targetSlotY > 0) {
-                    boolean hasFullChested = false;
-                    if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
-                        hasFullChested = villager.getTraits().hasTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
-                    }
-                    Component label = Component.literal("Full-Chested").withStyle(hasFullChested ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.GRAY);
-                    this.addRenderableWidget(new ButtonWidget(
-                        leftColX, targetSlotY, DATA_WIDTH, 20,
-                        label,
-                        b -> {
-                            if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
-                                if (villager.getTraits().hasTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT)) {
-                                    villager.getTraits().removeTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
-                                    b.setMessage(Component.literal("Full-Chested").withStyle(net.minecraft.ChatFormatting.GRAY));
-                                } else {
-                                    villager.getTraits().addTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
-                                    b.setMessage(Component.literal("Full-Chested").withStyle(net.minecraft.ChatFormatting.GREEN));
-                                }
-                                refreshPreviewDimensions();
+                Component label = Component.literal("Full-Chested").withStyle(hasFullChested ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.GRAY);
+                this.addRenderableWidget(new ButtonWidget(
+                    leftColX, 200, DATA_WIDTH, 20,
+                    label,
+                    b -> {
+                        if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
+                            if (villager.getTraits().hasTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT)) {
+                                villager.getTraits().removeTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
+                                b.setMessage(Component.literal("Full-Chested").withStyle(net.minecraft.ChatFormatting.GRAY));
+                            } else {
+                                villager.getTraits().addTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
+                                b.setMessage(Component.literal("Full-Chested").withStyle(net.minecraft.ChatFormatting.GREEN));
                             }
+                            refreshPreviewDimensions();
                         }
-                    ));
+                    }
+                ));
+            }
+
+            // TIGHT PACKING RE-ALIGNMENT PASS: Tightly stack all rendered trait buttons with zero gaps!
+            int slot = 0;
+            for (var child : this.children()) {
+                if (child instanceof AbstractWidget widget && widget.getX() == this.width / 2 && widget.getWidth() == DATA_WIDTH) {
+                    if (widget.getY() < this.height - 40) {
+                        widget.setY(64 + (slot * 22));
+                        slot++;
+                    }
                 }
             }
         } else if ("breast_addon".equals(page)) {

@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.1.8+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.1.8+26.2.jar`
+* **Changes**:
+  - Implemented sequential post-layout Y re-alignment pass (widget.setY(64 + slot * 22)) on the traits tab. Eliminates all skipped slots and gaps, packing Full-Chested 100% tightly directly beneath No Aging at Y = 174 on Page 3.
+
+---
+
 ### Release `3.1.7+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.1.7+26.2.jar`

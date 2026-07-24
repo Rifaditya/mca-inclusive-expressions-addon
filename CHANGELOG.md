@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.8+26.2] - 2026-07-24
+
+### Fixed
+* **Tight Trait Button Packing & Re-alignment Engine**: Implemented sequential post-layout Y re-alignment pass (`widget.setY(64 + slot * 22)`) on the `traits` tab. Eliminates all skipped slots and gaps, packing `Full-Chested` 100% tightly directly beneath *No Aging* at Y = 174 on Page 3.
+
 ## [3.1.7+26.2] - 2026-07-24
 
 ### Fixed
