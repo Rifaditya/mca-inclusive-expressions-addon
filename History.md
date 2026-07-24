@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.1.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.1.0+26.2.jar`
+* **Changes**:
+  - Registered custom Full-Chested MCA Trait (trait.mca.full_chested) and full_chested_trait_chance GameRule (range 0-100%, default 5%).
+
+---
+
 ### Release `3.0.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.0.0+26.2.jar`

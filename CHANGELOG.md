@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.0+26.2] - 2026-07-24
+
+### Added
+* **`Full-Chested` Trait (`trait.mca.full_chested`)**: Registered a custom MCA Trait allowing male villagers to inherit and express full chest structures.
+* **Configurable Trait Spawn Chance GameRule**: Added `/gamerule mca_inclusive_expressions:full_chested_trait_chance <0-100>` (default `5%`).
+  - **`0%`**: 0% chance — no male villagers randomly spawn with full chest structures.
+  - **`5%`**: 5% chance — 5 in 100 male villagers spawn with the `Full-Chested` trait.
+  - **`100%`**: 100% chance — all male villagers spawn with full chest structures.
+
 ## [3.0.0+26.2] - 2026-07-24
 
 ### Fixed
