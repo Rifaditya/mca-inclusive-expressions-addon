@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.2+26.2] - 2026-07-24
+
+### Fixed
+* **Trait Registry GUI Mixin Fix**: Intercepted `VillagerEditorScreen.getValidTraits()` to query `Traits.TRAIT_REGISTRY.values()` instead of `Traits.Trait.values()`. Custom dynamically registered traits (such as `Full-Chested`) now display on Page 3 for NPC Villagers and Page 2 for Player Characters.
+
 ## [3.1.1+26.2] - 2026-07-24
 
 ### Fixed

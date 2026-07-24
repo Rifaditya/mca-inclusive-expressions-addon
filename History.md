@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.1.2+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.1.2+26.2.jar`
+* **Changes**:
+  - Intercepted getValidTraits to query Traits.TRAIT_REGISTRY.values() instead of enum values. Full-Chested displays on Page 3 for NPC Villagers and Page 2 for Player Characters.
+
+---
+
 ### Release `3.1.1+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.1.1+26.2.jar`
