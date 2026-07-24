@@ -17,6 +17,11 @@
 
 > **Active Version Policy**: Built natively for **Minecraft 26.2+ (Fabric Loader 0.16.0+)**. Requires MCA Reborn.
 
+> [!NOTE]
+> **Full-Chested Trait & GameRules (v3.1.0+26.2)**:
+> - **In-Game GUI Location**: The **`Full-Chested`** trait is located on **Page 4** of the **`Traits`** tab in the Character Editor screen (`VillagerEditorScreen`). Click the `>` arrow button on the `Traits` tab to reach Page 4!
+> - **Spawn Chance GameRule**: Use `/gamerule mca_inclusive_expressions:full_chested_trait_chance <0-100>` (Default: `5%`) to configure how frequently male villagers spawn with full chest structures.
+
 ---
 
 ## ⚡ Key Features
