@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.9+26.2] - 2026-07-24
+
+### Added
+* **Realistic Graph Spawn Distribution Engine**: Implemented user's custom left-skewed statistical distribution graph formula in `MCAInclusiveExpressionsAddon.sampleGraphBreastSize()` and `GeneticsMixin.onRandomize()` (Mean ~28.08%, Median ~29.57%, Mode ~35.08%, normal drop-off above 40%, with rare 5% outlier long tail up to 100%).
+
 ## [4.4.8+26.2] - 2026-07-24
 
 ### Fixed

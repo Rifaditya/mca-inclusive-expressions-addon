@@ -79,7 +79,21 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules or Traits for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.8+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.9+26.2.");
+    }
+
+    /**
+     * Samples a breast size scale (0.0x to 1.0x) following the user's custom statistical distribution graph:
+     * Mean ~28.08%, Median ~29.57%, Mode ~35.08%, normal dropoff above 40%, with rare outlier tail up to 100%.
+     */
+    public static float sampleGraphBreastSize(net.minecraft.util.RandomSource random) {
+        float u = (random != null) ? random.nextFloat() : (float) Math.random();
+        float baseSize = 0.40f * (float) Math.pow(Math.sin(u * Math.PI / 2.0), 1.35);
+        if ((random != null ? random.nextFloat() : (float) Math.random()) < 0.05f) {
+            float bonus = (random != null ? random.nextFloat() : (float) Math.random()) * 0.60f;
+            baseSize += bonus;
+        }
+        return Math.min(1.0f, Math.max(0.0f, baseSize));
     }
 
     public static GeneticsDuck getActiveGuiGenetics() {

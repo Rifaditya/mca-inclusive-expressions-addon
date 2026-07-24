@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.9+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.9+26.2.jar`
+* **Changes**:
+  - Implemented user's custom left-skewed statistical distribution graph formula in MCAInclusiveExpressionsAddon.sampleGraphBreastSize() and GeneticsMixin.onRandomize() (Mean ~28.08%, Median ~29.57%, Mode ~35.08%, normal drop-off above 40%, with rare 5% outlier long tail up to 100%).
+
+---
+
 ### Release `4.4.8+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.8+26.2.jar`
