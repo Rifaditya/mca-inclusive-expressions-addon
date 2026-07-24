@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.1.5+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.1.5+26.2.jar`
+* **Changes**:
+  - Injected getValidTraits via VillagerEditorScreenMixin to return Traits.TRAIT_REGISTRY.values(). MCA's native GUI loop now handles creating, positioning, and toggling Full-Chested automatically.
+
+---
+
 ### Release `3.1.4+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.1.4+26.2.jar`

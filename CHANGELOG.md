@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.5+26.2] - 2026-07-24
+
+### Fixed
+* **100% Native MCA Trait List Integration**: Injected into `getValidTraits()` via `VillagerEditorScreenMixin.java` to return `Traits.TRAIT_REGISTRY.values()`. Moved client mixins to `"client"` array in `mixins.json`. MCA's native GUI loop now handles creating, positioning, and toggling `Full-Chested` seamlessly with zero custom button position math.
+
 ## [3.1.4+26.2] - 2026-07-24
 
 ### Fixed
