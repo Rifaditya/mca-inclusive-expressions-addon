@@ -59,7 +59,8 @@ public interface CommonVillagerInterfaceMixin {
         self.getCommonBodyParts().forEach(part -> part.render(matrices, vertices, light, overlay, color));
 
         // 3. Render Breasts (Custom 3D Dual-Breast System with 0%-100% Size, 6-Axis Orthogonal Position, 3-Axis Euler Rotation)
-        if (self.getBreastPart().visible && self.getBodyPart().visible) {
+        boolean breastVisible = self.getBreastPart().visible || MCAInclusiveExpressionsAddon.isAllowAllGenders();
+        if (breastVisible && self.getBodyPart().visible) {
             float leftMult = MCAInclusiveExpressionsAddon.getLeftScaleMultiplier();
             float rightMult = MCAInclusiveExpressionsAddon.getRightScaleMultiplier();
 
