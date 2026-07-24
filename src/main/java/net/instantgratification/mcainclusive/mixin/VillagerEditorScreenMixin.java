@@ -211,7 +211,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 foundAny = false;
                 for (var child : new ArrayList<>(this.children())) {
                     if (child instanceof AbstractWidget widget) {
-                        if (widget.getX() >= this.width / 2 - 10 && widget.getY() > traitHeaderY + 10 && widget.getY() < this.height - 40) {
+                        if (widget.getX() >= this.width / 2 - 5 && widget.getWidth() >= DATA_WIDTH - 5) {
                             this.removeWidget(widget);
                             foundAny = true;
                             break;

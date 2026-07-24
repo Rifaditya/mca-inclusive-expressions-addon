@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.8.0+26.2] - 2026-07-24
+
+### Fixed
+* **Width-Filtered Widget Purge Engine**: Replaced Y-coordinate purge filter with width-matching filter (`widget.getX() >= width / 2 - 5 && widget.getWidth() >= DATA_WIDTH - 5`). Purges 100% of native MCA trait buttons across all Y coordinates while preserving navigation headers, guaranteeing exactly 6 non-overlapping traits per page.
+
 ## [3.7.0+26.2] - 2026-07-24
 
 ### Fixed

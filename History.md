@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.8.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.8.0+26.2.jar`
+* **Changes**:
+  - Replaced Y-coordinate purge filter with width-matching filter (widget.getX() >= width / 2 - 5 && widget.getWidth() >= DATA_WIDTH - 5). Purges 100% of native MCA trait buttons across all Y coordinates while preserving navigation headers, guaranteeing exactly 6 non-overlapping traits per page.
+
+---
+
 ### Release `3.7.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.7.0+26.2.jar`
