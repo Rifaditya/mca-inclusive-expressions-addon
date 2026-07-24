@@ -32,6 +32,8 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     public static double defaultLeftMultiplier = 1.0;
     public static double defaultRightMultiplier = 1.0;
     public static boolean linkSliders = true;
+    public static boolean mirrorPosition = true;
+    public static boolean mirrorRotation = true;
     public static boolean allowAllGenders = false;
     public static Object activeEditorScreen = null;
 
@@ -77,7 +79,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules or Traits for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.7+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.8+26.2.");
     }
 
     public static GeneticsDuck getActiveGuiGenetics() {

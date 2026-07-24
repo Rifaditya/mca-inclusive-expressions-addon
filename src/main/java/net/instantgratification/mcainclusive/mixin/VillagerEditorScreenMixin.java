@@ -465,14 +465,14 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float offset = val / 100.0f;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastX(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastX(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setRightBreastX(-offset);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastX(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastX(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setRightBreastX(-offset);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && rightPosXHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
-                            duck.mca$setIntegerVal(val, -100, 100);
+                        if (MCAInclusiveExpressionsAddon.mirrorPosition && rightPosXHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(-val, -100, 100);
                         }
                         refreshPreviewDimensions();
                     },
@@ -486,14 +486,14 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float offset = val / 100.0f;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastX(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastX(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setLeftBreastX(-offset);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastX(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastX(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setLeftBreastX(-offset);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && leftPosXHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
-                            duck.mca$setIntegerVal(val, -100, 100);
+                        if (MCAInclusiveExpressionsAddon.mirrorPosition && leftPosXHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(-val, -100, 100);
                         }
                         refreshPreviewDimensions();
                     },
@@ -516,13 +516,13 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float offset = val / 100.0f;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastY(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastY(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setRightBreastY(offset);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastY(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastY(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setRightBreastY(offset);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && rightPosYHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                        if (MCAInclusiveExpressionsAddon.mirrorPosition && rightPosYHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
                             duck.mca$setIntegerVal(val, -100, 100);
                         }
                         refreshPreviewDimensions();
@@ -537,13 +537,13 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float offset = val / 100.0f;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastY(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastY(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setLeftBreastY(offset);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastY(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastY(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setLeftBreastY(offset);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && leftPosYHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                        if (MCAInclusiveExpressionsAddon.mirrorPosition && leftPosYHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
                             duck.mca$setIntegerVal(val, -100, 100);
                         }
                         refreshPreviewDimensions();
@@ -567,13 +567,13 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float offset = val / 100.0f;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastZ(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastZ(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setRightBreastZ(offset);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastZ(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastZ(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setRightBreastZ(offset);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && rightPosZHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                        if (MCAInclusiveExpressionsAddon.mirrorPosition && rightPosZHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
                             duck.mca$setIntegerVal(val, -100, 100);
                         }
                         refreshPreviewDimensions();
@@ -588,19 +588,41 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float offset = val / 100.0f;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastZ(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastZ(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setLeftBreastZ(offset);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastZ(offset);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastZ(offset);
+                            if (MCAInclusiveExpressionsAddon.mirrorPosition) duck.setLeftBreastZ(offset);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && leftPosZHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                        if (MCAInclusiveExpressionsAddon.mirrorPosition && leftPosZHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
                             duck.mca$setIntegerVal(val, -100, 100);
                         }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right Z-Pos: " + (val >= 0 ? "+" : "") + val),
                     () -> Component.literal("Adjusts right chest depth position")
+                ));
+                y += 24;
+
+                boolean mirrorPos = MCAInclusiveExpressionsAddon.mirrorPosition;
+                this.addRenderableWidget(new ButtonWidget(
+                    leftColX, y, fullWidth, 20,
+                    Component.literal("Position Symmetry: " + (mirrorPos ? "MIRRORED (Symmetric)" : "INDEPENDENT (Asymmetric)")),
+                    b -> {
+                        MCAInclusiveExpressionsAddon.mirrorPosition = !MCAInclusiveExpressionsAddon.mirrorPosition;
+                        if (MCAInclusiveExpressionsAddon.mirrorPosition) {
+                            float lx = 0.0f, ly = 0.0f, lz = 0.0f;
+                            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                                lx = duck.getLeftBreastX(); ly = duck.getLeftBreastY(); lz = duck.getLeftBreastZ();
+                                duck.setRightBreastX(-lx); duck.setRightBreastY(ly); duck.setRightBreastZ(lz);
+                            }
+                            if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                                duck.setRightBreastX(-lx); duck.setRightBreastY(ly); duck.setRightBreastZ(lz);
+                            }
+                        }
+                        refreshPreviewDimensions();
+                        this.setPage("breast_addon");
+                    }
                 ));
             } else if ("rot".equals(breastSubpage)) {
                 // --- Sub-Category 3: 3D Rotations ---
@@ -618,13 +640,13 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float angle = (float) val;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastPitch(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastPitch(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setRightBreastPitch(angle);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastPitch(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastPitch(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setRightBreastPitch(angle);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && rightPitchHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                        if (MCAInclusiveExpressionsAddon.mirrorRotation && rightPitchHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
                             duck.mca$setIntegerVal(val, -90, 90);
                         }
                         refreshPreviewDimensions();
@@ -639,13 +661,13 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float angle = (float) val;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastPitch(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastPitch(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setLeftBreastPitch(angle);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastPitch(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastPitch(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setLeftBreastPitch(angle);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && leftPitchHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                        if (MCAInclusiveExpressionsAddon.mirrorRotation && leftPitchHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
                             duck.mca$setIntegerVal(val, -90, 90);
                         }
                         refreshPreviewDimensions();
@@ -669,14 +691,14 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float angle = (float) val;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastYaw(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastYaw(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setRightBreastYaw(-angle);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastYaw(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastYaw(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setRightBreastYaw(-angle);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && rightYawHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
-                            duck.mca$setIntegerVal(val, -90, 90);
+                        if (MCAInclusiveExpressionsAddon.mirrorRotation && rightYawHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(-val, -90, 90);
                         }
                         refreshPreviewDimensions();
                     },
@@ -690,14 +712,14 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float angle = (float) val;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastYaw(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastYaw(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setLeftBreastYaw(-angle);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastYaw(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastYaw(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setLeftBreastYaw(-angle);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && leftYawHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
-                            duck.mca$setIntegerVal(val, -90, 90);
+                        if (MCAInclusiveExpressionsAddon.mirrorRotation && leftYawHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(-val, -90, 90);
                         }
                         refreshPreviewDimensions();
                     },
@@ -720,14 +742,14 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float angle = (float) val;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastRoll(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastRoll(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setRightBreastRoll(-angle);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastRoll(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastRoll(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setRightBreastRoll(-angle);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && rightRollHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
-                            duck.mca$setIntegerVal(val, -90, 90);
+                        if (MCAInclusiveExpressionsAddon.mirrorRotation && rightRollHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(-val, -90, 90);
                         }
                         refreshPreviewDimensions();
                     },
@@ -741,19 +763,41 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         float angle = (float) val;
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastRoll(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastRoll(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setLeftBreastRoll(-angle);
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastRoll(angle);
-                            if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastRoll(angle);
+                            if (MCAInclusiveExpressionsAddon.mirrorRotation) duck.setLeftBreastRoll(-angle);
                         }
-                        if (MCAInclusiveExpressionsAddon.linkSliders && leftRollHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
-                            duck.mca$setIntegerVal(val, -90, 90);
+                        if (MCAInclusiveExpressionsAddon.mirrorRotation && leftRollHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
+                            duck.mca$setIntegerVal(-val, -90, 90);
                         }
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right Roll (Z): " + (val >= 0 ? "+" : "") + val + "°"),
                     () -> Component.literal("Tilts right chest sideways left or right")
+                ));
+                y += 24;
+
+                boolean mirrorRot = MCAInclusiveExpressionsAddon.mirrorRotation;
+                this.addRenderableWidget(new ButtonWidget(
+                    leftColX, y, fullWidth, 20,
+                    Component.literal("Rotation Symmetry: " + (mirrorRot ? "MIRRORED (Symmetric)" : "INDEPENDENT (Asymmetric)")),
+                    b -> {
+                        MCAInclusiveExpressionsAddon.mirrorRotation = !MCAInclusiveExpressionsAddon.mirrorRotation;
+                        if (MCAInclusiveExpressionsAddon.mirrorRotation) {
+                            float lp = 0.0f, ly = 0.0f, lr = 0.0f;
+                            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                                lp = duck.getLeftBreastPitch(); ly = duck.getLeftBreastYaw(); lr = duck.getLeftBreastRoll();
+                                duck.setRightBreastPitch(lp); duck.setRightBreastYaw(-ly); duck.setRightBreastRoll(-lr);
+                            }
+                            if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                                duck.setRightBreastPitch(lp); duck.setRightBreastYaw(-ly); duck.setRightBreastRoll(-lr);
+                            }
+                        }
+                        refreshPreviewDimensions();
+                        this.setPage("breast_addon");
+                    }
                 ));
             }
         }

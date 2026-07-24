@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.8+26.2] - 2026-07-24
+
+### Fixed
+* **Position & Rotation Mirror Engine**: Added dedicated `Position Symmetry: MIRRORED / INDEPENDENT` and `Rotation Symmetry: MIRRORED / INDEPENDENT` toggle buttons and 3D symmetry math (inverted X/Yaw/Roll, equal Y/Z/Pitch) to `VillagerEditorScreenMixin`, providing real-time 1:1 3D symmetrical editing across Position and Rotation sub-tabs.
+
 ## [4.4.7+26.2] - 2026-07-24
 
 ### Fixed
