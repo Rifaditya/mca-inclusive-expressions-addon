@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.1+26.2] - 2026-07-24
+
+### Fixed
+* **Native MCA Trait Integration & Localization**: Removed custom GUI Mixin override on `getValidTraits()` to rely 100% on MCA's native trait registration system (`usableOnPlayer = true`), preserving all native MCA player vs NPC traits. Added `"trait.full_chested"` translation key to `en_us.json`.
+
 ## [3.1.0+26.2] - 2026-07-24
 
 ### Added

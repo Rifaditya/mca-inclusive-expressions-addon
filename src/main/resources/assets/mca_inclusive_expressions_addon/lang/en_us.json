@@ -4,6 +4,8 @@
   "gamerule.mca_inclusive_expressions:allow_all_genders.description": "Allows 3D breast model customization across all gender expressions.",
   "gamerule.mca_inclusive_expressions:full_chested_trait_chance": "Full-Chested Trait Spawn Chance (%)",
   "gamerule.mca_inclusive_expressions:full_chested_trait_chance.description": "Percentage chance (0-100%) for male villagers to spawn with the Full-Chested trait.",
+  "trait.full_chested": "Full-Chested",
+  "trait.full_chested.desc": "Has a full chest structure.",
   "trait.mca.full_chested": "Full-Chested",
   "trait.mca.full_chested.desc": "Has a full chest structure."
 }

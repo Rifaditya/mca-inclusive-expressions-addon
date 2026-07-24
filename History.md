@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.1.1+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.1.1+26.2.jar`
+* **Changes**:
+  - Rely 100% on native MCA trait registration system, removing getValidTraits Mixin override. Added trait.full_chested translation key.
+
+---
+
 ### Release `3.1.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.1.0+26.2.jar`

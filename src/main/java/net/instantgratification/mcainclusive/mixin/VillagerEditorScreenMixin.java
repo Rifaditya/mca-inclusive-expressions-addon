@@ -39,24 +39,6 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
     @Unique private static String breastSubpage = "size";
 
-    @Inject(method = "getValidTraits", at = @At("HEAD"), cancellable = true, remap = false)
-    private void onGetValidTraits(CallbackInfoReturnable<net.conczin.mca.entity.ai.Traits.Trait[]> cir) {
-        java.util.Collection<net.conczin.mca.entity.ai.Traits.Trait> allTraits = net.conczin.mca.entity.ai.Traits.TRAIT_REGISTRY.values();
-        java.util.List<net.conczin.mca.entity.ai.Traits.Trait> valid = allTraits.stream()
-            .filter(t -> {
-                if (t == MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT) {
-                    return true;
-                }
-                boolean isPlayer = villagerUUID != null && villagerUUID.equals(playerUUID);
-                if (isPlayer) {
-                    return (net.conczin.mca.Config.getInstance().bypassTraitRestrictions || t.isUsableOnPlayer()) && t.isEnabled();
-                }
-                return t.isEnabled();
-            })
-            .toList();
-        cir.setReturnValue(valid.toArray(new net.conczin.mca.entity.ai.Traits.Trait[0]));
-    }
-
     protected VillagerEditorScreenMixin(Component title) {
         super(title);
     }
