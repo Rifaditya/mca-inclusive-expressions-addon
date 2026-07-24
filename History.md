@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.2.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.2.0+26.2.jar`
+* **Changes**:
+  - Created VillagerDimensionsMixin targeting VillagerDimensions.Mutable.getBreasts(). Returns 1.0f when breasts <= 0, bypassing MCA's native male zero-dimension multiplier (getDimensions().getBreasts() = 0.0f) and enabling 3D breasts on masculine characters with the Full-Chested trait.
+
+---
+
 ### Release `4.1.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.1.0+26.2.jar`
