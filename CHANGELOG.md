@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.8.0+26.2] - 2026-07-24
+
+### Changed
+* **Armor Model 1:1 Scale Parity Engine**: Implemented `copyCommonAttributes` synchronization across `CommonVillagerInterfaceMixin`, copying all 14 3D parameters (Size, Position X/Y/Z, Rotation Pitch/Yaw/Roll) directly from the body model to the armor model. Resolves armor rendering oversized relative to unarmored body.
+* **GameRule-Only Gender Inclusivity Refactor**: Removed the `Gender Inclusivity: ENABLED` toggle button from the `VillagerEditorScreen` GUI. Gender inclusivity settings now reside strictly inside the server GameRule (`/gamerule mca_inclusive_expressions:allow_all_genders true`).
+
 ## [2.7.0+26.2] - 2026-07-23
 
 ### Changed

@@ -4,6 +4,15 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `2.8.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-2.8.0+26.2.jar`
+* **Changes**:
+  - Implemented copyCommonAttributes synchronization across CommonVillagerInterfaceMixin to guarantee 100% 1:1 scale, position, and rotation parity between armor models and unarmored body models.
+  - Removed Gender Inclusivity button from VillagerEditorScreen GUI to rely strictly on server GameRule.
+
+---
+
 ### Release `2.7.0+26.2` (2026-07-23)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.7.0+26.2.jar`
