@@ -203,8 +203,6 @@ public abstract class VillagerEditorScreenMixin extends Screen {
         } else if ("traits".equals(page)) {
             // 1. Defensive while-loop purge: repeatedly remove native trait widgets until ZERO remain (eliminates index-shifting bugs!)
             int startY = this.height / 2 - 85;
-            int traitHeaderY = startY + 24;
-            int traitStartY = startY + 46;
 
             boolean foundAny;
             do {
@@ -219,6 +217,17 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                     }
                 }
             } while (foundAny);
+
+            // Dynamically calculate traitStartY (2px below < Page X > header bar!)
+            int traitStartY = startY + 46;
+            for (var child : this.children()) {
+                if (child instanceof AbstractWidget widget && widget.getX() >= this.width / 2 && widget.getY() < this.height / 2) {
+                    if (widget instanceof ButtonWidget b && b.getMessage() != null && b.getMessage().getString().contains("Page")) {
+                        traitStartY = b.getY() + b.getHeight() + 2;
+                        break;
+                    }
+                }
+            }
 
             // 2. Build complete valid traits list with FULL_CHESTED_TRAIT at Index 0!
             List<net.conczin.mca.entity.ai.Traits.Trait> traitList = new ArrayList<>();

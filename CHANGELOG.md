@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.0.0+26.2] - 2026-07-24
+
+### Fixed
+* **Dynamic Header-Anchored Layout Engine**: Dynamically calculated `traitStartY` based on the real-time position of the `< Page X >` navigation header bar (`pageHeader.getY() + pageHeader.getHeight() + 2`), completely eliminating the 22px gap and placing `Full-Chested` with a tight 2px margin under the header.
+
 ## [3.9.0+26.2] - 2026-07-24
 
 ### Fixed
