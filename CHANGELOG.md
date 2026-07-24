@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.7+26.2] - 2026-07-24
+
+### Fixed
+* **Mixin Schema & Protected Overwrite Fix**: Cleaned `mixins.json` to valid SpongePowered Mixin format and updated `getValidTraits()` visibility to `protected` so Mixin `@Overwrite` applies at launch. Added fail-safe button renderer in `onSetPageTail` at `targetSlotY = 174` (zero gap under *No Aging*).
+
 ## [3.1.6+26.2] - 2026-07-24
 
 ### Fixed

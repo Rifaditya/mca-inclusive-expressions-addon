@@ -46,7 +46,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
      * @reason Include dynamic traits from Traits.TRAIT_REGISTRY
      */
     @Overwrite(remap = false)
-    private net.conczin.mca.entity.ai.Traits.Trait[] getValidTraits() {
+    protected net.conczin.mca.entity.ai.Traits.Trait[] getValidTraits() {
         java.util.Collection<net.conczin.mca.entity.ai.Traits.Trait> allTraits = net.conczin.mca.entity.ai.Traits.TRAIT_REGISTRY.values();
         java.util.List<net.conczin.mca.entity.ai.Traits.Trait> valid = new java.util.ArrayList<>();
         for (net.conczin.mca.entity.ai.Traits.Trait t : allTraits) {
@@ -200,6 +200,52 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 }
             }
             toRemove.forEach(this::removeWidget);
+        } else if ("traits".equals(page)) {
+            // Fail-safe: Check if Full-Chested button was rendered natively by MCA
+            boolean alreadyRendered = false;
+            for (var child : this.children()) {
+                if (child instanceof AbstractWidget widget && widget.getMessage() != null) {
+                    if (widget.getMessage().getString().contains("Full-Chested")) {
+                        alreadyRendered = true;
+                        break;
+                    }
+                }
+            }
+            if (!alreadyRendered) {
+                boolean isPlayer = villagerUUID != null && villagerUUID.equals(playerUUID);
+                int leftColX = this.width / 2;
+                int targetSlotY = -1;
+
+                if (isPlayer && this.traitPage == 1) { // Page 2 for Player Characters
+                    targetSlotY = 64 + (4 * 22); // Y = 152
+                } else if (!isPlayer && this.traitPage == 2) { // Page 3 for NPC Villagers
+                    targetSlotY = 64 + (5 * 22); // Y = 174
+                }
+
+                if (targetSlotY > 0) {
+                    boolean hasFullChested = false;
+                    if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
+                        hasFullChested = villager.getTraits().hasTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
+                    }
+                    Component label = Component.literal("Full-Chested").withStyle(hasFullChested ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.GRAY);
+                    this.addRenderableWidget(new ButtonWidget(
+                        leftColX, targetSlotY, DATA_WIDTH, 20,
+                        label,
+                        b -> {
+                            if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
+                                if (villager.getTraits().hasTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT)) {
+                                    villager.getTraits().removeTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
+                                    b.setMessage(Component.literal("Full-Chested").withStyle(net.minecraft.ChatFormatting.GRAY));
+                                } else {
+                                    villager.getTraits().addTrait(MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
+                                    b.setMessage(Component.literal("Full-Chested").withStyle(net.minecraft.ChatFormatting.GREEN));
+                                }
+                                refreshPreviewDimensions();
+                            }
+                        }
+                    ));
+                }
+            }
         } else if ("breast_addon".equals(page)) {
             int y = this.height / 2 - 85;
 

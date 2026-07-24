@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.1.7+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.1.7+26.2.jar`
+* **Changes**:
+  - Cleaned mixins.json to valid SpongePowered Mixin schema and changed getValidTraits visibility to protected for Mixin Overwrite. Added fail-safe button placement in onSetPageTail at Y = 174 (zero gap under No Aging).
+
+---
+
 ### Release `3.1.6+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.1.6+26.2.jar`
