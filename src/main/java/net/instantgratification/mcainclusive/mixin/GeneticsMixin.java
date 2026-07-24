@@ -99,12 +99,16 @@ public abstract class GeneticsMixin implements GeneticsDuck {
             float[] sizes = MCAInclusiveExpressionsAddon.sampleAsymmetricBreastSizes(random);
             this.leftBreastSize = sizes[0];
             this.rightBreastSize = sizes[1];
+            this.leftBreastY = MCAInclusiveExpressionsAddon.calculateAutoYSag(sizes[0]);
+            this.rightBreastY = MCAInclusiveExpressionsAddon.calculateAutoYSag(sizes[1]);
         } else {
             int chance = MCAInclusiveExpressionsAddon.getFullChestedTraitChance();
             if (chance > 0 && random.nextFloat() * 100.0f < chance) {
                 float[] sizes = MCAInclusiveExpressionsAddon.sampleAsymmetricBreastSizes(random);
                 this.leftBreastSize = sizes[0];
                 this.rightBreastSize = sizes[1];
+                this.leftBreastY = MCAInclusiveExpressionsAddon.calculateAutoYSag(sizes[0]);
+                this.rightBreastY = MCAInclusiveExpressionsAddon.calculateAutoYSag(sizes[1]);
             } else {
                 this.leftBreastSize = 0.0f;
                 this.rightBreastSize = 0.0f;

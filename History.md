@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.17+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.17+26.2.jar`
+* **Changes**:
+  - Added anatomical gravity physics (calculateAutoYSag()) automatically positioning larger breasts lower on the Y-axis. Added a dedicated toggle button (Y-Pos Auto-Sag: LINKED / UNLINKED) under the Size sub-page in /mca editor to auto-adjust Y-Pos in real time when scaling size.
+
+---
+
 ### Release `4.4.16+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.16+26.2.jar`

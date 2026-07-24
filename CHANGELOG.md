@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.17+26.2] - 2026-07-24
+
+### Added
+* **Y-Pos Auto-Sag Link Engine**: Added anatomical gravity physics (`calculateAutoYSag()`) automatically positioning larger breasts lower on the Y-axis. Added a dedicated toggle button (`Y-Pos Auto-Sag: LINKED / UNLINKED`) under the `Size` sub-page in `/mca editor` to auto-adjust Y-Pos in real time when scaling size.
+
 ## [4.4.16+26.2] - 2026-07-24
 
 ### Changed
