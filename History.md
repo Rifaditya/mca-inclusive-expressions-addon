@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.3.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.3.0+26.2.jar`
+* **Changes**:
+  - Positioned Full-Chested as the very first trait (Slot 0 at top of Page 1) above Lactose Intolerance, shifting native Page 1 trait buttons down by 22px with zero gap.
+
+---
+
 ### Release `3.2.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.2.0+26.2.jar`

@@ -212,23 +212,30 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             }
             toRemove.forEach(this::removeWidget);
         } else if ("traits".equals(page)) {
-            // ONLY on Page 3 (this.traitPage == 2), dynamically discover bottom-most button (No Aging) and attach Full-Chested directly below it
-            if (this.traitPage == 2) {
-                AbstractWidget lastButton = null;
-                int maxY = -1;
+            // Place Full-Chested as Slot 0 at the top of Page 1 (this.traitPage == 0) above Lactose Intolerance
+            if (this.traitPage == 0) {
+                AbstractWidget firstButton = null;
+                int minY = Integer.MAX_VALUE;
+                List<AbstractWidget> traitButtons = new ArrayList<>();
                 for (var child : this.children()) {
                     if (child instanceof AbstractWidget widget && widget.getX() == this.width / 2 && widget.getWidth() == DATA_WIDTH) {
-                        if (widget.getY() < this.height - 40) { // Ignore Done button at screen bottom
-                            if (widget.getY() > maxY) {
-                                maxY = widget.getY();
-                                lastButton = widget;
+                        if (widget.getY() < this.height - 40) { // Exclude Done button at bottom
+                            traitButtons.add(widget);
+                            if (widget.getY() < minY) {
+                                minY = widget.getY();
+                                firstButton = widget;
                             }
                         }
                     }
                 }
 
-                if (lastButton != null) {
-                    int targetY = lastButton.getY() + 22; // Dynamically sit exactly 22px below No Aging (ZERO GAP)
+                if (firstButton != null) {
+                    int topY = firstButton.getY(); // Top-most Y position (Slot 0)
+
+                    // Shift all native MCA traits on Page 1 down by 22px
+                    for (AbstractWidget b : traitButtons) {
+                        b.setY(b.getY() + 22);
+                    }
 
                     boolean hasFullChested = false;
                     if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
@@ -236,7 +243,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                     }
                     Component label = Component.literal("Full-Chested").withStyle(hasFullChested ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.GRAY);
                     this.addRenderableWidget(new ButtonWidget(
-                        this.width / 2, targetY, DATA_WIDTH, 20,
+                        this.width / 2, topY, DATA_WIDTH, 20,
                         label,
                         b -> {
                             if (villager != null && villager.getTraits() != null && MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
