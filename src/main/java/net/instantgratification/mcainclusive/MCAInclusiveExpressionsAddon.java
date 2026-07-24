@@ -77,7 +77,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules or Traits for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.6+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.7+26.2.");
     }
 
     public static GeneticsDuck getActiveGuiGenetics() {

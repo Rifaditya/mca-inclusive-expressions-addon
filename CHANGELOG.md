@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.7+26.2] - 2026-07-24
+
+### Fixed
+* **Isolated Entity Rendering Engine**: Removed global GUI override hack from `CommonVillagerInterfaceMixin`. Edits in `/mca editor` now strictly apply to the target character and editor preview model, preventing all other world NPCs and players from being contaminated or altered.
+
 ## [4.4.6+26.2] - 2026-07-24
 
 ### Fixed

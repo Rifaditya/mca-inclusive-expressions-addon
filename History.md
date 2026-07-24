@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.7+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.7+26.2.jar`
+* **Changes**:
+  - Removed global GUI override hack from CommonVillagerInterfaceMixin. Edits in /mca editor now strictly apply to the target character and editor preview model, preventing all other world NPCs and players from being contaminated or altered.
+
+---
+
 ### Release `4.4.6+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.6+26.2.jar`
