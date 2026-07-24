@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.10+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.10+26.2.jar`
+* **Changes**:
+  - Fixed hardcoded 1.0f initial field value in GeneticsMixin. Uninitialized size values (< 0.0f) now lazily sample from your statistical graph distribution curve (sampleGraphBreastSize(random)), guaranteeing that EVERY spawned female and full-chested male villager naturally receives a unique, diverse scale (Median ~29.57%, Mode ~35.08%, Mean ~28.08%) upon spawning in the world.
+
+---
+
 ### Release `4.4.9+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.9+26.2.jar`

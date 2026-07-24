@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.10+26.2] - 2026-07-24
+
+### Fixed
+* **Villager Spawn Genetic Diversity Engine**: Fixed hardcoded `1.0f` initial field value in `GeneticsMixin`. Uninitialized size values (`< 0.0f`) now lazily sample from your statistical graph distribution curve (`sampleGraphBreastSize(random)`), guaranteeing that **EVERY** spawned female and full-chested male villager naturally receives a unique, diverse scale (Median ~29.57%, Mode ~35.08%, Mean ~28.08%) upon spawning in the world.
+
 ## [4.4.9+26.2] - 2026-07-24
 
 ### Added

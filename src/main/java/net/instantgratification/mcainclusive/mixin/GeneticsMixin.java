@@ -19,8 +19,8 @@ public abstract class GeneticsMixin implements GeneticsDuck {
     @Shadow public abstract Gender getGender();
     @Shadow public abstract float getGene(Genetics.GeneType type);
 
-    @Unique private float leftBreastSize = 1.0f;
-    @Unique private float rightBreastSize = 1.0f;
+    @Unique private float leftBreastSize = -1.0f;
+    @Unique private float rightBreastSize = -1.0f;
 
     @Unique private float leftBreastX = 0.0f;
     @Unique private float leftBreastY = 0.0f;
@@ -38,10 +38,22 @@ public abstract class GeneticsMixin implements GeneticsDuck {
     @Unique private float rightBreastYaw = 0.0f;
     @Unique private float rightBreastRoll = 0.0f;
 
-    @Override public float getLeftBreastSize() { return this.leftBreastSize; }
+    @Override
+    public float getLeftBreastSize() {
+        if (this.leftBreastSize < 0.0f) {
+            ensureSampledBreastSize();
+        }
+        return this.leftBreastSize;
+    }
     @Override public void setLeftBreastSize(float val) { this.leftBreastSize = val; }
 
-    @Override public float getRightBreastSize() { return this.rightBreastSize; }
+    @Override
+    public float getRightBreastSize() {
+        if (this.rightBreastSize < 0.0f) {
+            ensureSampledBreastSize();
+        }
+        return this.rightBreastSize;
+    }
     @Override public void setRightBreastSize(float val) { this.rightBreastSize = val; }
 
     @Override public float getLeftBreastX() { return this.leftBreastX; }
@@ -80,8 +92,8 @@ public abstract class GeneticsMixin implements GeneticsDuck {
     @Override public float getRightBreastRoll() { return this.rightBreastRoll; }
     @Override public void setRightBreastRoll(float val) { this.rightBreastRoll = val; }
 
-    @Inject(method = "randomize", at = @At("TAIL"))
-    private void onRandomize(CallbackInfo ci) {
+    @Unique
+    private void ensureSampledBreastSize() {
         net.minecraft.util.RandomSource random = net.minecraft.util.RandomSource.create();
         if (getGender() == Gender.FEMALE) {
             float scale = MCAInclusiveExpressionsAddon.sampleGraphBreastSize(random);
@@ -89,8 +101,7 @@ public abstract class GeneticsMixin implements GeneticsDuck {
             this.rightBreastSize = scale;
         } else {
             int chance = MCAInclusiveExpressionsAddon.getFullChestedTraitChance();
-            float roll = random.nextFloat() * 100.0f;
-            if (roll < chance) {
+            if (chance > 0 && random.nextFloat() * 100.0f < chance) {
                 float scale = MCAInclusiveExpressionsAddon.sampleGraphBreastSize(random);
                 this.leftBreastSize = scale;
                 this.rightBreastSize = scale;
@@ -99,6 +110,13 @@ public abstract class GeneticsMixin implements GeneticsDuck {
                 this.rightBreastSize = 0.0f;
             }
         }
+    }
+
+    @Inject(method = "randomize", at = @At("TAIL"))
+    private void onRandomize(CallbackInfo ci) {
+        this.leftBreastSize = -1.0f;
+        this.rightBreastSize = -1.0f;
+        ensureSampledBreastSize();
     }
 
     @Inject(method = "getBreastSize", at = @At("HEAD"), cancellable = true)
