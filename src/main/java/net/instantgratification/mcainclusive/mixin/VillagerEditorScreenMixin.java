@@ -201,14 +201,15 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             }
             toRemove.forEach(this::removeWidget);
         } else if ("traits".equals(page)) {
-            // 1. Remove native MCA trait list buttons (leaving navigation header & top tabs intact!)
+            // 1. Comprehensive widget purge: remove ALL native trait list buttons below the navigation header
             int startY = this.height / 2 - 85;
+            int traitHeaderY = startY + 24;
             int traitStartY = startY + 48;
 
             List<AbstractWidget> nativeTraitButtons = new ArrayList<>();
             for (var child : this.children()) {
-                if (child instanceof AbstractWidget widget && widget.getX() == this.width / 2 && widget.getWidth() == DATA_WIDTH) {
-                    if (widget.getY() >= traitStartY && widget.getY() < this.height - 40) {
+                if (child instanceof AbstractWidget widget) {
+                    if (widget.getX() >= this.width / 2 - 10 && widget.getY() > traitHeaderY + 10 && widget.getY() < this.height - 40) {
                         nativeTraitButtons.add(widget);
                     }
                 }

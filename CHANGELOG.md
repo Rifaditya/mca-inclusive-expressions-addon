@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.6.0+26.2] - 2026-07-24
+
+### Fixed
+* **Comprehensive Widget Purge Engine**: Refactored `onSetPageTail` purge filter (`widget.getY() > traitHeaderY + 10`) to 100% remove all native MCA trait list buttons before rendering 6 non-overlapping traits per page with `Full-Chested` at Slot 0.
+
 ## [3.5.0+26.2] - 2026-07-24
 
 ### Fixed

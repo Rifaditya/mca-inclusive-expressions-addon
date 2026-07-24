@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.6.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.6.0+26.2.jar`
+* **Changes**:
+  - Refactored onSetPageTail purge filter (widget.getY() > traitHeaderY + 10) to 100% remove all native MCA trait list buttons before rendering 6 non-overlapping traits per page with Full-Chested at Slot 0.
+
+---
+
 ### Release `3.5.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.5.0+26.2.jar`
