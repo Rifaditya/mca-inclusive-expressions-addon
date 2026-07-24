@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.0.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.0.0+26.2.jar`
+* **Changes**:
+  - Resolved male character model breast rendering across client and server. Updated isAllowAllGenders() to resolve client level/singleplayer GameRules on the client rendering thread, and removed !part.visible skip condition in CommonVillagerInterfaceMixin.onRenderCommon.
+
+---
+
 ### Release `2.9.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-2.9.0+26.2.jar`

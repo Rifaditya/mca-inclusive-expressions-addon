@@ -55,7 +55,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v2.9.0+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v3.0.0+26.2.");
     }
 
     public static GeneticsDuck getActiveGuiGenetics() {
@@ -94,6 +94,8 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
         if (allowAllGenders) {
             return true;
         }
+
+        // 1. Check MCA Integrated Server / Server Thread
         try {
             var serverOpt = net.conczin.mca.MCA.getServer();
             if (serverOpt.isPresent() && ALLOW_ALL_GENDERS_RULE != null) {
@@ -101,6 +103,16 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             }
         } catch (Throwable ignored) {
         }
+
+        // 2. Check Client Thread / Singleplayer Server
+        try {
+            var mc = net.minecraft.client.Minecraft.getInstance();
+            if (mc != null && mc.getSingleplayerServer() != null && ALLOW_ALL_GENDERS_RULE != null) {
+                return mc.getSingleplayerServer().getGameRules().get(ALLOW_ALL_GENDERS_RULE);
+            }
+        } catch (Throwable ignored) {
+        }
+
         return false;
     }
 }

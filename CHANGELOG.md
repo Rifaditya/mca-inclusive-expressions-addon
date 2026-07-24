@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.0.0+26.2] - 2026-07-24
+
+### Fixed
+* **Universal Male Model Breast Rendering Engine**: Resolved male character model breast rendering across client and server. Updated `MCAInclusiveExpressionsAddon.isAllowAllGenders()` to resolve client level/singleplayer GameRules on the client rendering thread, and removed `!part.visible` skip condition in `CommonVillagerInterfaceMixin.onRenderCommon`. Male player and villager models now render custom 3D breasts in real-time across all viewports.
+
 ## [2.9.0+26.2] - 2026-07-24
 
 ### Fixed

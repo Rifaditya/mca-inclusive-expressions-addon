@@ -127,7 +127,7 @@ public interface CommonVillagerInterfaceMixin {
             float rightBreastSize = rightMult;
 
             for (ModelPart part : self.getBreastParts()) {
-                if (part == null || !part.visible || part.skipDraw) continue;
+                if (part == null || part.skipDraw) continue;
 
                 // Push pose and apply part's native position & rotation (-35 degrees!)
                 matrices.pushPose();
