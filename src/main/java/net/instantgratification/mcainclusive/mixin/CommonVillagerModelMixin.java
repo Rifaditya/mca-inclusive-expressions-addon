@@ -116,8 +116,20 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
                     this.breasts.visible = true;
                 }
                 if (this.breastSize <= 0) {
-                    this.breastSize = 0.5f;
+                    this.breastSize = 1.0f;
                 }
+            }
+        }
+    }
+
+    @Inject(method = "applyVillagerDimensions", at = @At("TAIL"), remap = false)
+    private void onApplyVillagerDimensions(net.conczin.mca.client.render.VillagerVisuals visuals, boolean crouching, CallbackInfo ci) {
+        if (this.currentLeftScale > 0 || this.currentRightScale > 0 || MCAInclusiveExpressionsAddon.isAllowAllGenders() || (visuals != null && visuals.breastSize() > 0)) {
+            if (this.breasts != null) {
+                this.breasts.visible = true;
+            }
+            if (this.breastSize <= 0) {
+                this.breastSize = 1.0f;
             }
         }
     }

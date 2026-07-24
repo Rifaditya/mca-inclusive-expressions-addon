@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.3.0+26.2] - 2026-07-24
+
+### Fixed
+* **Triple-Stage Masculine Breast Rendering Pipeline**: Intercepted `Genetics.getBreastSize()`, `VillagerVisuals.female()`, and `CommonVillagerModel.applyVillagerDimensions()` across all 3 gates of MCA's native model engine. Guaranteed 3D breast mesh rendering on masculine characters with the `Full-Chested` trait.
+
 ## [4.2.0+26.2] - 2026-07-24
 
 ### Fixed

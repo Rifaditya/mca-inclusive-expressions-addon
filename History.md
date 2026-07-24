@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.3.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.3.0+26.2.jar`
+* **Changes**:
+  - Intercepted Genetics.getBreastSize(), VillagerVisuals.female(), and CommonVillagerModel.applyVillagerDimensions() across all 3 gates of MCA's native model engine. Guaranteed 3D breast mesh rendering on masculine characters with the Full-Chested trait.
+
+---
+
 ### Release `4.2.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.2.0+26.2.jar`
