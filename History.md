@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `3.9.0+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-3.9.0+26.2.jar`
+* **Changes**:
+  - Shifted traitStartY up from startY + 48 to startY + 46. Creates a clean, uniform 2px gap directly beneath the < Page X > navigation header bar.
+
+---
+
 ### Release `3.8.0+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-3.8.0+26.2.jar`

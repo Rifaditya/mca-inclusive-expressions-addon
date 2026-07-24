@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.9.0+26.2] - 2026-07-24
+
+### Fixed
+* **Trait List Vertical Shift Engine**: Shifted `traitStartY` up from `startY + 48` to `startY + 46`. Creates a clean, uniform 2px gap directly beneath the `< Page X >` navigation header bar.
+
 ## [3.8.0+26.2] - 2026-07-24
 
 ### Fixed

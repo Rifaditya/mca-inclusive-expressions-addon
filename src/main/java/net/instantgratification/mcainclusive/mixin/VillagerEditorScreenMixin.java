@@ -204,7 +204,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             // 1. Defensive while-loop purge: repeatedly remove native trait widgets until ZERO remain (eliminates index-shifting bugs!)
             int startY = this.height / 2 - 85;
             int traitHeaderY = startY + 24;
-            int traitStartY = startY + 48;
+            int traitStartY = startY + 46;
 
             boolean foundAny;
             do {
