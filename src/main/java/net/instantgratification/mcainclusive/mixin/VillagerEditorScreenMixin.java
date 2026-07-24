@@ -14,6 +14,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,8 +41,12 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
     @Unique private static String breastSubpage = "size";
 
-    @Inject(method = "getValidTraits", at = @At("HEAD"), cancellable = true, remap = false)
-    private void onGetValidTraits(CallbackInfoReturnable<net.conczin.mca.entity.ai.Traits.Trait[]> cir) {
+    /**
+     * @author MCA Inclusive Expressions Addon
+     * @reason Include dynamic traits from Traits.TRAIT_REGISTRY
+     */
+    @Overwrite(remap = false)
+    private net.conczin.mca.entity.ai.Traits.Trait[] getValidTraits() {
         java.util.Collection<net.conczin.mca.entity.ai.Traits.Trait> allTraits = net.conczin.mca.entity.ai.Traits.TRAIT_REGISTRY.values();
         java.util.List<net.conczin.mca.entity.ai.Traits.Trait> valid = new java.util.ArrayList<>();
         for (net.conczin.mca.entity.ai.Traits.Trait t : allTraits) {
@@ -56,7 +61,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                 }
             }
         }
-        cir.setReturnValue(valid.toArray(new net.conczin.mca.entity.ai.Traits.Trait[0]));
+        return valid.toArray(new net.conczin.mca.entity.ai.Traits.Trait[0]);
     }
 
     protected VillagerEditorScreenMixin(Component title) {

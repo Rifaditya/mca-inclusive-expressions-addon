@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.6+26.2] - 2026-07-24
+
+### Fixed
+* **Overwrite Trait Method Engine**: Used `@Overwrite(remap = false)` on `VillagerEditorScreen.getValidTraits()` to forcefully return `Traits.TRAIT_REGISTRY.values()`. MCA's native GUI loop now renders `Full-Chested` as native slot #6 on Page 3 right below *No Aging* with zero gaps.
+
 ## [3.1.5+26.2] - 2026-07-24
 
 ### Fixed
