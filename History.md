@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.3+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.3+26.2.jar`
+* **Changes**:
+  - Added section sign bold formatting (§l) to category title in en_us.json ("§l▼ MCA Inclusive Expressions"). Registered all key variants so the GameRules category header displays in bold text matching standard category headers like ▶ Chat.
+
+---
+
 ### Release `4.4.2+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.2+26.2.jar`

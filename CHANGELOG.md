@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.3+26.2] - 2026-07-24
+
+### Fixed
+* **Bold GameRule Category Formatting**: Added section sign bold formatting (`§l`) to category title in `en_us.json` ("`§l▼ MCA Inclusive Expressions`"). Registered all key variants (`gamerule.category.mca_inclusive_expressions_addon:category`, `.category`, etc.) so the GameRules category header displays in bold text matching standard category headers like `▶ Chat`.
+
 ## [4.4.2+26.2] - 2026-07-24
 
 ### Fixed

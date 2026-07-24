@@ -1,5 +1,10 @@
 {
-  "gamerule.category.mca_inclusive_expressions_addon:category": "▼ MCA Inclusive Expressions",
+  "gamerule.category.mca_inclusive_expressions_addon:category": "§l▼ MCA Inclusive Expressions",
+  "gamerule.category.mca_inclusive_expressions_addon.category": "§l▼ MCA Inclusive Expressions",
+  "gamerule.category.mca_inclusive_expressions_addon": "§l▼ MCA Inclusive Expressions",
+  "gamerule.category.mca_inclusive_expressions:category": "§l▼ MCA Inclusive Expressions",
+  "gamerule.category.mca_inclusive_expressions.category": "§l▼ MCA Inclusive Expressions",
+  "gamerule.category.mca_inclusive_expressions": "§l▼ MCA Inclusive Expressions",
   "gamerule.mca_inclusive_expressions:force_all_breasted": "Force All Breasted Mode",
   "gamerule.mca_inclusive_expressions:force_all_breasted.description": "Forces 3D breasts on all male/masculine characters globally regardless of individual traits.",
   "gamerule.mca_inclusive_expressions.force_all_breasted": "Force All Breasted Mode",
