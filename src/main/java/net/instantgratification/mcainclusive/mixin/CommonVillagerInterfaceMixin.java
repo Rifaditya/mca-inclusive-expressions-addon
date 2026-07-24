@@ -141,8 +141,9 @@ public interface CommonVillagerInterfaceMixin {
             }
 
             // Native MCA 1:1 Scale Alignment at 100% (1.0x native MCA default max volume)
-            float leftBreastSize = leftMult;
-            float rightBreastSize = rightMult;
+            boolean isArmorModel = (self instanceof net.conczin.mca.client.model.PlayerArmorExtendedModel);
+            float leftBreastSize = isArmorModel ? (leftMult * 0.55f + 0.20f) : leftMult;
+            float rightBreastSize = isArmorModel ? (rightMult * 0.55f + 0.20f) : rightMult;
 
             for (ModelPart part : self.getBreastParts()) {
                 if (part == null || part.skipDraw) continue;

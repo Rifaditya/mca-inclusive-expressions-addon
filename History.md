@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.4+26.2` (2026-07-24)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.4+26.2.jar`
+* **Changes**:
+  - Applied normalized matrix scale formula for PlayerArmorExtendedModel (equipped armor chestplates) in CommonVillagerInterfaceMixin, compensating for built-in CubeDeformation cuboid inflation. Prevents equipped chestplates from ballooning out into giant proportions.
+
+---
+
 ### Release `4.4.3+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.3+26.2.jar`

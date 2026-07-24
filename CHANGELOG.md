@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.4+26.2] - 2026-07-24
+
+### Fixed
+* **Armor Layer Scale Normalization Engine**: Applied normalized matrix scale formula for `PlayerArmorExtendedModel` (equipped armor chestplates) in `CommonVillagerInterfaceMixin`, compensating for built-in `CubeDeformation` cuboid inflation. Prevents equipped chestplates from ballooning out into giant proportions.
+
 ## [4.4.3+26.2] - 2026-07-24
 
 ### Fixed
