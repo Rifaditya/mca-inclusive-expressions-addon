@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.1.0+26.2] - 2026-07-24
+
+### Fixed
+* **Masculine Full-Chested Rendering Engine**: Enabled 3D breast rendering on masculine characters when the `Full-Chested` trait is enabled by initializing breast scale genetics to 1.0x (100%) and forcing model part visibility (`breasts.visible = true`) and base `breastSize = 0.5f` in `CommonVillagerModelMixin`.
+
 ## [4.0.0+26.2] - 2026-07-24
 
 ### Fixed

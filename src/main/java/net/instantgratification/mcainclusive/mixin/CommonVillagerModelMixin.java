@@ -110,6 +110,15 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
             this.currentRightPitch = stateDuck.getRightBreastPitch();
             this.currentRightYaw = stateDuck.getRightBreastYaw();
             this.currentRightRoll = stateDuck.getRightBreastRoll();
+
+            if (this.currentLeftScale > 0 || this.currentRightScale > 0 || MCAInclusiveExpressionsAddon.isAllowAllGenders()) {
+                if (this.breasts != null) {
+                    this.breasts.visible = true;
+                }
+                if (this.breastSize <= 0) {
+                    this.breastSize = 0.5f;
+                }
+            }
         }
     }
 

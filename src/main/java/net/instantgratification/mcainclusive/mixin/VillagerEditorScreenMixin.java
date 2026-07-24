@@ -293,7 +293,18 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                                 } else {
                                     villager.getTraits().addTrait(trait);
                                     b.setMessage(trait.getName().copy().withStyle(net.minecraft.ChatFormatting.GREEN));
+                                    if (trait == MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT) {
+                                        if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
+                                            if (duck.getLeftBreastSize() <= 0) duck.setLeftBreastSize(1.0f);
+                                            if (duck.getRightBreastSize() <= 0) duck.setRightBreastSize(1.0f);
+                                        }
+                                        if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
+                                            if (duck.getLeftBreastSize() <= 0) duck.setLeftBreastSize(1.0f);
+                                            if (duck.getRightBreastSize() <= 0) duck.setRightBreastSize(1.0f);
+                                        }
+                                    }
                                 }
+                                syncPreviewGenetics();
                                 refreshPreviewDimensions();
                             }
                         }

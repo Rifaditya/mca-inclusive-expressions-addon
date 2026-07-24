@@ -34,8 +34,25 @@ public abstract class VillagerVisualsMixin {
             }
 
             if (geneticsDuck != null) {
-                stateDuck.setLeftBreastScale(geneticsDuck.getLeftBreastSize());
-                stateDuck.setRightBreastScale(geneticsDuck.getRightBreastSize());
+                float leftScale = geneticsDuck.getLeftBreastSize();
+                float rightScale = geneticsDuck.getRightBreastSize();
+
+                boolean hasFullChested = false;
+                try {
+                    VillagerLike<?> villagerLike = VillagerLike.toVillager(entity);
+                    if (villagerLike != null && villagerLike.getTraits() != null && net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT != null) {
+                        hasFullChested = villagerLike.getTraits().hasTrait(net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT);
+                    }
+                } catch (Throwable ignored) {
+                }
+
+                if (hasFullChested && leftScale <= 0 && rightScale <= 0) {
+                    leftScale = 1.0f;
+                    rightScale = 1.0f;
+                }
+
+                stateDuck.setLeftBreastScale(leftScale);
+                stateDuck.setRightBreastScale(rightScale);
 
                 stateDuck.setLeftBreastX(geneticsDuck.getLeftBreastX());
                 stateDuck.setLeftBreastY(geneticsDuck.getLeftBreastY());
