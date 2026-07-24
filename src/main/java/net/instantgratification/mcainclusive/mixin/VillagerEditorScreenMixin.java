@@ -181,10 +181,10 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             int leftColX = this.width / 2;
             int targetSlotY = -1;
 
-            if (isPlayer && this.traitPage == 1) { // Page 2 for Player Characters (Slot 5 after Infertile)
-                targetSlotY = 160;
-            } else if (!isPlayer && this.traitPage == 2) { // Page 3 for NPC Villagers (Slot 6 after No Aging)
-                targetSlotY = 184;
+            if (isPlayer && this.traitPage == 1) { // Page 2 for Player Characters (4 native items) -> 64 + 4*22 = 152
+                targetSlotY = 64 + (4 * 22);
+            } else if (!isPlayer && this.traitPage == 2) { // Page 3 for NPC Villagers (5 native items) -> 64 + 5*22 = 174
+                targetSlotY = 64 + (5 * 22);
             }
 
             if (targetSlotY > 0) {

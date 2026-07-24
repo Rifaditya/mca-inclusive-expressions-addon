@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.4+26.2] - 2026-07-24
+
+### Fixed
+* **Dynamic MCA List Slot Math Engine**: Corrected `Full-Chested` button Y-positioning using MCA Reborn's exact native list formula `64 + (nativeCount * 22)`. Snaps `Full-Chested` directly beneath *No Aging* at Y = 174 on Page 3 for NPC Villagers and directly beneath *Infertile* at Y = 152 on Page 2 for Player Characters with zero empty gap.
+
 ## [3.1.3+26.2] - 2026-07-24
 
 ### Fixed
