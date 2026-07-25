@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.21+26.2] - 2026-07-25
+
+### Fixed
+* **Pure Direct Pipeline Engine**: Completely removed `ClippingVertexConsumer` to eliminate camera/screen matrix inverse transformation floating mid-air bugs. Reverted `CommonVillagerInterfaceMixin.java` to pure direct native `VertexConsumer` rendering.
+
 ## [4.4.20+26.2] - 2026-07-25
 
 ### Fixed

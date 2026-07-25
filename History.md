@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.21+26.2` (2026-07-25)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.21+26.2.jar`
+* **Changes**:
+  - Completely removed ClippingVertexConsumer to eliminate camera/screen matrix inverse transformation floating mid-air bugs. Reverted CommonVillagerInterfaceMixin.java to pure direct native VertexConsumer rendering.
+
+---
+
 ### Release `4.4.20+26.2` (2026-07-25)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.20+26.2.jar`
