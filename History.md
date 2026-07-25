@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.23+26.2` (2026-07-25)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.23+26.2.jar`
+* **Changes**:
+  - Reduced breast left/right spawn size variance from ±5% to ±1% of max scale for subtle natural asymmetry.
+
+---
+
 ### Release `4.4.22+26.2` (2026-07-25)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.22+26.2.jar`

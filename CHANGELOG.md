@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.23+26.2] - 2026-07-25
+
+### Changed
+* **Subtle Spawn Asymmetry**: Reduced breast left/right spawn size variance from ±5% to ±1% of max scale for a more natural, barely perceptible asymmetry.
+
 ## [4.4.22+26.2] - 2026-07-25
 
 ### Changed
