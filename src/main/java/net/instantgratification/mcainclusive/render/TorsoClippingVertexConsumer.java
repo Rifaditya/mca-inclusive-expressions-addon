@@ -23,8 +23,12 @@ public class TorsoClippingVertexConsumer implements VertexConsumer {
     private final Matrix4f torsoMatrixInverse;
     private final Vector3f scratch = new Vector3f();
 
-    /** The Z threshold in torso-local space. Vertices behind this are clamped. */
-    private static final float TORSO_WALL_Z = 0.0f;
+    /**
+     * The Z threshold in torso-local space. Vertices beyond this (deeper into torso) are clamped.
+     * Set to +1.5f/16.0f = the natural back-face position of the 3x3x3 breast cube at scale 1.0.
+     * At normal size, nothing gets clipped. At scale > 1.0, only the excess growth is clipped.
+     */
+    private static final float TORSO_WALL_Z = 1.5f / 16.0f;
 
     /**
      * @param delegate     The real VertexConsumer to forward clamped vertices to.
