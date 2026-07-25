@@ -125,10 +125,10 @@ public interface CommonVillagerInterfaceMixin {
                 ModelPartAccessor partAccess = (ModelPartAccessor) (Object) part;
                 List<ModelPart.Cube> cubes = partAccess.getCubes();
                 if (cubes != null && cubes.size() >= 2) {
-                    // Left Breast Box Back-Face Pivot: (-1.75f, 0.25f, -1.5f) in model coordinates (anchors back face flush against torso)
+                    // Left Breast Box Center Pivot: (-1.75f, 0.25f, 0.0f) in model coordinates
                     float leftPivotX = -1.75f / 16.0f;
                     float leftPivotY = 0.25f / 16.0f;
-                    float leftPivotZ = -1.5f / 16.0f;
+                    float leftPivotZ = 0.0f;
 
                     if (leftBreastSize > 0) {
                         matrices.pushPose();
@@ -163,10 +163,10 @@ public interface CommonVillagerInterfaceMixin {
                         matrices.popPose();
                     }
 
-                    // Right Breast Box Back-Face Pivot: (+1.75f, 0.25f, -1.5f) in model coordinates (anchors back face flush against torso)
+                    // Right Breast Box Center Pivot: (+1.75f, 0.25f, 0.0f) in model coordinates
                     float rightPivotX = 1.75f / 16.0f;
                     float rightPivotY = 0.25f / 16.0f;
-                    float rightPivotZ = -1.5f / 16.0f;
+                    float rightPivotZ = 0.0f;
 
                     if (rightBreastSize > 0) {
                         matrices.pushPose();

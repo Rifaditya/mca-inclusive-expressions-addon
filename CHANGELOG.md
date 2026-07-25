@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.22+26.2] - 2026-07-25
+
+### Changed
+* **Clean Default Baseline Engine**: Reverted all rendering pivots (`leftPivotZ = 0.0f`, `rightPivotZ = 0.0f`) and Y position translations back to pure original defaults, removing all custom culling and pivot offsets.
+
 ## [4.4.21+26.2] - 2026-07-25
 
 ### Fixed

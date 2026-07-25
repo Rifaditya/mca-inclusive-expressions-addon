@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.22+26.2` (2026-07-25)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.22+26.2.jar`
+* **Changes**:
+  - Reverted all rendering pivots (leftPivotZ = 0.0f, rightPivotZ = 0.0f) and Y position translations back to pure original defaults, removing all custom culling and pivot offsets.
+
+---
+
 ### Release `4.4.21+26.2` (2026-07-25)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.21+26.2.jar`
