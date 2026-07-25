@@ -397,25 +397,14 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastSize(scale);
-                            if (MCAInclusiveExpressionsAddon.linkYPosWithSize) {
-                                float autoY = MCAInclusiveExpressionsAddon.calculateAutoYSag(scale);
-                                duck.setLeftBreastY(autoY);
-                                if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastY(autoY);
-                            }
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setLeftBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastSize(scale);
-                            if (MCAInclusiveExpressionsAddon.linkYPosWithSize) {
-                                float autoY = MCAInclusiveExpressionsAddon.calculateAutoYSag(scale);
-                                duck.setLeftBreastY(autoY);
-                                if (MCAInclusiveExpressionsAddon.linkSliders) duck.setRightBreastY(autoY);
-                            }
                         }
                         if (MCAInclusiveExpressionsAddon.linkSliders && rightSizeHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
                             duck.mca$setIntegerVal(val, 0, maxLimit);
                         }
-                        syncPreviewGenetics();
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Left Size: " + val + "%"),
@@ -429,25 +418,14 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                         if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastSize(scale);
-                            if (MCAInclusiveExpressionsAddon.linkYPosWithSize) {
-                                float autoY = MCAInclusiveExpressionsAddon.calculateAutoYSag(scale);
-                                duck.setRightBreastY(autoY);
-                                if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastY(autoY);
-                            }
                         }
                         if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
                             duck.setRightBreastSize(scale);
                             if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastSize(scale);
-                            if (MCAInclusiveExpressionsAddon.linkYPosWithSize) {
-                                float autoY = MCAInclusiveExpressionsAddon.calculateAutoYSag(scale);
-                                duck.setRightBreastY(autoY);
-                                if (MCAInclusiveExpressionsAddon.linkSliders) duck.setLeftBreastY(autoY);
-                            }
                         }
                         if (MCAInclusiveExpressionsAddon.linkSliders && leftSizeHolder[0] instanceof ExtendedSliderWidgetDuck duck) {
                             duck.mca$setIntegerVal(val, 0, maxLimit);
                         }
-                        syncPreviewGenetics();
                         refreshPreviewDimensions();
                     },
                     val -> Component.literal("Right Size: " + val + "%"),
@@ -466,28 +444,6 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                             if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) leftVal = duck.getLeftBreastSize();
                             if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastSize(leftVal);
                             if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) duck.setRightBreastSize(leftVal);
-                        }
-                        refreshPreviewDimensions();
-                        this.setPage("breast_addon");
-                    }
-                ));
-                y += 24;
-
-                boolean ySagLinked = MCAInclusiveExpressionsAddon.linkYPosWithSize;
-                this.addRenderableWidget(new ButtonWidget(
-                    leftColX, y, fullWidth, 20,
-                    Component.literal("Y-Pos Auto-Sag: " + (ySagLinked ? "LINKED (Auto-Adjust Y with Size)" : "UNLINKED (Manual Y-Pos)")),
-                    b -> {
-                        MCAInclusiveExpressionsAddon.linkYPosWithSize = !MCAInclusiveExpressionsAddon.linkYPosWithSize;
-                        if (MCAInclusiveExpressionsAddon.linkYPosWithSize) {
-                            if (villager != null && villager.getGenetics() instanceof GeneticsDuck duck) {
-                                duck.setLeftBreastY(MCAInclusiveExpressionsAddon.calculateAutoYSag(duck.getLeftBreastSize()));
-                                duck.setRightBreastY(MCAInclusiveExpressionsAddon.calculateAutoYSag(duck.getRightBreastSize()));
-                            }
-                            if (villagerVisualization != null && villagerVisualization.getGenetics() instanceof GeneticsDuck duck) {
-                                duck.setLeftBreastY(MCAInclusiveExpressionsAddon.calculateAutoYSag(duck.getLeftBreastSize()));
-                                duck.setRightBreastY(MCAInclusiveExpressionsAddon.calculateAutoYSag(duck.getRightBreastSize()));
-                            }
                         }
                         refreshPreviewDimensions();
                         this.setPage("breast_addon");
@@ -664,6 +620,18 @@ public abstract class VillagerEditorScreenMixin extends Screen {
                                 duck.setRightBreastX(-lx); duck.setRightBreastY(ly); duck.setRightBreastZ(lz);
                             }
                         }
+                        refreshPreviewDimensions();
+                        this.setPage("breast_addon");
+                    }
+                ));
+                y += 24;
+
+                boolean anchor = MCAInclusiveExpressionsAddon.anchorBackFace;
+                this.addRenderableWidget(new ButtonWidget(
+                    leftColX, y, fullWidth, 20,
+                    Component.literal("Back-Face Anchor: " + (anchor ? "ON (No Back-Poke)" : "OFF (Center Scale)")),
+                    b -> {
+                        MCAInclusiveExpressionsAddon.anchorBackFace = !MCAInclusiveExpressionsAddon.anchorBackFace;
                         refreshPreviewDimensions();
                         this.setPage("breast_addon");
                     }

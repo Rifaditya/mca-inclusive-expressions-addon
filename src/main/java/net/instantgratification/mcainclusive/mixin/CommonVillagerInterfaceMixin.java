@@ -9,6 +9,8 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
 import net.instantgratification.mcainclusive.ducks.CommonVillagerModelDuck;
 import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
+import net.instantgratification.mcainclusive.render.TorsoClippingVertexConsumer;
+import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -125,6 +127,11 @@ public interface CommonVillagerInterfaceMixin {
                 ModelPartAccessor partAccess = (ModelPartAccessor) (Object) part;
                 List<ModelPart.Cube> cubes = partAccess.getCubes();
                 if (cubes != null && cubes.size() >= 2) {
+                    // Capture torso-space matrix BEFORE any breast transforms.
+                    // This matrix = Camera × Model × Torso. Used by TorsoClippingVertexConsumer
+                    // to untransform vertices back to torso space for Z-clamping.
+                    // Camera matrices cancel out algebraically in the inverse transform.
+                    Matrix4f torsoMatrix = new Matrix4f(matrices.last().pose());
                     // Left Breast Box Center Pivot: (-1.75f, 0.25f, 0.0f) in model coordinates
                     float leftPivotX = -1.75f / 16.0f;
                     float leftPivotY = 0.25f / 16.0f;
@@ -159,7 +166,11 @@ public interface CommonVillagerInterfaceMixin {
                         // 7. Translate back from pivot
                         matrices.translate(-leftPivotX, -leftPivotY, -leftPivotZ);
 
-                        cubes.get(0).compile(matrices.last(), vertices, light, overlay, color);
+                        // 8. Render with optional torso-space clipping
+                        VertexConsumer leftTarget = MCAInclusiveExpressionsAddon.anchorBackFace
+                            ? new TorsoClippingVertexConsumer(vertices, torsoMatrix)
+                            : vertices;
+                        cubes.get(0).compile(matrices.last(), leftTarget, light, overlay, color);
                         matrices.popPose();
                     }
 
@@ -197,7 +208,11 @@ public interface CommonVillagerInterfaceMixin {
                         // 7. Translate back from pivot
                         matrices.translate(-rightPivotX, -rightPivotY, -rightPivotZ);
 
-                        cubes.get(1).compile(matrices.last(), vertices, light, overlay, color);
+                        // 8. Render with optional torso-space clipping
+                        VertexConsumer rightTarget = MCAInclusiveExpressionsAddon.anchorBackFace
+                            ? new TorsoClippingVertexConsumer(vertices, torsoMatrix)
+                            : vertices;
+                        cubes.get(1).compile(matrices.last(), rightTarget, light, overlay, color);
                         matrices.popPose();
                     }
                 } else if (cubes != null && !cubes.isEmpty()) {

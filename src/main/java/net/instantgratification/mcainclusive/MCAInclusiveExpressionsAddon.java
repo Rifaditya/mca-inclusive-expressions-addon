@@ -35,6 +35,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     public static boolean mirrorPosition = true;
     public static boolean mirrorRotation = true;
     public static boolean allowAllGenders = false;
+    public static boolean anchorBackFace = true;
     public static Object activeEditorScreen = null;
 
     @Override
@@ -79,7 +80,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules or Traits for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.23+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.24+26.2.");
     }
 
     /**

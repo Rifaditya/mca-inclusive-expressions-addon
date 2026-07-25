@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.24+26.2] - 2026-07-25
+
+### Added
+* **Torso-Space Clipping Plane**: Dynamic vertex clipping that prevents breast models from poking through the torso back at any size or rotation. Uses dual-matrix relative transform (camera matrices cancel out algebraically) for correct operation in both world rendering and GUI editor.
+* **Back-Face Anchor Toggle**: New button in editor Position sub-tab (`Back-Face Anchor: ON/OFF`) to enable/disable the clipping plane. ON by default for NPCs.
+
 ## [4.4.23+26.2] - 2026-07-25
 
 ### Changed

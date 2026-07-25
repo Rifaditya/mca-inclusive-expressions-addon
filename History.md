@@ -4,6 +4,16 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.24+26.2` (2026-07-25)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.24+26.2.jar`
+* **Changes**:
+  - Added Torso-Space Clipping Plane: dynamic vertex clipping prevents breast back-poke at any scale/rotation.
+  - Added Back-Face Anchor toggle button in editor Position sub-tab (ON by default).
+  - New file: `TorsoClippingVertexConsumer.java` — dual-matrix relative transform vertex consumer.
+
+---
+
 ### Release `4.4.23+26.2` (2026-07-25)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.23+26.2.jar`
