@@ -43,8 +43,9 @@ public class TorsoClippingVertexConsumer implements VertexConsumer {
         // 1. Un-transform from world/camera space to torso-local space
         Vector3f torsoPos = torsoMatrixInverse.transformPosition(x, y, z, scratch);
 
-        // 2. Clamp Z: if vertex is behind the torso wall, push it to the wall
-        if (torsoPos.z() < TORSO_WALL_Z) {
+        // 2. Clamp Z: if vertex is behind the torso wall (poking into body), push it to the wall
+        //    +Z = into the torso (back-poke direction), -Z = outward (visible front)
+        if (torsoPos.z() > TORSO_WALL_Z) {
             torsoPos.set(torsoPos.x(), torsoPos.y(), TORSO_WALL_Z);
             // 3. Re-transform clamped position back to world/camera space
             torsoMatrix.transformPosition(torsoPos, scratch);
