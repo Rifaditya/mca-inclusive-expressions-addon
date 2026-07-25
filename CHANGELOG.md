@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.19+26.2] - 2026-07-25
+
+### Fixed
+* **Real World & Inventory Render Sync Engine**: Removed redundant `+0.10f` Y translation offset from `CommonVillagerInterfaceMixin.java`. In-world villager entity rendering and inventory editor screen preview rendering now match 100% identically with zero position desync!
+
 ## [4.4.18+26.2] - 2026-07-25
 
 ### Added

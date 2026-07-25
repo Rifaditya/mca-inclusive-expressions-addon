@@ -138,8 +138,7 @@ public interface CommonVillagerInterfaceMixin {
                         }
 
                         // 2. Position Translation in pure orthogonal space (Up is Up, Left is Left, Forward is Forward)
-                        // Base Y offset +0.10f shifts Y-Pos baseline so that GUI Y-Pos: +0 is the default natural height.
-                        matrices.translate(leftX, leftY + 0.10f, leftZ);
+                        matrices.translate(leftX, leftY, leftZ);
 
                         // 3. Re-apply MCA's native -35° pitch tilt
                         if (part.xRot != 0.0f) {
@@ -178,8 +177,7 @@ public interface CommonVillagerInterfaceMixin {
                         }
 
                         // 2. Position Translation in pure orthogonal space (Up is Up, Left is Left, Forward is Forward)
-                        // Base Y offset +0.10f shifts Y-Pos baseline so that GUI Y-Pos: +0 is the default natural height.
-                        matrices.translate(rightX, rightY + 0.10f, rightZ);
+                        matrices.translate(rightX, rightY, rightZ);
 
                         // 3. Re-apply MCA's native -35° pitch tilt
                         if (part.xRot != 0.0f) {
