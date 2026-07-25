@@ -4,6 +4,15 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.25+26.2` (2026-07-25)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.25+26.2.jar`
+* **Changes**:
+  - Fixed inverted Z-axis clipping direction (was clipping visible front instead of back-poke).
+  - Set TORSO_WALL_Z to +1.5f/16.0f (natural back-face position). Fixes world/editor render desync.
+
+---
+
 ### Release `4.4.24+26.2` (2026-07-25)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.24+26.2.jar`

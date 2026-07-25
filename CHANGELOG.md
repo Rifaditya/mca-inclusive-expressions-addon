@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.25+26.2] - 2026-07-25
+
+### Fixed
+* **Clipping Direction Fix**: Fixed inverted Z-axis clipping that was removing the visible front of breasts instead of the back-poke.
+* **Clipping Threshold Fix**: Set `TORSO_WALL_Z` to `+1.5f/16.0f` (natural back-face position at scale 1.0). At normal size nothing is clipped; at scale > 1.0 only excess growth is clipped. Fixes desync where world breasts were invisible while editor preview was correct.
+
 ## [4.4.24+26.2] - 2026-07-25
 
 ### Added
