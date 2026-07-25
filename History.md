@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.19+26.2` (2026-07-25)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.19+26.2.jar`
+* **Changes**:
+  - Anchored 3D scale pivot forward to front chest wall (leftPivotZ = -1.25f / 16.0f) and applied dynamic forward Z translation (CommonVillagerInterfaceMixin) to completely prevent breast cubes from expanding backward through the villager's spine wall at large scale sizes.
+
+---
+
 ### Release `4.4.18+26.2` (2026-07-24)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.18+26.2.jar`

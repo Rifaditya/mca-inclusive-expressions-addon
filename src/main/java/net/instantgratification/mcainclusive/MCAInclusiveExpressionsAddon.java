@@ -80,7 +80,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
             LOGGER.warn("Could not register GameRules or Traits for MCA Inclusive Expressions Addon", t);
         }
 
-        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.18+26.2.");
+        LOGGER.info("[MCA Inclusive Expressions Addon] Initialized v4.4.19+26.2.");
     }
 
     /**
