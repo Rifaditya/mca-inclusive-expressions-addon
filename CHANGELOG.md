@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.20+26.2] - 2026-07-25
+
+### Fixed
+* **Dynamic Torso-Space Quad Culling Engine**: Upgraded `ClippingVertexConsumer` to transform local vertices into orthogonal torso space (`matrices.last().pose()`) and dynamically cull/clip quad vertices penetrating past the torso back wall plane ($Z_{\text{back}} = -2.0f / 16.0f$). Erases triangular back tips and eliminates flat board artifacts across all breast rotations/shapes.
+
 ## [4.4.19+26.2] - 2026-07-25
 
 ### Fixed

@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.20+26.2` (2026-07-25)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.20+26.2.jar`
+* **Changes**:
+  - Upgraded ClippingVertexConsumer to transform local vertices into orthogonal torso space (matrices.last().pose()) and dynamically cull/clip quad vertices penetrating past the torso back wall plane (Z = -2.0f / 16.0f). Erases triangular back tips and eliminates flat board artifacts across all breast rotations/shapes.
+
+---
+
 ### Release `4.4.19+26.2` (2026-07-25)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.19+26.2.jar`
