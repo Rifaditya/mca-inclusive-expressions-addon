@@ -7,20 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [4.4.19+26.2] - 2026-07-25
-
-### Fixed
-* **Back Protrusion Prevention Engine**: Anchored 3D scale pivot forward to front chest wall (`leftPivotZ = -1.25f / 16.0f`) and applied dynamic forward Z translation (`CommonVillagerInterfaceMixin`) to completely prevent breast cubes from expanding backward through the villager's spine wall at large scale sizes.
-
-## [4.4.18+26.2] - 2026-07-24
-
-### Fixed
-* **Anatomical Downward Y-Pos Sag Fix**: Fixed Y-Pos sag sign direction in `calculateAutoYSag()` (positive `+0.25f` max for downward model translation in Minecraft model coordinates). Added real-time `syncPreviewGenetics()` synchronization to Size slider callbacks.
-
-## [4.4.17+26.2] - 2026-07-24
+## [4.4.17+26.2] - 2026-07-25
 
 ### Added
-* **Y-Pos Auto-Sag Link Engine**: Added anatomical gravity physics (`calculateAutoYSag()`) automatically positioning larger breasts lower on the Y-axis. Added a dedicated toggle button (`Y-Pos Auto-Sag: LINKED / UNLINKED`) under the `Size` sub-page in `/mca editor` to auto-adjust Y-Pos in real time when scaling size.
+* **Back-Face Pivot Anchoring Engine**: Anchored 3D Matrix Z-scaling pivot to the back face plane (`Z = -1.5f / 16.0f`) in `CommonVillagerInterfaceMixin.java`. Volume scaling now expands strictly forward, completely preventing the back of the breasts from poking out through the villager's torso regardless of size or position.
 
 ## [4.4.16+26.2] - 2026-07-24
 

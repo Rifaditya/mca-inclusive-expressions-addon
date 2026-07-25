@@ -125,10 +125,10 @@ public interface CommonVillagerInterfaceMixin {
                 ModelPartAccessor partAccess = (ModelPartAccessor) (Object) part;
                 List<ModelPart.Cube> cubes = partAccess.getCubes();
                 if (cubes != null && cubes.size() >= 2) {
-                    // Left Breast Box Center Pivot: (-1.75f, 0.25f, -1.25f) anchored forward to chest wall
+                    // Left Breast Box Back-Face Pivot: (-1.75f, 0.25f, -1.5f) in model coordinates (anchors back face flush against torso)
                     float leftPivotX = -1.75f / 16.0f;
                     float leftPivotY = 0.25f / 16.0f;
-                    float leftPivotZ = -1.25f / 16.0f;
+                    float leftPivotZ = -1.5f / 16.0f;
 
                     if (leftBreastSize > 0) {
                         matrices.pushPose();
@@ -138,9 +138,8 @@ public interface CommonVillagerInterfaceMixin {
                         }
 
                         // 2. Position Translation in pure orthogonal space (Up is Up, Left is Left, Forward is Forward)
-                        // Base Y offset +0.10f shifts Y-Pos baseline. Dynamic forward Z translation prevents back spine protrusion.
-                        float leftForwardZ = leftBreastSize > 1.0f ? -0.08f * ((leftBreastSize - 1.0f) / 3.44f) : 0.0f;
-                        matrices.translate(leftX, leftY + 0.10f, leftZ + leftForwardZ);
+                        // Base Y offset +0.10f shifts Y-Pos baseline so that GUI Y-Pos: +0 is the default natural height.
+                        matrices.translate(leftX, leftY + 0.10f, leftZ);
 
                         // 3. Re-apply MCA's native -35° pitch tilt
                         if (part.xRot != 0.0f) {
@@ -165,10 +164,10 @@ public interface CommonVillagerInterfaceMixin {
                         matrices.popPose();
                     }
 
-                    // Right Breast Box Center Pivot: (+1.75f, 0.25f, -1.25f) anchored forward to chest wall
+                    // Right Breast Box Back-Face Pivot: (+1.75f, 0.25f, -1.5f) in model coordinates (anchors back face flush against torso)
                     float rightPivotX = 1.75f / 16.0f;
                     float rightPivotY = 0.25f / 16.0f;
-                    float rightPivotZ = -1.25f / 16.0f;
+                    float rightPivotZ = -1.5f / 16.0f;
 
                     if (rightBreastSize > 0) {
                         matrices.pushPose();
@@ -178,9 +177,8 @@ public interface CommonVillagerInterfaceMixin {
                         }
 
                         // 2. Position Translation in pure orthogonal space (Up is Up, Left is Left, Forward is Forward)
-                        // Base Y offset +0.10f shifts Y-Pos baseline. Dynamic forward Z translation prevents back spine protrusion.
-                        float rightForwardZ = rightBreastSize > 1.0f ? -0.08f * ((rightBreastSize - 1.0f) / 3.44f) : 0.0f;
-                        matrices.translate(rightX, rightY + 0.10f, rightZ + rightForwardZ);
+                        // Base Y offset +0.10f shifts Y-Pos baseline so that GUI Y-Pos: +0 is the default natural height.
+                        matrices.translate(rightX, rightY + 0.10f, rightZ);
 
                         // 3. Re-apply MCA's native -35° pitch tilt
                         if (part.xRot != 0.0f) {
