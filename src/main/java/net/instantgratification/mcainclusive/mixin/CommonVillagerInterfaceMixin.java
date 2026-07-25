@@ -160,7 +160,8 @@ public interface CommonVillagerInterfaceMixin {
                         // 7. Translate back from pivot
                         matrices.translate(-leftPivotX, -leftPivotY, -leftPivotZ);
 
-                        cubes.get(0).compile(matrices.last(), vertices, light, overlay, color);
+                        VertexConsumer clippingVertices = new net.instantgratification.mcainclusive.render.ClippingVertexConsumer(vertices, -1.5f / 16.0f);
+                        cubes.get(0).compile(matrices.last(), clippingVertices, light, overlay, color);
                         matrices.popPose();
                     }
 
@@ -199,7 +200,8 @@ public interface CommonVillagerInterfaceMixin {
                         // 7. Translate back from pivot
                         matrices.translate(-rightPivotX, -rightPivotY, -rightPivotZ);
 
-                        cubes.get(1).compile(matrices.last(), vertices, light, overlay, color);
+                        VertexConsumer clippingVertices = new net.instantgratification.mcainclusive.render.ClippingVertexConsumer(vertices, -1.5f / 16.0f);
+                        cubes.get(1).compile(matrices.last(), clippingVertices, light, overlay, color);
                         matrices.popPose();
                     }
                 } else if (cubes != null && !cubes.isEmpty()) {

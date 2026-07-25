@@ -4,6 +4,14 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### Release `4.4.18+26.2` (2026-07-25)
+* **Target Game Release**: Minecraft 26.2+
+* **Build Artifact**: `mca-inclusive-expressions-addon-4.4.18+26.2.jar`
+* **Changes**:
+  - Created ClippingVertexConsumer to enforce a solid torso boundary plane (-1.5f / 16.0f) during model rendering (CommonVillagerInterfaceMixin). Any vertex or geometry attempting to render behind the solid boundary line is automatically culled and clamped flush to the boundary plane, guaranteeing zero mesh penetration through the torso!
+
+---
+
 ### Release `4.4.17+26.2` (2026-07-25)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.17+26.2.jar`

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.18+26.2] - 2026-07-25
+
+### Added
+* **Solid Plane Culling Engine**: Created `ClippingVertexConsumer` to enforce a solid torso boundary plane ($Z_{\text{boundary}} = -1.5f / 16.0f$) during model rendering (`CommonVillagerInterfaceMixin`). Any vertex or geometry attempting to render behind the solid boundary line is automatically culled and clamped flush to the boundary plane, guaranteeing zero mesh penetration through the torso!
+
 ## [4.4.17+26.2] - 2026-07-25
 
 ### Added
