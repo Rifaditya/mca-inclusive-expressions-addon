@@ -4,6 +4,17 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ---
 
+### History
+
+## [4.4.26+26.2] - 2026-08-01
+
+### Mixin Descriptor Fix for MCA 8.1.6+
+* **What**: Updated `CommonVillagerInterfaceMixin.onApplyVillagerDimensions` method signature from `(VillagerVisuals, boolean, CallbackInfo)` to `(VillagerVisuals, CallbackInfo)`.
+* **Why**: To fix `InvalidInjectionException` caused by MCA 8.1.6+ changing the parameter signature of `applyVillagerDimensions`.
+* **How**: Modified mixin method declaration in `CommonVillagerInterfaceMixin.java`.
+
+---
+
 ### Release `4.4.25+26.2` (2026-07-26)
 * **Target Game Release**: Minecraft 26.2+
 * **Build Artifact**: `mca-inclusive-expressions-addon-4.4.25+26.2.jar`

@@ -35,7 +35,7 @@ public class MCAInclusiveExpressionsAddon implements ModInitializer {
     public static boolean mirrorPosition = true;
     public static boolean mirrorRotation = true;
     public static boolean allowAllGenders = false;
-    public static boolean anchorBackFace = true;
+    public static boolean anchorBackFace = false;
     public static Object activeEditorScreen = null;
 
     @Override

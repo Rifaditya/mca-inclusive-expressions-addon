@@ -47,7 +47,7 @@ public interface CommonVillagerInterfaceMixin {
     }
 
     @Inject(method = "applyVillagerDimensions", at = @At("TAIL"), remap = false)
-    private void onApplyVillagerDimensions(net.conczin.mca.client.render.VillagerVisuals visuals, boolean crouching, CallbackInfo ci) {
+    private void onApplyVillagerDimensions(net.conczin.mca.client.render.VillagerVisuals visuals, CallbackInfo ci) {
         CommonVillagerModel<?> self = (CommonVillagerModel<?>) (Object) this;
         boolean shouldEnable = MCAInclusiveExpressionsAddon.isForceAllBreasted();
         if (!shouldEnable && self instanceof CommonVillagerModelDuck duck) {

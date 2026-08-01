@@ -27,8 +27,8 @@ dependencies {
 
     implementation "net.dasik.social:dasik-library:${project.dasik_library_version}"
 
-    // MCA Common JAR reference for compilation
-    compileOnly files("E:/Minecraft Project/Reference mod code base/minecraft-comes-alive-26.2/common/build/libs/mca-common-26.2-SNAPSHOT.jar")
+    // MCA Common / Fabric JAR reference for compilation
+    compileOnly files("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.x (1)/mods/mca-fabric-8.1.6+26.2.jar")
 
     // Optional GUI Dependencies (compile-only required, runtime-optional for players)
     compileOnly "dev.isxander:yet-another-config-lib:3.9.5+26.2-fabric"

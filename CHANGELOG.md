@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.26+26.2] - 2026-08-01
+
+### Fixed
+* **Mixin Descriptor Crash**: Updated `CommonVillagerInterfaceMixin.onApplyVillagerDimensions` method signature from `(VillagerVisuals, boolean, CallbackInfo)` to `(VillagerVisuals, CallbackInfo)` to align with MCA 8.1.6+26.2 API changes.
+
 ## [4.4.25+26.2] - 2026-07-26
 
 ### Fixed
