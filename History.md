@@ -6,6 +6,51 @@ This document tracks all build releases and incremental updates for the MCA Incl
 
 ### History
 
+## [4.5.0+26.2] - 2026-08-04
+
+### Native MCA Gene Fallback Architecture
+* **What**: Refactored `GeneticsMixin` to query MCA's native `Genetics.BREASTS` gene when custom breast size duck fields are unsampled (`-1.0f`).
+* **Why**: To fix random sampling desynchronization where `villager` in world and `villagerVisualization` in GUI screen sampled separate random seeds when opening `VillagerEditorScreen`.
+* **How**: Bound unsampled default to `getGene(Genetics.GeneType.BREASTS)` while preserving full custom 4.44x scale overrides, 6-axis positioning, and 3D rotation.
+
+---
+
+## [4.4.30+26.2] - 2026-08-04
+
+### GUI Preview Render Change Detection Optimization
+* **What**: Updated `syncPreviewGenetics()` in `VillagerEditorScreenMixin` to compare all 12 genetics duck fields before copying and triggering `refreshPreviewDimensions()`.
+* **Why**: To prevent unnecessary CPU overhead and dimension recalculations on idle GUI render frames.
+* **How**: Added 12-point boolean change tracking so dimension refresh only executes when slider or server packet updates genetics values.
+
+---
+
+## [4.4.29+26.2] - 2026-08-04
+
+### Immediate Frame-0 Preview Entity Sync Fix
+* **What**: Injected `@Inject(method = "render", at = @At("HEAD"))` into `VillagerEditorScreenMixin` to continuously invoke `syncPreviewGenetics()` and `refreshPreviewDimensions()`.
+* **Why**: To fix an initial rendering delay where `villagerVisualization` inside `VillagerEditorScreen` rendered at default scale while `villager` in the background rendered at customized scale until a slider was moved.
+* **How**: Ensured `villager`'s server-loaded genetics update `villagerVisualization` on every frame, eliminating frame-0 preview scale discrepancy.
+
+---
+
+## [4.4.28+26.2] - 2026-08-04
+
+### Breast Model Mesh & Scale Fallback Fix
+* **What**: Restored `newBreasts` model cube box generation in `CommonVillagerModelMixin`, updated `getBreastSize()` to evaluate max scale bounds (`> 0`), and ensured `VillagerVisualsMixin` render state extraction defaults unsampled female and full-chested male scales to `1.0f`.
+* **Why**: To fix an issue where breasts were not rendering in any screen or in-world view due to empty model part cube list and zero scale evaluation.
+* **How**: Re-added Left (Index 0) and Right (Index 1) breast boxes in `onNewBreasts` and updated scale fallbacks across model and renderer mixins.
+
+---
+
+## [4.4.27+26.2] - 2026-08-04
+
+### Rendering, Screen Editor & Network Sync Overhaul
+* **What**: Implemented per-breast child model part hierarchy (`left` and `right` child parts) inside `CommonVillagerModelMixin`, fixed server-side editor NBT sync, removed fake `female()` gender override for male entities, and added dynamic movement jiggle physics.
+* **Why**: To resolve major desync between screen editor sliders and real-world entity rendering, preserve male identity for villagers with breasts, and prevent chest customization resets on server sync or chunk reload.
+* **How**: Created `left` and `right` child `ModelPart`s inside `BREASTS` and `BREASTPLATE`, transformed child part scale/position/rotation in `setupAnim`, nested editor NBT under `MCAData`, and cleaned up gender visual records.
+
+---
+
 ## [4.4.26+26.2] - 2026-08-01
 
 ### Mixin Descriptor Fix for MCA 8.1.6+

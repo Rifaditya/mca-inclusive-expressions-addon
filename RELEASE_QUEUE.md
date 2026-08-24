@@ -2,7 +2,12 @@
 
 | Version | Targeted MC | Status | Archive Location | Release Date |
 | :--- | :--- | :--- | :--- | :--- |
-| `4.4.26+26.2` | `26.2+` | `PENDING` | `Archive Jar of all versions/mca-inclusive-expressions-addon-4.4.26+26.2.jar` | 2026-08-01 |
+| `4.5.0+26.2` | `26.2+` | `PENDING` | `Archive Jar of all versions/mca-inclusive-expressions-addon-4.5.0+26.2.jar` | 2026-08-04 |
+| `4.4.30+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-4.4.30+26.2.jar` | 2026-08-04 |
+| `4.4.29+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-4.4.29+26.2.jar` | 2026-08-04 |
+| `4.4.28+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-4.4.28+26.2.jar` | 2026-08-04 |
+| `4.4.27+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-4.4.27+26.2.jar` | 2026-08-04 |
+| `4.4.26+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-4.4.26+26.2.jar` | 2026-08-01 |
 | `4.4.25+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-4.4.25+26.2.jar` | 2026-07-26 |
 | `4.4.24+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-4.4.24+26.2.jar` | 2026-07-25 |
 | `4.4.23+26.2` | `26.2+` | `PUBLISHED` | `Archive Jar of all versions/mca-inclusive-expressions-addon-4.4.23+26.2.jar` | 2026-07-25 |

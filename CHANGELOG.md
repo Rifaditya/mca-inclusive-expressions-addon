@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.5.0+26.2] - 2026-08-04
+
+### Changed
+* **Native MCA Gene Integration**: Refactored `GeneticsMixin` to derive unsampled breast size defaults directly from MCA's native `Genetics.BREASTS` gene. Guarantees 100% deterministic frame-0 scale alignment between in-world entities and editor preview entities across singleplayer and multiplayer.
+* **Full Massive Scale Preservation**: Preserved extended 4.44x (444%) scale limits, 6-axis position controls, 3D rotation, movement jiggle physics, and torso Z-clamping.
+
+## [4.4.30+26.2] - 2026-08-04
+
+### Optimized
+* **Zero-Garbage GUI Preview Render Sync**: Refactored `syncPreviewGenetics()` to use 12-point field change detection. `refreshPreviewDimensions()` is now only triggered when genetics duck values change, eliminating redundant dimension recalculations during idle GUI rendering.
+
+## [4.4.29+26.2] - 2026-08-04
+
+### Fixed
+* **Immediate GUI Preview Frame-0 Sync**: Injected per-frame genetics synchronization (`onRenderHead`) and forced `refreshPreviewDimensions()` inside `VillagerEditorScreenMixin`. The GUI editor preview entity (`villagerVisualization`) now immediately mirrors the in-world entity (`villager`) on frame 0 of screen open without needing to touch any slider.
+
+## [4.4.28+26.2] - 2026-08-04
+
+### Fixed
+* **Breast Rendering Restoration**: Restored `newBreasts` model cube box generation in `CommonVillagerModelMixin` and updated `getBreastSize()` to evaluate max scale bounds (`> 0`), ensuring breast geometry compiles and renders across all screen views and in-world entity models.
+* **Unsampled Render State Defaults**: Fixed `VillagerVisualsMixin` render state extraction to guarantee unsampled female and full-chested male scale defaults to `1.0f`.
+
+## [4.4.27+26.2] - 2026-08-04
+
+### Fixed
+* **Rendering Transformation Desync**: Implemented per-breast child model part hierarchy (`left` and `right` child parts) inside `CommonVillagerModelMixin`. Per-breast scale, translation (X/Y/Z), and 3D rotation (Pitch/Yaw/Roll) now transform the actual rendered model boxes directly in both world rendering and GUI editor preview.
+* **Server-Client Network Sync**: Updated `VillagerEditorScreenMixin` and server editor sync handlers to nest custom breast parameters in `MCAData`, ensuring server-side `Genetics` updates Java memory fields and persists across chunk reloads and multiplayer.
+* **Male Identity Preservation**: Removed `VillagerVisuals.female()` override. Male entities with breasts or full-chested traits now retain their `Gender.MALE` identity, male skins, male hair, and male clothing without female visual corruption.
+* **Movement Jiggle Physics**: Added movement-based subtle jiggle physics to breast model parts based on walk animation speed and entity velocity.
+
 ## [4.4.26+26.2] - 2026-08-01
 
 ### Fixed

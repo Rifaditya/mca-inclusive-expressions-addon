@@ -89,7 +89,19 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
     @Override public float getRenderRightRoll() { return this.currentRightRoll; }
     @Override public void setRenderRightRoll(float val) { this.currentRightRoll = val; }
 
-    @Inject(method = "setupAnim", at = @At("HEAD"))
+    @Inject(method = "newBreasts", at = @At("HEAD"), cancellable = true, remap = false)
+    private static void onNewBreasts(CubeDeformation dilation, int oy, CallbackInfoReturnable<CubeListBuilder> cir) {
+        CubeListBuilder builder = CubeListBuilder.create();
+        if (net.conczin.mca.Config.getInstance().enableBoobs) {
+            // Left Breast Box (width 3, height 3, depth 3) -> Index 0 in cubes list
+            builder.texOffs(18, 21 + oy).addBox(-3.25F, -1.25F, -1.5F, 3, 3, 3, dilation);
+            // Right Breast Box (width 3, height 3, depth 3) -> Index 1 in cubes list
+            builder.texOffs(21, 21 + oy).addBox(0.25F, -1.25F, -1.5F, 3, 3, 3, dilation);
+        }
+        cir.setReturnValue(builder);
+    }
+
+    @Inject(method = "setupAnim", at = @At("TAIL"))
     private void onSetupAnim(VillagerRenderState state, CallbackInfo ci) {
         if (state instanceof VillagerRenderStateDuck stateDuck) {
             this.currentLeftScale = stateDuck.getLeftBreastScale();
@@ -111,35 +123,27 @@ public abstract class CommonVillagerModelMixin extends HumanoidModel<VillagerRen
             this.currentRightYaw = stateDuck.getRightBreastYaw();
             this.currentRightRoll = stateDuck.getRightBreastRoll();
 
-            if (this.currentLeftScale > 0 || this.currentRightScale > 0 || MCAInclusiveExpressionsAddon.isAllowAllGenders()) {
-                if (this.breasts != null) {
-                    this.breasts.visible = true;
-                }
-                if (this.breastSize <= 0) {
-                    this.breastSize = 1.0f;
-                }
-            }
-        }
-    }
+            float maxScale = Math.max(this.currentLeftScale, this.currentRightScale);
+            boolean showBreasts = maxScale > 0.0f || MCAInclusiveExpressionsAddon.isAllowAllGenders();
 
-    @Inject(method = "newBreasts", at = @At("HEAD"), cancellable = true, remap = false)
-    private static void onNewBreasts(CubeDeformation dilation, int oy, CallbackInfoReturnable<CubeListBuilder> cir) {
-        CubeListBuilder builder = CubeListBuilder.create();
-        if (net.conczin.mca.Config.getInstance().enableBoobs) {
-            // Left Breast Box (width 3, height 3, depth 3) -> Index 0 in cubes list
-            builder.texOffs(18, 21 + oy).addBox(-3.25F, -1.25F, -1.5F, 3, 3, 3, dilation);
-            // Right Breast Box (width 3, height 3, depth 3) -> Index 1 in cubes list
-            builder.texOffs(21, 21 + oy).addBox(0.25F, -1.25F, -1.5F, 3, 3, 3, dilation);
+            if (this.breasts != null) {
+                this.breasts.visible = showBreasts;
+            }
+            this.breastSize = showBreasts ? (maxScale > 0.0f ? maxScale : 1.0f) : 0.0f;
         }
-        cir.setReturnValue(builder);
     }
 
     @Inject(method = "getBreastSize", at = @At("HEAD"), cancellable = true)
     private void onGetBreastSize(CallbackInfoReturnable<Float> cir) {
-        float baseSize = this.breastSize;
-        if (baseSize == 0 && MCAInclusiveExpressionsAddon.isAllowAllGenders()) {
-            baseSize = 0.5f;
+        float maxScale = Math.max(this.currentLeftScale, this.currentRightScale);
+        if (maxScale > 0.0f) {
+            cir.setReturnValue(maxScale);
+            return;
         }
-        cir.setReturnValue(baseSize);
+        float baseSize = this.breastSize;
+        if (baseSize <= 0.0f && MCAInclusiveExpressionsAddon.isAllowAllGenders()) {
+            baseSize = 1.0f;
+        }
+        cir.setReturnValue(baseSize > 0.0f ? baseSize : 1.0f);
     }
 }

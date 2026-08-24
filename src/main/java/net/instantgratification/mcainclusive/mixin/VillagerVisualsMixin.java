@@ -72,7 +72,7 @@ public abstract class VillagerVisualsMixin {
                     leftScale = geneticsDuck.getLeftBreastSize();
                     rightScale = geneticsDuck.getRightBreastSize();
 
-                    if (hasFullChested && leftScale <= 0.0f && rightScale <= 0.0f) {
+                    if ((!isMale || hasFullChested || net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon.isForceAllBreasted()) && leftScale <= 0.0f && rightScale <= 0.0f) {
                         leftScale = 1.0f;
                         rightScale = 1.0f;
                     }

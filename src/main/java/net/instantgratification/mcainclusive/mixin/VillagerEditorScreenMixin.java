@@ -73,26 +73,36 @@ public abstract class VillagerEditorScreenMixin extends Screen {
     private void syncPreviewGenetics() {
         if (villager != null && villagerVisualization != null) {
             if (villager.getGenetics() instanceof GeneticsDuck src && villagerVisualization.getGenetics() instanceof GeneticsDuck dst) {
-                dst.setLeftBreastSize(src.getLeftBreastSize());
-                dst.setRightBreastSize(src.getRightBreastSize());
+                boolean changed = false;
+                if (dst.getLeftBreastSize() != src.getLeftBreastSize()) { dst.setLeftBreastSize(src.getLeftBreastSize()); changed = true; }
+                if (dst.getRightBreastSize() != src.getRightBreastSize()) { dst.setRightBreastSize(src.getRightBreastSize()); changed = true; }
 
-                dst.setLeftBreastX(src.getLeftBreastX());
-                dst.setLeftBreastY(src.getLeftBreastY());
-                dst.setLeftBreastZ(src.getLeftBreastZ());
+                if (dst.getLeftBreastX() != src.getLeftBreastX()) { dst.setLeftBreastX(src.getLeftBreastX()); changed = true; }
+                if (dst.getLeftBreastY() != src.getLeftBreastY()) { dst.setLeftBreastY(src.getLeftBreastY()); changed = true; }
+                if (dst.getLeftBreastZ() != src.getLeftBreastZ()) { dst.setLeftBreastZ(src.getLeftBreastZ()); changed = true; }
 
-                dst.setRightBreastX(src.getRightBreastX());
-                dst.setRightBreastY(src.getRightBreastY());
-                dst.setRightBreastZ(src.getRightBreastZ());
+                if (dst.getRightBreastX() != src.getRightBreastX()) { dst.setRightBreastX(src.getRightBreastX()); changed = true; }
+                if (dst.getRightBreastY() != src.getRightBreastY()) { dst.setRightBreastY(src.getRightBreastY()); changed = true; }
+                if (dst.getRightBreastZ() != src.getRightBreastZ()) { dst.setRightBreastZ(src.getRightBreastZ()); changed = true; }
 
-                dst.setLeftBreastPitch(src.getLeftBreastPitch());
-                dst.setLeftBreastYaw(src.getLeftBreastYaw());
-                dst.setLeftBreastRoll(src.getLeftBreastRoll());
+                if (dst.getLeftBreastPitch() != src.getLeftBreastPitch()) { dst.setLeftBreastPitch(src.getLeftBreastPitch()); changed = true; }
+                if (dst.getLeftBreastYaw() != src.getLeftBreastYaw()) { dst.setLeftBreastYaw(src.getLeftBreastYaw()); changed = true; }
+                if (dst.getLeftBreastRoll() != src.getLeftBreastRoll()) { dst.setLeftBreastRoll(src.getLeftBreastRoll()); changed = true; }
 
-                dst.setRightBreastPitch(src.getRightBreastPitch());
-                dst.setRightBreastYaw(src.getRightBreastYaw());
-                dst.setRightBreastRoll(src.getRightBreastRoll());
+                if (dst.getRightBreastPitch() != src.getRightBreastPitch()) { dst.setRightBreastPitch(src.getRightBreastPitch()); changed = true; }
+                if (dst.getRightBreastYaw() != src.getRightBreastYaw()) { dst.setRightBreastYaw(src.getRightBreastYaw()); changed = true; }
+                if (dst.getRightBreastRoll() != src.getRightBreastRoll()) { dst.setRightBreastRoll(src.getRightBreastRoll()); changed = true; }
+
+                if (changed) {
+                    refreshPreviewDimensions();
+                }
             }
         }
+    }
+
+    @Inject(method = "extractRenderState", at = @At("HEAD"))
+    private void onExtractRenderStateHead(net.minecraft.client.gui.GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+        syncPreviewGenetics();
     }
 
     @Unique
@@ -106,6 +116,28 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             }
         } catch (Throwable ignored) {
         }
+    }
+
+    @Unique
+    private static void writeGeneticsToTagHelper(GeneticsDuck src, CompoundTag tag) {
+        tag.putFloat("mca_inclusive_expressions:left_breast_size", src.getLeftBreastSize());
+        tag.putFloat("mca_inclusive_expressions:right_breast_size", src.getRightBreastSize());
+
+        tag.putFloat("mca_inclusive_expressions:left_breast_x", src.getLeftBreastX());
+        tag.putFloat("mca_inclusive_expressions:left_breast_y", src.getLeftBreastY());
+        tag.putFloat("mca_inclusive_expressions:left_breast_z", src.getLeftBreastZ());
+
+        tag.putFloat("mca_inclusive_expressions:right_breast_x", src.getRightBreastX());
+        tag.putFloat("mca_inclusive_expressions:right_breast_y", src.getRightBreastY());
+        tag.putFloat("mca_inclusive_expressions:right_breast_z", src.getRightBreastZ());
+
+        tag.putFloat("mca_inclusive_expressions:left_breast_pitch", src.getLeftBreastPitch());
+        tag.putFloat("mca_inclusive_expressions:left_breast_yaw", src.getLeftBreastYaw());
+        tag.putFloat("mca_inclusive_expressions:left_breast_roll", src.getLeftBreastRoll());
+
+        tag.putFloat("mca_inclusive_expressions:right_breast_pitch", src.getRightBreastPitch());
+        tag.putFloat("mca_inclusive_expressions:right_breast_yaw", src.getRightBreastYaw());
+        tag.putFloat("mca_inclusive_expressions:right_breast_roll", src.getRightBreastRoll());
     }
 
     @Inject(method = "createEditorData", at = @At("TAIL"), cancellable = true, remap = false)
@@ -123,24 +155,9 @@ public abstract class VillagerEditorScreenMixin extends Screen {
         }
 
         if (src != null) {
-            tag.putFloat("mca_inclusive_expressions:left_breast_size", src.getLeftBreastSize());
-            tag.putFloat("mca_inclusive_expressions:right_breast_size", src.getRightBreastSize());
-
-            tag.putFloat("mca_inclusive_expressions:left_breast_x", src.getLeftBreastX());
-            tag.putFloat("mca_inclusive_expressions:left_breast_y", src.getLeftBreastY());
-            tag.putFloat("mca_inclusive_expressions:left_breast_z", src.getLeftBreastZ());
-
-            tag.putFloat("mca_inclusive_expressions:right_breast_x", src.getRightBreastX());
-            tag.putFloat("mca_inclusive_expressions:right_breast_y", src.getRightBreastY());
-            tag.putFloat("mca_inclusive_expressions:right_breast_z", src.getRightBreastZ());
-
-            tag.putFloat("mca_inclusive_expressions:left_breast_pitch", src.getLeftBreastPitch());
-            tag.putFloat("mca_inclusive_expressions:left_breast_yaw", src.getLeftBreastYaw());
-            tag.putFloat("mca_inclusive_expressions:left_breast_roll", src.getLeftBreastRoll());
-
-            tag.putFloat("mca_inclusive_expressions:right_breast_pitch", src.getRightBreastPitch());
-            tag.putFloat("mca_inclusive_expressions:right_breast_yaw", src.getRightBreastYaw());
-            tag.putFloat("mca_inclusive_expressions:right_breast_roll", src.getRightBreastRoll());
+            writeGeneticsToTagHelper(src, tag);
+            CompoundTag mcaData = net.conczin.mca.util.NbtHelper.getOrCreateCompound(tag, "MCAData");
+            writeGeneticsToTagHelper(src, mcaData);
         }
 
         cir.setReturnValue(tag);

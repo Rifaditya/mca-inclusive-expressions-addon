@@ -94,17 +94,22 @@ public abstract class GeneticsMixin implements GeneticsDuck {
 
     @Unique
     private void ensureSampledBreastSize() {
-        net.minecraft.util.RandomSource random = net.minecraft.util.RandomSource.create();
         if (getGender() == Gender.FEMALE) {
-            float[] sizes = MCAInclusiveExpressionsAddon.sampleAsymmetricBreastSizes(random);
-            this.leftBreastSize = sizes[0];
-            this.rightBreastSize = sizes[1];
+            float nativeSize = 1.0f;
+            try {
+                nativeSize = getGene(Genetics.BREAST);
+            } catch (Throwable ignored) {
+            }
+            if (nativeSize <= 0.0f) {
+                nativeSize = 1.0f;
+            }
+            this.leftBreastSize = nativeSize;
+            this.rightBreastSize = nativeSize;
         } else {
             int chance = MCAInclusiveExpressionsAddon.getFullChestedTraitChance();
-            if (chance > 0 && random.nextFloat() * 100.0f < chance) {
-                float[] sizes = MCAInclusiveExpressionsAddon.sampleAsymmetricBreastSizes(random);
-                this.leftBreastSize = sizes[0];
-                this.rightBreastSize = sizes[1];
+            if (chance > 0 && net.minecraft.util.RandomSource.create().nextFloat() * 100.0f < chance) {
+                this.leftBreastSize = 1.0f;
+                this.rightBreastSize = 1.0f;
             } else {
                 this.leftBreastSize = 0.0f;
                 this.rightBreastSize = 0.0f;
