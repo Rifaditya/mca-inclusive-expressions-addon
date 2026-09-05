@@ -4,6 +4,7 @@ package net.instantgratification.mcainclusive.client;
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.IntegerFieldControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
+import net.dasik.social.api.config.DasikSupportHelper;
 import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -43,8 +44,15 @@ public class ConfigScreenHelper {
             .controller(TickBoxControllerBuilder::create)
             .build();
 
-        OptionGroup mainGroup = OptionGroup.createBuilder()
-            .name(Component.literal("Chest Feature Customization Settings"))
+        OptionGroup.Builder mainGroupBuilder = OptionGroup.createBuilder()
+            .name(Component.literal("Chest Feature Customization Settings"));
+
+        Option<?> supportButton = (Option<?>) DasikSupportHelper.createYaclButton();
+        if (supportButton != null) {
+            mainGroupBuilder.option(supportButton);
+        }
+
+        OptionGroup mainGroup = mainGroupBuilder
             .option(leftScaleOption)
             .option(rightScaleOption)
             .option(genderOption)
