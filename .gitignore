@@ -19,3 +19,7 @@ Archive Jar of all versions/
 
 # Local Wiki cache exclusion
 .wiki/
+
+# Ignored System & Wiki Repo Artifacts
+desktop.ini
+**/desktop.ini

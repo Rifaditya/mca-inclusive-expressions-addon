@@ -12,8 +12,8 @@ Selamat datang di dokumentasi teknis dan panduan resmi **MCA Inclusive Expressio
 
 | Minecraft Version | Mod Version | Dedicated Portal Link |
 | :--- | :--- | :--- |
-| **Minecraft 26.2** | `v4.5.1+26.2` | [[👉 26.2 Documentation|26.2-Home]] |
-| **Minecraft 26.3** | `v4.5.1+26.3` | [[👉 26.3 Documentation|26.3-Home]] |
+| **Minecraft 26.2** | `v4.5.1+26.2` | [[👉 Minecraft 26.2|id_id-26.2-Home]] |
+| **Minecraft 26.3** | `v4.5.1+26.3` | [[👉 Minecraft 26.3|id_id-26.3-Home]] |
 
 ---
 

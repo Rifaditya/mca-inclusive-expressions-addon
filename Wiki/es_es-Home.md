@@ -12,8 +12,8 @@ Bienvenido a la documentación oficial y guía de juego de **MCA Inclusive Expre
 
 | Minecraft Version | Mod Version | Dedicated Portal Link |
 | :--- | :--- | :--- |
-| **Minecraft 26.2** | `v4.5.1+26.2` | [[👉 26.2 Documentation|26.2-Home]] |
-| **Minecraft 26.3** | `v4.5.1+26.3` | [[👉 26.3 Documentation|26.3-Home]] |
+| **Minecraft 26.2** | `v4.5.1+26.2` | [[👉 Minecraft 26.2|es_es-26.2-Home]] |
+| **Minecraft 26.3** | `v4.5.1+26.3` | [[👉 Minecraft 26.3|es_es-26.3-Home]] |
 
 ---
 
