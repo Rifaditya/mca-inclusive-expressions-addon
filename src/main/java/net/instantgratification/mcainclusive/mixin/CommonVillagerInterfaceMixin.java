@@ -1,0 +1,245 @@
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+package net.instantgratification.mcainclusive.mixin;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
+import net.conczin.mca.client.model.CommonVillagerModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.instantgratification.mcainclusive.MCAInclusiveExpressionsAddon;
+import net.instantgratification.mcainclusive.ducks.CommonVillagerModelDuck;
+import net.instantgratification.mcainclusive.ducks.GeneticsDuck;
+import net.instantgratification.mcainclusive.render.TorsoClippingVertexConsumer;
+import org.joml.Matrix4f;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
+import java.util.Map;
+
+@Mixin(value = CommonVillagerModel.class, remap = false)
+public interface CommonVillagerInterfaceMixin {
+
+    @Inject(method = "copyCommonAttributes", at = @At("TAIL"), remap = false)
+    private void onCopyCommonAttributes(CommonVillagerModel<?> parent, CallbackInfo ci) {
+        if (parent instanceof CommonVillagerModelDuck src && this instanceof CommonVillagerModelDuck dst) {
+            dst.setRenderLeftScale(src.getRenderLeftScale());
+            dst.setRenderRightScale(src.getRenderRightScale());
+
+            dst.setRenderLeftX(src.getRenderLeftX());
+            dst.setRenderLeftY(src.getRenderLeftY());
+            dst.setRenderLeftZ(src.getRenderLeftZ());
+
+            dst.setRenderRightX(src.getRenderRightX());
+            dst.setRenderRightY(src.getRenderRightY());
+            dst.setRenderRightZ(src.getRenderRightZ());
+
+            dst.setRenderLeftPitch(src.getRenderLeftPitch());
+            dst.setRenderLeftYaw(src.getRenderLeftYaw());
+            dst.setRenderLeftRoll(src.getRenderLeftRoll());
+
+            dst.setRenderRightPitch(src.getRenderRightPitch());
+            dst.setRenderRightYaw(src.getRenderRightYaw());
+            dst.setRenderRightRoll(src.getRenderRightRoll());
+        }
+    }
+
+    @Inject(method = "applyVillagerDimensions", at = @At("TAIL"), remap = false)
+    private void onApplyVillagerDimensions(net.conczin.mca.client.render.VillagerVisuals visuals, CallbackInfo ci) {
+        CommonVillagerModel<?> self = (CommonVillagerModel<?>) (Object) this;
+        boolean shouldEnable = MCAInclusiveExpressionsAddon.isForceAllBreasted();
+        if (!shouldEnable && self instanceof CommonVillagerModelDuck duck) {
+            shouldEnable = duck.getRenderLeftScale() > 0.0f || duck.getRenderRightScale() > 0.0f;
+        }
+
+        if (shouldEnable) {
+            if (self.getBreastPart() != null) {
+                self.getBreastPart().visible = true;
+            }
+            if (self.getBreastSize() <= 0.0f) {
+                self.setBreastSize(1.0f);
+            }
+        }
+    }
+
+    @Inject(method = "renderCommon", at = @At("HEAD"), cancellable = true, remap = false)
+    private void onRenderCommon(PoseStack matrices, VertexConsumer vertices, int light, int overlay, int color, CallbackInfo ci) {
+        CommonVillagerModel<?> self = (CommonVillagerModel<?>) this;
+
+        // 1. Render Head Parts (Head, Hair, Eyes, Glasses, Hat)
+        float headSize = self.getDimensions().getHead();
+        matrices.pushPose();
+        matrices.scale(headSize, headSize, headSize);
+        self.getCommonHeadParts().forEach(part -> part.render(matrices, vertices, light, overlay, color));
+        matrices.popPose();
+
+        // 2. Render Body Parts (Body, Shirt, Jacket)
+        self.getCommonBodyParts().forEach(part -> part.render(matrices, vertices, light, overlay, color));
+
+        // 3. Render Breasts (Custom 3D Dual-Breast System with 0%-100% Size, 6-Axis Orthogonal Position, 3-Axis Euler Rotation)
+        boolean breastVisible = self.getBreastPart().visible || MCAInclusiveExpressionsAddon.isAllowAllGenders();
+        if (breastVisible && self.getBodyPart().visible) {
+            float leftMult = MCAInclusiveExpressionsAddon.getLeftScaleMultiplier();
+            float rightMult = MCAInclusiveExpressionsAddon.getRightScaleMultiplier();
+
+            float leftX = 0.0f, leftY = 0.0f, leftZ = 0.0f;
+            float rightX = 0.0f, rightY = 0.0f, rightZ = 0.0f;
+
+            float leftPitch = 0.0f, leftYaw = 0.0f, leftRoll = 0.0f;
+            float rightPitch = 0.0f, rightYaw = 0.0f, rightRoll = 0.0f;
+
+            // 1. Read from in-world model duck
+            if (self instanceof CommonVillagerModelDuck duck) {
+                leftMult = duck.getRenderLeftScale();
+                rightMult = duck.getRenderRightScale();
+
+                leftX = duck.getRenderLeftX();
+                leftY = duck.getRenderLeftY();
+                leftZ = duck.getRenderLeftZ();
+
+                rightX = duck.getRenderRightX();
+                rightY = duck.getRenderRightY();
+                rightZ = duck.getRenderRightZ();
+
+                leftPitch = duck.getRenderLeftPitch();
+                leftYaw = duck.getRenderLeftYaw();
+                leftRoll = duck.getRenderLeftRoll();
+
+                rightPitch = duck.getRenderRightPitch();
+                rightYaw = duck.getRenderRightYaw();
+                rightRoll = duck.getRenderRightRoll();
+            }
+
+            // Native MCA 1:1 Scale Alignment at 100% (1.0x native MCA default max volume)
+            boolean isArmorModel = (self instanceof net.conczin.mca.client.model.PlayerArmorExtendedModel);
+            float leftBreastSize = isArmorModel ? (leftMult * 0.55f + 0.20f) : leftMult;
+            float rightBreastSize = isArmorModel ? (rightMult * 0.55f + 0.20f) : rightMult;
+
+            for (ModelPart part : self.getBreastParts()) {
+                if (part == null || part.skipDraw) continue;
+
+                // Push pose and apply part's native position & rotation (-35 degrees!)
+                matrices.pushPose();
+                part.translateAndRotate(matrices);
+
+                ModelPartAccessor partAccess = (ModelPartAccessor) (Object) part;
+                List<ModelPart.Cube> cubes = partAccess.getCubes();
+                if (cubes != null && cubes.size() >= 2) {
+                    // Capture torso-space matrix BEFORE any breast transforms.
+                    // This matrix = Camera × Model × Torso. Used by TorsoClippingVertexConsumer
+                    // to untransform vertices back to torso space for Z-clamping.
+                    // Camera matrices cancel out algebraically in the inverse transform.
+                    Matrix4f torsoMatrix = new Matrix4f(matrices.last().pose());
+                    // Left Breast Box Center Pivot: (-1.75f, 0.25f, 0.0f) in model coordinates
+                    float leftPivotX = -1.75f / 16.0f;
+                    float leftPivotY = 0.25f / 16.0f;
+                    float leftPivotZ = 0.0f;
+
+                    if (leftBreastSize > 0) {
+                        matrices.pushPose();
+                        // 1. Temporarily un-rotate MCA's native -35° pitch tilt to enter pure orthogonal world space
+                        if (part.xRot != 0.0f) {
+                            matrices.mulPose(Axis.XP.rotation(-part.xRot));
+                        }
+
+                        // 2. Position Translation in pure orthogonal space (Up is Up, Left is Left, Forward is Forward)
+                        matrices.translate(leftX, leftY, leftZ);
+
+                        // 3. Re-apply MCA's native -35° pitch tilt
+                        if (part.xRot != 0.0f) {
+                            matrices.mulPose(Axis.XP.rotation(part.xRot));
+                        }
+
+                        // 4. Move to local pivot center
+                        matrices.translate(leftPivotX, leftPivotY, leftPivotZ);
+
+                        // 5. 3D Euler Rotations (Pitch X, Yaw Y, Roll Z)
+                        if (leftPitch != 0.0f) matrices.mulPose(Axis.XP.rotationDegrees(leftPitch));
+                        if (leftYaw != 0.0f) matrices.mulPose(Axis.YP.rotationDegrees(leftYaw));
+                        if (leftRoll != 0.0f) matrices.mulPose(Axis.ZP.rotationDegrees(leftRoll));
+
+                        // 6. Scale volume locally around pivot (zero position drift!)
+                        matrices.scale(leftBreastSize, leftBreastSize, leftBreastSize);
+
+                        // 7. Translate back from pivot
+                        matrices.translate(-leftPivotX, -leftPivotY, -leftPivotZ);
+
+                        // 8. Render with optional torso-space clipping
+                        VertexConsumer leftTarget = MCAInclusiveExpressionsAddon.anchorBackFace
+                            ? new TorsoClippingVertexConsumer(vertices, torsoMatrix)
+                            : vertices;
+                        cubes.get(0).compile(matrices.last(), leftTarget, light, overlay, color);
+                        matrices.popPose();
+                    }
+
+                    // Right Breast Box Center Pivot: (+1.75f, 0.25f, 0.0f) in model coordinates
+                    float rightPivotX = 1.75f / 16.0f;
+                    float rightPivotY = 0.25f / 16.0f;
+                    float rightPivotZ = 0.0f;
+
+                    if (rightBreastSize > 0) {
+                        matrices.pushPose();
+                        // 1. Temporarily un-rotate MCA's native -35° pitch tilt to enter pure orthogonal world space
+                        if (part.xRot != 0.0f) {
+                            matrices.mulPose(Axis.XP.rotation(-part.xRot));
+                        }
+
+                        // 2. Position Translation in pure orthogonal space (Up is Up, Left is Left, Forward is Forward)
+                        matrices.translate(rightX, rightY, rightZ);
+
+                        // 3. Re-apply MCA's native -35° pitch tilt
+                        if (part.xRot != 0.0f) {
+                            matrices.mulPose(Axis.XP.rotation(part.xRot));
+                        }
+
+                        // 4. Move to local pivot center
+                        matrices.translate(rightPivotX, rightPivotY, rightPivotZ);
+
+                        // 5. 3D Euler Rotations (Pitch X, Yaw Y, Roll Z)
+                        if (rightPitch != 0.0f) matrices.mulPose(Axis.XP.rotationDegrees(rightPitch));
+                        if (rightYaw != 0.0f) matrices.mulPose(Axis.YP.rotationDegrees(rightYaw));
+                        if (rightRoll != 0.0f) matrices.mulPose(Axis.ZP.rotationDegrees(rightRoll));
+
+                        // 6. Scale volume locally around pivot (zero position drift!)
+                        matrices.scale(rightBreastSize, rightBreastSize, rightBreastSize);
+
+                        // 7. Translate back from pivot
+                        matrices.translate(-rightPivotX, -rightPivotY, -rightPivotZ);
+
+                        // 8. Render with optional torso-space clipping
+                        VertexConsumer rightTarget = MCAInclusiveExpressionsAddon.anchorBackFace
+                            ? new TorsoClippingVertexConsumer(vertices, torsoMatrix)
+                            : vertices;
+                        cubes.get(1).compile(matrices.last(), rightTarget, light, overlay, color);
+                        matrices.popPose();
+                    }
+                } else if (cubes != null && !cubes.isEmpty()) {
+                    // Single cube fallback
+                    float avgSize = (leftBreastSize + rightBreastSize) / 2.0f;
+                    if (avgSize > 0) {
+                        matrices.pushPose();
+                        matrices.scale(avgSize, avgSize, avgSize);
+                        for (ModelPart.Cube cube : cubes) {
+                            cube.compile(matrices.last(), vertices, light, overlay, color);
+                        }
+                        matrices.popPose();
+                    }
+                }
+
+                // Render any sub-children of this part (e.g. breast wear layers)
+                Map<String, ModelPart> children = partAccess.getChildren();
+                if (children != null) {
+                    for (ModelPart child : children.values()) {
+                        child.render(matrices, vertices, light, overlay, color);
+                    }
+                }
+
+                matrices.popPose();
+            }
+        }
+
+        ci.cancel();
+    }
+}

@@ -1,0 +1,25 @@
+.gradle/
+build/
+bin/
+out/
+.idea/
+*.iml
+.vscode/
+*.ipr
+*.iws
+
+# Binary & Archive exclusion law
+Archive/
+Archive Jar of all versions/
+*.jar
+
+# Platform Publisher API Token Security Vault
+*platform_tokens.json
+.agents/config/platform_tokens.json
+
+# Local Wiki cache exclusion
+.wiki/
+
+# Ignored System & Wiki Repo Artifacts
+desktop.ini
+**/desktop.ini
