@@ -26,10 +26,11 @@
         "mca_inclusive_expressions_addon.mixins.json"
     ],
     "depends": {
-        "fabricloader": ">=0.19.0",
+        "fabricloader": ">=0.19.5",
         "minecraft": ">=26.3-",
         "fabric-api": "*",
-        "mca": "*"
+        "mca": "*",
+        "dasik-library": ">=1.9.0"
     },
     "suggests": {
         "modmenu": "*",
