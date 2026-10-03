@@ -44,11 +44,11 @@ public abstract class VillagerEditorScreenMixin extends Screen {
 
     /**
      * @author MCA Inclusive Expressions Addon
-     * @reason Include dynamic traits from Traits.TRAIT_REGISTRY
+     * @reason Include dynamic traits from Traits.all()
      */
     @Overwrite(remap = false)
     protected net.conczin.mca.entity.ai.Traits.Trait[] getValidTraits() {
-        java.util.Collection<net.conczin.mca.entity.ai.Traits.Trait> allTraits = net.conczin.mca.entity.ai.Traits.TRAIT_REGISTRY.values();
+        java.util.Collection<net.conczin.mca.entity.ai.Traits.Trait> allTraits = net.conczin.mca.entity.ai.Traits.all();
         java.util.List<net.conczin.mca.entity.ai.Traits.Trait> valid = new java.util.ArrayList<>();
         for (net.conczin.mca.entity.ai.Traits.Trait t : allTraits) {
             boolean isPlayer = villagerUUID != null && villagerUUID.equals(playerUUID);
@@ -254,7 +254,7 @@ public abstract class VillagerEditorScreenMixin extends Screen {
             }
 
             boolean isPlayer = villagerUUID != null && villagerUUID.equals(playerUUID);
-            for (net.conczin.mca.entity.ai.Traits.Trait t : net.conczin.mca.entity.ai.Traits.TRAIT_REGISTRY.values()) {
+            for (net.conczin.mca.entity.ai.Traits.Trait t : net.conczin.mca.entity.ai.Traits.all()) {
                 if (t != null && t != MCAInclusiveExpressionsAddon.FULL_CHESTED_TRAIT && t.isEnabled()) {
                     if (isPlayer) {
                         if (net.conczin.mca.Config.getInstance().bypassTraitRestrictions || t.isUsableOnPlayer()) {

@@ -41,6 +41,10 @@
                 "modmenu.donate": "https://ko-fi.com/dasikigaijin",
                 "modmenu.kofi": "https://ko-fi.com/dasikigaijin"
             }
+        },
+        "modrinth": {
+            "projectId": "mca-inclusive-expressions-addon",
+            "slug": "mca-inclusive-expressions-addon"
         }
     }
 }
