@@ -88,7 +88,7 @@ afterEvaluate {
                     }
 
                     // 2. Modrinth Profile Sync
-                    def profile1 = file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.2 (1)/mods")
+                    def profile1 = file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/26.3/mods")
                     if (profile1.exists()) {
                         profile1.listFiles().each { f ->
                             if (f.name.startsWith(project.archives_base_name) && f.name.endsWith(".jar") && !f.name.equals(jarFile.name)) {
